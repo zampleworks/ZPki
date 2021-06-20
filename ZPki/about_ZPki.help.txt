@@ -1,0 +1,6 @@
+TOPIC
+	about_ZPki
+SHORT DESCRIPTION
+	This module helps install and administer ADCS, as well as local certificate management.
+KEYWORDS
+	PKI ADCS certificate

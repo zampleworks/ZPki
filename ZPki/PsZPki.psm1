@@ -29,7 +29,7 @@ $DefaultCss = "*,::after,::before{box-sizing:border-box}blockquote,body,dd,dl,fi
     Author anders !Ä!T! runesson D"Ö"T info
 #>
 Function Install-ZPkiCa {
-
+# .ExternalHelp PsZPki-help.xml
     [CmdletBinding()]
     Param(
         # CN in CA certificate Subject
@@ -424,8 +424,8 @@ Function Install-ZPkiCa {
         Write-Host ""
         Write-Host "The configuration was succcessful, but will not be complete until you install the signed CA certificate."
         Write-Host "Copy the file [$AdcsPath\CACert.req] to the root CA and sign it. When it is signed, place the signed"
-        Write-Host "certificate in the [$AdcsPath] directory. Then run this script again with a parameter to finish configuration:"
-        Write-Host ":\> Install-ZPkiCaCertificate -CaCert <file>"
+        Write-Host "certificate in the [$FilePublishPath] directory. Then run the following cmdlet to finish installing the certificate: "
+        Write-Host ":\> Install-ZPkiCaCertificate -CertFile <file>"
         Write-Host ""
     } ElseIf($Result.ErrorId -ne 0 -And $Result.ErrorId -ne 398) {
         Write-Error "CA Installation result: [$Result]"
@@ -789,13 +789,18 @@ Function New-ZPkiWebsite {
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Copy-ZPkiCertSrvFilesToRepo {
+
     [CmdletBinding()]
     Param(
+        # Local repository path to copy files to
         [string]
         $LocalRepositoryPath = "C:\ADCS\Web\Repository",
 
+        # Choose file type to copy: "crl", "crt", or "all".
         [string]
         [ValidateSet("crl","crt","all")]
         $FileType = "all"
@@ -1154,9 +1159,11 @@ Function Set-ZPkiCaUrlConfig {
 Function Export-CertAsPem {
     [CmdletBinding()]
     Param(
+        # X509 certificate to export as PEM
         [System.Security.Cryptography.X509Certificates.X509Certificate2]
         $Cert,
 
+        # Full file name of PEM file to create
         [string]
         $FullName
     )
@@ -1170,10 +1177,26 @@ Function Export-CertAsPem {
     $Sb.ToString() | Out-File $FullName -Force
 }
 
+<#
+    .SYNOPSIS
+    Get the config string for the local CA. To get config strings for other CAs, use Get-ZPkiAdCasConfigString
+    
+    .DESCRIPTION
+    
+    Author anders !Ä!T! runesson D"Ö"T info
+#>
 Function Get-ZPkiLocalCaConfigString {
     Write-Output ("{0}\{1}" -f (hostname), (Get-ChildItem -Path $CertSvcRegPath -Name))
 }
 
+<#
+    .SYNOPSIS
+    This cmdlet is not finished. Do not use.
+    
+    .DESCRIPTION
+    
+    Author anders !Ä!T! runesson D"Ö"T info
+#>
 Function Get-NewRequests {
     Param(
         $ReqsPath
@@ -1187,6 +1210,14 @@ Function Get-NewRequests {
     Get-ChildItem $ReqsPath -Filter *.csr | % { Write-Output $_ }
 }
 
+<#
+    .SYNOPSIS
+    This cmdlet is not finished. Do not use.
+    
+    .DESCRIPTION
+    
+    Author anders !Ä!T! runesson D"Ö"T info
+#>
 Function Submit-ZPkiRequest {
     Param(
         [Parameter(Mandatory=$True)]
@@ -1302,8 +1333,12 @@ Function Submit-ZPkiRequest {
 }
 
 <#
-.SYNOPSIS
-Generate random password containing alphanumeric characters and the following set: !@#$%^&*()_-+=[{]};:<>|./?
+    .SYNOPSIS
+    Generate random password containing alphanumeric characters and the following set: !@#$%^&*()_-+=[{]};:<>|./?
+
+    .DESCRIPTION
+    
+    Author anders !Ä!T! runesson D"Ö"T info
 #>
 Function New-ZPkiRandomPassword {
     param(
@@ -1456,6 +1491,7 @@ Function New-ZPkiCaBackup {
 Function Remove-ZPkiIssuancePolicyGroupLink {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     Param (
+        # Display Name of the policy to remove.
         [Parameter(Mandatory=$true)]
         [string]
         $IssuancePolicyName
@@ -1498,10 +1534,12 @@ Function Remove-ZPkiIssuancePolicyGroupLink {
 Function Set-ZPkiIssuancePolicyGroupLink {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     Param (
+        # Display name of issuance policy 
         [Parameter(Mandatory=$true)]
         [string]
         $IssuancePolicyName,
     
+        # Name of the group to link to this policy
         [Parameter(Mandatory=$true)]
         [string]
         $GroupName
@@ -1628,6 +1666,8 @@ Function Get-ZPkiIssuancePolicyGroupLinks {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Get-ZPkiIssuancePolicy {
     [CmdletBinding()]
