@@ -1,24 +1,23 @@
-﻿---
+---
 external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiIssuancePolicyGroupLinks
+# Get-ZPkiAdIssuancePolicyGroupLinks
 
 ## SYNOPSIS
-Shows all configured AMA policy links in ADDS.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Get-ZPkiIssuancePolicyGroupLinks [[-IssuancePolicyName] <String>] [<CommonParameters>]
+Get-ZPkiAdIssuancePolicyGroupLinks [[-IssuancePolicyName] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -32,8 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -IssuancePolicyName
-If supplied, display info about only this policy.
-If omitted display information for all issuance policies.
+{{ Fill IssuancePolicyName Description }}
 
 ```yaml
 Type: String
@@ -41,7 +39,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -52,8 +50,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

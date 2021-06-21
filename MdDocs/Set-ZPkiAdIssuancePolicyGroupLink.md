@@ -1,24 +1,24 @@
-﻿---
+---
 external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Remove-ZPkiIssuancePolicyGroupLink
+# Set-ZPkiAdIssuancePolicyGroupLink
 
 ## SYNOPSIS
-Removes configuration for AMA group link in an Assurance policy object in ADDS.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Remove-ZPkiIssuancePolicyGroupLink [-IssuancePolicyName] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-ZPkiAdIssuancePolicyGroupLink [-IssuancePolicyName] <String> [-GroupName] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -31,8 +31,8 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -IssuancePolicyName
-Display Name of the policy to remove.
+### -GroupName
+{{ Fill GroupName Description }}
 
 ```yaml
 Type: String
@@ -41,6 +41,21 @@ Aliases:
 
 Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IssuancePolicyName
+{{ Fill IssuancePolicyName Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -82,8 +97,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

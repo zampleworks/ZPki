@@ -1,25 +1,23 @@
-﻿---
+---
 external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Set-ZPkiIssuancePolicyGroupLink
+# Remove-ZPkiAdIssuancePolicyGroupLink
 
 ## SYNOPSIS
-Registers a group for AMA in an Assurance policy in ADDS.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Set-ZPkiIssuancePolicyGroupLink [-IssuancePolicyName] <String> [-GroupName] <String> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-ZPkiAdIssuancePolicyGroupLink [-IssuancePolicyName] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -32,23 +30,8 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -GroupName
-Name of the group to link to this policy
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 2
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -IssuancePolicyName
-Display name of issuance policy
+{{ Fill IssuancePolicyName Description }}
 
 ```yaml
 Type: String
@@ -56,7 +39,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -98,8 +81,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

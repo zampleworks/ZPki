@@ -1,39 +1,37 @@
-﻿---
+---
 external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiIssuancePolicy
+# Get-ZPkiAdIssuancePolicy
 
 ## SYNOPSIS
-Lists all Issuance policy objects in ADDS.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Get-ZPkiIssuancePolicy [[-IssuancePolicyName] <String>] [<CommonParameters>]
+Get-ZPkiAdIssuancePolicy [[-IssuancePolicyName] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Get-ZPkiIssuancePolicy
+PS C:\> {{ Add example code here }}
 ```
 
-This will lista all Issuance policy OIDs registered in the AD forest.
+{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -IssuancePolicyName
-If supplied, display info about only this policy.
-If omitted display information for all issuance policies.
+{{ Fill IssuancePolicyName Description }}
 
 ```yaml
 Type: String

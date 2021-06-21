@@ -43,9 +43,10 @@ CRL Delta validity
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 7
+Position: 6
 Default value: Days
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -60,7 +61,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
+Position: 7
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -73,9 +74,10 @@ CRL overlap
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 5
+Position: 4
 Default value: Weeks
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -90,7 +92,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 5
 Default value: 6
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -103,9 +105,10 @@ CRL validity
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 3
+Position: 2
 Default value: Weeks
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -120,7 +123,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: 3
 Default value: 26
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -133,9 +136,10 @@ Max validity in issued certificates
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 1
+Position: 0
 Default value: Years
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -150,7 +154,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 1
 Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -166,7 +170,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
+Position: 8
 Default value: Default
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -181,7 +185,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 10
+Position: 9
 Default value: C:\ADCS\Web\Repository
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -207,8 +211,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

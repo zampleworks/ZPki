@@ -1,5 +1,4 @@
 ﻿#Requires -Version 4
-#Requires -RunAsAdministrator 
 
 $ErrorActionPreference = "stop"
 
@@ -27,6 +26,8 @@ $DefaultCss = "*,::after,::before{box-sizing:border-box}blockquote,body,dd,dl,fi
     Next step is typically running Set-ZPkiCaPostInstallConfig.
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Install-ZPkiCa {
 # .ExternalHelp PsZPki-help.xml
@@ -184,6 +185,11 @@ Function Install-ZPkiCa {
         $DbLogPath = "C:\ADCS\DbLog"
     
     )
+
+    If(-Not (Test-IsAdmin)) {
+        Write-Error "This cmdlet requires admin privileges to run."
+        return
+    }
 
     $IsRoot = $CaType -like "*root*"
     $IsStandalone = $CaType -like "*standalone*"
@@ -443,6 +449,8 @@ Function Install-ZPkiCa {
     Use this cmdlet to install the resulting signed certificate.
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Install-ZPkiCaCertificate {
 
@@ -502,6 +510,8 @@ Function Install-ZPkiCaCertificate {
        -> cacert.pem.crt
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiRepoIndex {
  Param(
@@ -710,6 +720,8 @@ Function New-ZPkiRepoIndex {
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiRepoCssFile {
     [CmdletBinding()]
@@ -743,6 +755,8 @@ Function New-ZPkiRepoCssFile {
     Installs IIS and creates a new IIS site with the given local root path and host header binding.
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiWebsite {
     [CmdletBinding()]
@@ -841,6 +855,8 @@ Function Copy-ZPkiCertSrvFilesToRepo {
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Publish-ZPkiCaDsFile {
     [CmdletBinding()]
@@ -905,6 +921,8 @@ Function Publish-ZPkiCaDsFile {
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Set-ZPkiCaPostInstallConfig {
     [CmdletBinding()]
@@ -959,6 +977,11 @@ Function Set-ZPkiCaPostInstallConfig {
         $RestartCertSvc
     )
 
+    If(-Not (Test-IsAdmin)) {
+        Write-Error "This cmdlet requires admin privileges to run."
+        return
+    }
+    
     Write-Progress -Activity "Updating registry values"
 
     $Domain = gwmi -Class Win32_ComputerSystem | Select -expand Domain 
@@ -1029,6 +1052,8 @@ Function Set-ZPkiCaPostInstallConfig {
     the generated URI will start with "http://my.server.com/Repository"
 
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Set-ZPkiCaUrlConfig {
     [CmdletBinding()]
@@ -1155,6 +1180,8 @@ Function Set-ZPkiCaUrlConfig {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Export-CertAsPem {
     [CmdletBinding()]
@@ -1184,6 +1211,8 @@ Function Export-CertAsPem {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Get-ZPkiLocalCaConfigString {
     Write-Output ("{0}\{1}" -f (hostname), (Get-ChildItem -Path $CertSvcRegPath -Name))
@@ -1196,6 +1225,8 @@ Function Get-ZPkiLocalCaConfigString {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Get-NewRequests {
     Param(
@@ -1217,6 +1248,8 @@ Function Get-NewRequests {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function Submit-ZPkiRequest {
     Param(
@@ -1339,6 +1372,8 @@ Function Submit-ZPkiRequest {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiRandomPassword {
     param(
@@ -1370,6 +1405,8 @@ Function New-ZPkiRandomPassword {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiCaBackup {
     [CmdletBinding()]
@@ -1487,8 +1524,10 @@ Function New-ZPkiCaBackup {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
-Function Remove-ZPkiIssuancePolicyGroupLink {
+Function Remove-ZPkiAdIssuancePolicyGroupLink {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     Param (
         # Display Name of the policy to remove.
@@ -1530,8 +1569,10 @@ Function Remove-ZPkiIssuancePolicyGroupLink {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
 #>
-Function Set-ZPkiIssuancePolicyGroupLink {
+Function Set-ZPkiAdIssuancePolicyGroupLink {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     Param (
         # Display name of issuance policy 
@@ -1604,8 +1645,10 @@ Function Set-ZPkiIssuancePolicyGroupLink {
     .DESCRIPTION
     
     Author anders !Ä!T! runesson D"Ö"T info
+    
+    .ExternalHelp PsZPki-help.xml
 #>
-Function Get-ZPkiIssuancePolicyGroupLinks {
+Function Get-ZPkiAdIssuancePolicyGroupLinks {
     [CmdletBinding()]
     Param (
         # If supplied, display info about only this policy. If omitted display information for all issuance policies.
@@ -1669,7 +1712,7 @@ Function Get-ZPkiIssuancePolicyGroupLinks {
 
     .ExternalHelp PsZPki-help.xml
 #>
-Function Get-ZPkiIssuancePolicy {
+Function Get-ZPkiAdIssuancePolicy {
     [CmdletBinding()]
     Param (
         # If supplied, display info about only this policy. If omitted display information for all issuance policies.
@@ -1723,6 +1766,110 @@ Function Get-ZPkiIssuancePolicy {
     }
 }
 
+
+<#
+    .SYNOPSIS
+    Installs RSAT ADCS management tools. Required for cmdlets that
+    call the CA COM interface directly, such ass the *-ZPkiDb* cmdlets.
+
+    .DESCRIPTION
+    Some cmdlets in this module require extra COM modules installed to 
+    interface with ADCS. These components are available in Microsoft's 
+    Remote Server Administration Tools. 
+    For convenience, a switch is included to add ADDS admin tools as well.
+
+    On Windows clients, this cmdlet requires Windows 10 1809. On earlier 
+    versions of Windows you have to download and install the RSAT packate
+    from Microsoft manually.
+
+    Author anders !Ä!T! runesson D"Ö"T info
+
+    .ExternalHelp PsZPki-help.xml
+#>
+Function Install-ZPkiRsatComponents {
+    [CmdletBinding()]
+    Param(
+        # If set, also install the ADDS management tools
+        [switch]
+        $IncludeAdTools
+    )
+
+    If(-Not (Test-IsAdmin)) {
+        Write-Error "This cmdlet requires admin privileges to run."
+        return
+    }
+    
+    Write-Progress -Activity "Installing RSAT components" -id 0
+    $OsName = (Get-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('ProductName')
+    $OsMajor = [System.Environment]::OSVersion.Version.Major
+    $OsMinor = [System.Environment]::OSVersion.Version.Build
+        
+    If($OsName -like "*Server*") {
+        Write-Progress -Activity "Installing ADCS Tools" -ParentId 0 -Id 1
+        Add-WindowsFeature RSAT-ADCS-Mgmt, RSAT-Online-Responder | Select-Object RestartNeeded
+        If($IncludeAdTools) {
+            Write-Progress -Activity "Installing ADDS Tools" -ParentId 0 -Id 1
+            Add-WindowsFeature RSAT-AD-Tools | Select-Object RestartNeeded
+        }
+    } Else {
+        If($OsMajor -lt 10) {
+            Write-Host "Your version of windows requires that you download"
+            Write-Host "Remote Server Administration Tools from Microsoft.com and"
+            Write-Host "install it manually."
+            return
+        } Elseif ($OsMajor -eq 10 -and $OsMinor -lt 17763) {
+            Write-Host "Your version of windows requires that you download"
+            Write-Host "Remote Server Administration Tools from Microsoft.com and"
+            Write-Host "install it manually."
+            Write-Host "RSAT for Windows 10, 1803 and older: https://www.microsoft.com/en-us/download/details.aspx?id=45520"
+            return
+        }
+
+        $RsatAdcs = get-windowscapability -online -Name "Rsat.CertificateServices.Tools~~~~0.0.1.0"
+        $RsatAdds = get-windowscapability -online -Name “Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0”
+        
+        If($RsatAdcs.State -eq "Installed" -and ($RsatAdds.State -eq "Installed" -or $IncludeAdTools -eq $false)) {
+            $RsatAdcs, $RsatAdds | Select-Object Name, State
+            return
+        }
+        
+        Write-Progress -Activity "Checking Windows update settings.." -ParentId 0 -Id 1
+        $WuSetting = $Null
+        If(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -PathType Container) {
+            $WuSetting = Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty UseWUServer
+            If($WuSetting -eq 1) {
+                Write-Progress -Activity "Temporarily disabling Windows update service.." -ParentId 0 -Id 1
+                Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0
+                Restart-Service wuauserv
+            }
+        }
+
+        If($RsatAdcs.State -ne "Installed") {
+            Write-Progress -Activity "Installing ADCS tools" -ParentId 0 -Id 1
+            Add-WindowsCapability -Online -Name "Rsat.CertificateServices.Tools~~~~0.0.1.0" | Out-Null
+            Get-WindowsCapability -online -Name "Rsat.CertificateServices.Tools~~~~0.0.1.0" | Select-Object Name, State
+        } Else {
+            $RsatAdcs | Select-Object Name, State
+        }
+
+        If($IncludeAdTools) {
+            If($RsatAdds.State -ne "Installed") {
+                Write-Progress -Activity "Installing ADDS tools" -ParentId 0 -Id 1
+                Add-WindowsCapability –online –Name “Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0” | Out-Null
+                Get-WindowsCapability -online -Name “Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0” | Select-Object Name, State
+            } Else {
+                $RsatAdds | Select-Object Name, State
+            }
+        }
+
+        If($WuSetting -eq 1) {
+            Write-Progress -Activity "Restarting Windows update.." -ParentId 0 -Id 1
+            Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 1
+            Restart-Service wuauserv
+        }
+    }
+}
+
 Export-ModuleMember -Function Install-ZPkiCa
 Export-ModuleMember -Function Install-ZPkiCaCertificate
 Export-ModuleMember -Function New-ZPkiRepoIndex
@@ -1736,7 +1883,8 @@ Export-ModuleMember -Function New-ZPkiRepoCssFile
 Export-ModuleMember -Function New-ZPkiRandomPassword
 Export-ModuleMember -Function Submit-ZPkiRequest
 Export-ModuleMember -Function Get-ZPkiLocalCaConfigString
-Export-ModuleMember -Function Remove-ZPkiIssuancePolicyGroupLink
-Export-ModuleMember -Function Set-ZPkiIssuancePolicyGroupLink
-Export-ModuleMember -Function Get-ZPkiIssuancePolicyGroupLinks
-Export-ModuleMember -Function Get-ZPkiIssuancePolicy
+Export-ModuleMember -Function Remove-ZPkiAdIssuancePolicyGroupLink
+Export-ModuleMember -Function Set-ZPkiAdIssuancePolicyGroupLink
+Export-ModuleMember -Function Get-ZPkiAdIssuancePolicyGroupLinks
+Export-ModuleMember -Function Get-ZPkiAdIssuancePolicy
+Export-ModuleMember -Function Install-ZPkiRsatComponents

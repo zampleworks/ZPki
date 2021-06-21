@@ -110,23 +110,23 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-ZPkiIssuancePolicy</command:name>
+      <command:name>Get-ZPkiAdIssuancePolicy</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>ZPkiIssuancePolicy</command:noun>
+      <command:noun>ZPkiAdIssuancePolicy</command:noun>
       <maml:description>
-        <maml:para>Lists all Issuance policy objects in ADDS.</maml:para>
+        <maml:para>{{ Fill in the Synopsis }}</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Author anders !Ä!T! runesson D"Ö"T info</maml:para>
+      <maml:para>{{ Fill in the Description }}</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-ZPkiIssuancePolicy</maml:name>
+        <maml:name>Get-ZPkiAdIssuancePolicy</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuancePolicyName</maml:name>
           <maml:description>
-            <maml:para>If supplied, display info about only this policy. If omitted display information for all issuance policies.</maml:para>
+            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -141,7 +141,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>If supplied, display info about only this policy. If omitted display information for all issuance policies.</maml:para>
+          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -179,9 +179,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ZPkiIssuancePolicy</dev:code>
+        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
         <dev:remarks>
-          <maml:para>This will lista all Issuance policy OIDs registered in the AD forest.</maml:para>
+          <maml:para>{{ Add example description here }}</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -189,23 +189,23 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-ZPkiIssuancePolicyGroupLinks</command:name>
+      <command:name>Get-ZPkiAdIssuancePolicyGroupLinks</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>ZPkiIssuancePolicyGroupLinks</command:noun>
+      <command:noun>ZPkiAdIssuancePolicyGroupLinks</command:noun>
       <maml:description>
-        <maml:para>Shows all configured AMA policy links in ADDS.</maml:para>
+        <maml:para>{{ Fill in the Synopsis }}</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Author anders !Ä!T! runesson D"Ö"T info</maml:para>
+      <maml:para>{{ Fill in the Description }}</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-ZPkiIssuancePolicyGroupLinks</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Get-ZPkiAdIssuancePolicyGroupLinks</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuancePolicyName</maml:name>
           <maml:description>
-            <maml:para>If supplied, display info about only this policy. If omitted display information for all issuance policies.</maml:para>
+            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -217,10 +217,10 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>If supplied, display info about only this policy. If omitted display information for all issuance policies.</maml:para>
+          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -230,8 +230,26 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -266,8 +284,26 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters />
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -302,7 +338,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Install-ZPkiCa</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>CaCommonName</maml:name>
           <maml:description>
             <maml:para>CN in CA certificate Subject</maml:para>
@@ -314,127 +350,7 @@
           </dev:type>
           <dev:defaultValue>ZampleWorks CA v1</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
-          <maml:name>CpsOid</maml:name>
-          <maml:description>
-            <maml:para>OID for CPS</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
-          <maml:name>CpsUrl</maml:name>
-          <maml:description>
-            <maml:para>URI for CPS document</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
-          <maml:name>AssurancePolicyName</maml:name>
-          <maml:description>
-            <maml:para>Assurance policy name, used for Autodetect of Assurance policy.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>Low Assurance</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
-          <maml:name>AssurancePolicyOid</maml:name>
-          <maml:description>
-            <maml:para>Assurance policy OID</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
-          <maml:name>AssurancePolicyNotice</maml:name>
-          <maml:description>
-            <maml:para>Notice text for Assurance Policy</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
-          <maml:name>AssurancePolicyUrl</maml:name>
-          <maml:description>
-            <maml:para>URL for Assurance policy document</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
-          <maml:name>CaCertValidityPeriod</maml:name>
-          <maml:description>
-            <maml:para>Validity period for CA certificate</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>Years</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="17" aliases="none">
-          <maml:name>CaCertValidityPeriodUnits</maml:name>
-          <maml:description>
-            <maml:para>Validity period for CA certificate</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-          <dev:type>
-            <maml:name>Int32</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>20</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="18" aliases="none">
-          <maml:name>CrlPeriod</maml:name>
-          <maml:description>
-            <maml:para>CRL validity period</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>Weeks</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="19" aliases="none">
-          <maml:name>CrlPeriodUnits</maml:name>
-          <maml:description>
-            <maml:para>CRL validity period</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-          <dev:type>
-            <maml:name>Int32</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>1</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>CaDnSuffix</maml:name>
           <maml:description>
             <maml:para>Distinguished name suffix for CA certificate Subject</maml:para>
@@ -446,11 +362,140 @@
           </dev:type>
           <dev:defaultValue>O = ZampleWorks, C = SE</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="20" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
+          <maml:name>CpsUrl</maml:name>
+          <maml:description>
+            <maml:para>URI for CPS document</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
+          <maml:name>AssurancePolicyName</maml:name>
+          <maml:description>
+            <maml:para>Assurance policy name, used for Autodetect of Assurance policy.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Low Assurance</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
+          <maml:name>AssurancePolicyOid</maml:name>
+          <maml:description>
+            <maml:para>Assurance policy OID</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
+          <maml:name>AssurancePolicyNotice</maml:name>
+          <maml:description>
+            <maml:para>Notice text for Assurance Policy</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
+          <maml:name>AssurancePolicyUrl</maml:name>
+          <maml:description>
+            <maml:para>URL for Assurance policy document</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
+          <maml:name>CaCertValidityPeriod</maml:name>
+          <maml:description>
+            <maml:para>Validity period for CA certificate</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Years</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
+          <maml:name>CaCertValidityPeriodUnits</maml:name>
+          <maml:description>
+            <maml:para>Validity period for CA certificate</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>20</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="17" aliases="none">
+          <maml:name>CrlPeriod</maml:name>
+          <maml:description>
+            <maml:para>CRL validity period</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Weeks</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="18" aliases="none">
+          <maml:name>CrlPeriodUnits</maml:name>
+          <maml:description>
+            <maml:para>CRL validity period</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>1</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="19" aliases="none">
           <maml:name>CrlDeltaPeriod</maml:name>
           <maml:description>
             <maml:para>CRL Delta validity period</maml:para>
           </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -458,7 +503,25 @@
           </dev:type>
           <dev:defaultValue>Days</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="21" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>CaType</maml:name>
+          <maml:description>
+            <maml:para>CA type. Valid values: "EnterpriseRootCA","EnterpriseSubordinateCA","StandaloneRootCA", or "StandaloneSubordinateCA"</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">EnterpriseRootCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">EnterpriseSubordinateCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">StandaloneRootCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">StandaloneSubordinateCA</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>EnterpriseRootCA</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="20" aliases="none">
           <maml:name>CrlDeltaPeriodUnits</maml:name>
           <maml:description>
             <maml:para>CRL Delta validity period</maml:para>
@@ -470,7 +533,7 @@
           </dev:type>
           <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="22" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="21" aliases="none">
           <maml:name>ADCSPath</maml:name>
           <maml:description>
             <maml:para>Root directory for ADCS files</maml:para>
@@ -482,7 +545,7 @@
           </dev:type>
           <dev:defaultValue>C:\ADCS</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="23" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="22" aliases="none">
           <maml:name>DbPath</maml:name>
           <maml:description>
             <maml:para>Database directory</maml:para>
@@ -494,7 +557,7 @@
           </dev:type>
           <dev:defaultValue>C:\ADCS\Db</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="24" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="23" aliases="none">
           <maml:name>DbLogPath</maml:name>
           <maml:description>
             <maml:para>Transaction log directory</maml:para>
@@ -507,18 +570,6 @@
           <dev:defaultValue>C:\ADCS\DbLog</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
-          <maml:name>CaType</maml:name>
-          <maml:description>
-            <maml:para>CA type. Valid values: "EnterpriseRootCA","EnterpriseSubordinateCA","StandaloneRootCA", or "StandaloneSubordinateCA"</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>EnterpriseRootCA</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>KeyLength</maml:name>
           <maml:description>
             <maml:para>CA Private key length</maml:para>
@@ -530,7 +581,7 @@
           </dev:type>
           <dev:defaultValue>2048</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>CryptoProvider</maml:name>
           <maml:description>
             <maml:para>CSP or KSP provider to use for key storage.</maml:para>
@@ -542,7 +593,7 @@
           </dev:type>
           <dev:defaultValue>Microsoft Software Key Storage Provider</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>Hash</maml:name>
           <maml:description>
             <maml:para>Hash algorithm to use.</maml:para>
@@ -554,7 +605,7 @@
           </dev:type>
           <dev:defaultValue>SHA256</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>PathLength</maml:name>
           <maml:description>
             <maml:para>Default CA type is Enterprise root, so appropriate PathLength is 0 (meaning no sub CA can be issued) Valid input for PathLength is an integer &gt;= 0, or 'None' to remove constraint. PathLength = None and EnableBasicConstraints = $True will still include the attribute in the cert.</maml:para>
@@ -566,7 +617,7 @@
           </dev:type>
           <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>EkuOids</maml:name>
           <maml:description>
             <maml:para>OID strings to include in EKU section</maml:para>
@@ -578,10 +629,22 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
           <maml:name>CpsNotice</maml:name>
           <maml:description>
             <maml:para>Notice text for CPS extension</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+          <maml:name>CpsOid</maml:name>
+          <maml:description>
+            <maml:para>OID for CPS</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -714,7 +777,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="22" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="21" aliases="none">
         <maml:name>ADCSPath</maml:name>
         <maml:description>
           <maml:para>Root directory for ADCS files</maml:para>
@@ -738,7 +801,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
         <maml:name>AssurancePolicyName</maml:name>
         <maml:description>
           <maml:para>Assurance policy name, used for Autodetect of Assurance policy.</maml:para>
@@ -750,7 +813,7 @@
         </dev:type>
         <dev:defaultValue>Low Assurance</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
         <maml:name>AssurancePolicyNotice</maml:name>
         <maml:description>
           <maml:para>Notice text for Assurance Policy</maml:para>
@@ -762,7 +825,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
         <maml:name>AssurancePolicyOid</maml:name>
         <maml:description>
           <maml:para>Assurance policy OID</maml:para>
@@ -774,7 +837,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
         <maml:name>AssurancePolicyUrl</maml:name>
         <maml:description>
           <maml:para>URL for Assurance policy document</maml:para>
@@ -810,7 +873,7 @@
         </dev:type>
         <dev:defaultValue>True</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
         <maml:name>CaCertValidityPeriod</maml:name>
         <maml:description>
           <maml:para>Validity period for CA certificate</maml:para>
@@ -822,7 +885,7 @@
         </dev:type>
         <dev:defaultValue>Years</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="17" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
         <maml:name>CaCertValidityPeriodUnits</maml:name>
         <maml:description>
           <maml:para>Validity period for CA certificate</maml:para>
@@ -834,7 +897,7 @@
         </dev:type>
         <dev:defaultValue>20</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>CaCommonName</maml:name>
         <maml:description>
           <maml:para>CN in CA certificate Subject</maml:para>
@@ -846,7 +909,7 @@
         </dev:type>
         <dev:defaultValue>ZampleWorks CA v1</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>CaDnSuffix</maml:name>
         <maml:description>
           <maml:para>Distinguished name suffix for CA certificate Subject</maml:para>
@@ -858,7 +921,7 @@
         </dev:type>
         <dev:defaultValue>O = ZampleWorks, C = SE</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>CaType</maml:name>
         <maml:description>
           <maml:para>CA type. Valid values: "EnterpriseRootCA","EnterpriseSubordinateCA","StandaloneRootCA", or "StandaloneSubordinateCA"</maml:para>
@@ -870,7 +933,7 @@
         </dev:type>
         <dev:defaultValue>EnterpriseRootCA</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
         <maml:name>CpsNotice</maml:name>
         <maml:description>
           <maml:para>Notice text for CPS extension</maml:para>
@@ -882,7 +945,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>CpsOid</maml:name>
         <maml:description>
           <maml:para>OID for CPS</maml:para>
@@ -894,7 +957,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
         <maml:name>CpsUrl</maml:name>
         <maml:description>
           <maml:para>URI for CPS document</maml:para>
@@ -906,7 +969,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="20" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="19" aliases="none">
         <maml:name>CrlDeltaPeriod</maml:name>
         <maml:description>
           <maml:para>CRL Delta validity period</maml:para>
@@ -918,7 +981,7 @@
         </dev:type>
         <dev:defaultValue>Days</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="21" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="20" aliases="none">
         <maml:name>CrlDeltaPeriodUnits</maml:name>
         <maml:description>
           <maml:para>CRL Delta validity period</maml:para>
@@ -930,7 +993,7 @@
         </dev:type>
         <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="18" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="17" aliases="none">
         <maml:name>CrlPeriod</maml:name>
         <maml:description>
           <maml:para>CRL validity period</maml:para>
@@ -942,7 +1005,7 @@
         </dev:type>
         <dev:defaultValue>Weeks</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="19" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="18" aliases="none">
         <maml:name>CrlPeriodUnits</maml:name>
         <maml:description>
           <maml:para>CRL validity period</maml:para>
@@ -954,7 +1017,7 @@
         </dev:type>
         <dev:defaultValue>1</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>CryptoProvider</maml:name>
         <maml:description>
           <maml:para>CSP or KSP provider to use for key storage.</maml:para>
@@ -966,7 +1029,7 @@
         </dev:type>
         <dev:defaultValue>Microsoft Software Key Storage Provider</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="24" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="23" aliases="none">
         <maml:name>DbLogPath</maml:name>
         <maml:description>
           <maml:para>Transaction log directory</maml:para>
@@ -978,7 +1041,7 @@
         </dev:type>
         <dev:defaultValue>C:\ADCS\DbLog</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="23" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="22" aliases="none">
         <maml:name>DbPath</maml:name>
         <maml:description>
           <maml:para>Database directory</maml:para>
@@ -990,7 +1053,7 @@
         </dev:type>
         <dev:defaultValue>C:\ADCS\Db</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>EkuOids</maml:name>
         <maml:description>
           <maml:para>OID strings to include in EKU section</maml:para>
@@ -1026,7 +1089,7 @@
         </dev:type>
         <dev:defaultValue>True</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>Hash</maml:name>
         <maml:description>
           <maml:para>Hash algorithm to use.</maml:para>
@@ -1062,7 +1125,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>KeyLength</maml:name>
         <maml:description>
           <maml:para>CA Private key length</maml:para>
@@ -1110,7 +1173,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>PathLength</maml:name>
         <maml:description>
           <maml:para>Default CA type is Enterprise root, so appropriate PathLength is 0 (meaning no sub CA can be issued) Valid input for PathLength is an integer &gt;= 0, or 'None' to remove constraint. PathLength = None and EnableBasicConstraints = $True will still include the attribute in the cert.</maml:para>
@@ -1135,8 +1198,26 @@
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -1169,7 +1250,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Install-ZPkiCaCertificate</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>CertFile</maml:name>
           <maml:description>
             <maml:para>{{ Fill CertFile Description }}</maml:para>
@@ -1181,7 +1262,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>AdcsRepositoryPath</maml:name>
           <maml:description>
             <maml:para>{{ Fill AdcsRepositoryPath Description }}</maml:para>
@@ -1207,7 +1288,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>AdcsRepositoryPath</maml:name>
         <maml:description>
           <maml:para>{{ Fill AdcsRepositoryPath Description }}</maml:para>
@@ -1219,7 +1300,7 @@
         </dev:type>
         <dev:defaultValue>C:\ADCS\Web\Repository</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>CertFile</maml:name>
         <maml:description>
           <maml:para>{{ Fill CertFile Description }}</maml:para>
@@ -1244,8 +1325,104 @@
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:remarks>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Install-ZPkiRsatComponents</command:name>
+      <command:verb>Install</command:verb>
+      <command:noun>ZPkiRsatComponents</command:noun>
+      <maml:description>
+        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Install-ZPkiRsatComponents</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>IncludeAdTools</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill IncludeAdTools Description }}</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>IncludeAdTools</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill IncludeAdTools Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -1277,7 +1454,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>New-ZPkiCaBackup</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>BackupsDirectoryName</maml:name>
           <maml:description>
             <maml:para>Directory for backups within root directory</maml:para>
@@ -1289,7 +1466,7 @@
           </dev:type>
           <dev:defaultValue>Backups</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>BackupsParentDirectory</maml:name>
           <maml:description>
             <maml:para>Parent directory for backups</maml:para>
@@ -1301,7 +1478,7 @@
           </dev:type>
           <dev:defaultValue>C:\ADCS</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>BackupPwd</maml:name>
           <maml:description>
             <maml:para>Password for p12 file</maml:para>
@@ -1313,7 +1490,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>RetentionCount</maml:name>
           <maml:description>
             <maml:para>Not currently implemented</maml:para>
@@ -1351,7 +1528,7 @@
         </dev:type>
         <dev:defaultValue>True</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>BackupPwd</maml:name>
         <maml:description>
           <maml:para>Password for p12 file</maml:para>
@@ -1363,7 +1540,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>BackupsDirectoryName</maml:name>
         <maml:description>
           <maml:para>Directory for backups within root directory</maml:para>
@@ -1375,7 +1552,7 @@
         </dev:type>
         <dev:defaultValue>Backups</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>BackupsParentDirectory</maml:name>
         <maml:description>
           <maml:para>Parent directory for backups</maml:para>
@@ -1387,7 +1564,7 @@
         </dev:type>
         <dev:defaultValue>C:\ADCS</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>RetentionCount</maml:name>
         <maml:description>
           <maml:para>Not currently implemented</maml:para>
@@ -1400,8 +1577,26 @@
         <dev:defaultValue>10</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -1433,7 +1628,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>New-ZPkiRandomPassword</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Length</maml:name>
           <maml:description>
             <maml:para>{{ Fill Length Description }}</maml:para>
@@ -1445,7 +1640,7 @@
           </dev:type>
           <dev:defaultValue>128</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>NumberOfNonAlphaNumChars</maml:name>
           <maml:description>
             <maml:para>{{ Fill NumberOfNonAlphaNumChars Description }}</maml:para>
@@ -1483,7 +1678,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Length</maml:name>
         <maml:description>
           <maml:para>{{ Fill Length Description }}</maml:para>
@@ -1495,7 +1690,7 @@
         </dev:type>
         <dev:defaultValue>128</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>NumberOfNonAlphaNumChars</maml:name>
         <maml:description>
           <maml:para>{{ Fill NumberOfNonAlphaNumChars Description }}</maml:para>
@@ -1508,8 +1703,26 @@
         <dev:defaultValue>5</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -1541,7 +1754,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>New-ZPkiRepoCssFile</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>CssFile</maml:name>
           <maml:description>
             <maml:para>{{ Fill CssFile Description }}</maml:para>
@@ -1567,7 +1780,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>CssFile</maml:name>
         <maml:description>
           <maml:para>{{ Fill CssFile Description }}</maml:para>
@@ -1592,8 +1805,26 @@
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -1628,7 +1859,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>New-ZPkiRepoIndex</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Sourcepath</maml:name>
           <maml:description>
             <maml:para>This directory will be scanned for crt/cer/crl files. It is assumed that files will be in a subdirectory named 'Repository' relative to the index.html file.</maml:para>
@@ -1640,7 +1871,7 @@
           </dev:type>
           <dev:defaultValue>.\</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>IndexFile</maml:name>
           <maml:description>
             <maml:para>Path for generated index file.</maml:para>
@@ -1652,7 +1883,7 @@
           </dev:type>
           <dev:defaultValue>Index.html</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>CssFiles</maml:name>
           <maml:description>
             <maml:para>Style sheet to include in html</maml:para>
@@ -1664,7 +1895,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>JsFiles</maml:name>
           <maml:description>
             <maml:para>Javascript to include in html</maml:para>
@@ -1676,7 +1907,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>PageTitle</maml:name>
           <maml:description>
             <maml:para>HTML title tag</maml:para>
@@ -1688,7 +1919,7 @@
           </dev:type>
           <dev:defaultValue>PKI Repository</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>PageHeader</maml:name>
           <maml:description>
             <maml:para>HTML h1 tab</maml:para>
@@ -1700,7 +1931,7 @@
           </dev:type>
           <dev:defaultValue>PKI Repository</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>CertsHeader</maml:name>
           <maml:description>
             <maml:para>HTML header for the CA certs section</maml:para>
@@ -1712,7 +1943,7 @@
           </dev:type>
           <dev:defaultValue>CA Certificates</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>CrlsHeader</maml:name>
           <maml:description>
             <maml:para>HTML header for the CA CRLs section</maml:para>
@@ -1727,7 +1958,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>CertsHeader</maml:name>
         <maml:description>
           <maml:para>HTML header for the CA certs section</maml:para>
@@ -1739,7 +1970,7 @@
         </dev:type>
         <dev:defaultValue>CA Certificates</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>CrlsHeader</maml:name>
         <maml:description>
           <maml:para>HTML header for the CA CRLs section</maml:para>
@@ -1751,7 +1982,7 @@
         </dev:type>
         <dev:defaultValue>CRL files</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>CssFiles</maml:name>
         <maml:description>
           <maml:para>Style sheet to include in html</maml:para>
@@ -1763,7 +1994,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>IndexFile</maml:name>
         <maml:description>
           <maml:para>Path for generated index file.</maml:para>
@@ -1775,7 +2006,7 @@
         </dev:type>
         <dev:defaultValue>Index.html</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>JsFiles</maml:name>
         <maml:description>
           <maml:para>Javascript to include in html</maml:para>
@@ -1787,7 +2018,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>PageHeader</maml:name>
         <maml:description>
           <maml:para>HTML h1 tab</maml:para>
@@ -1799,7 +2030,7 @@
         </dev:type>
         <dev:defaultValue>PKI Repository</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>PageTitle</maml:name>
         <maml:description>
           <maml:para>HTML title tag</maml:para>
@@ -1811,7 +2042,7 @@
         </dev:type>
         <dev:defaultValue>PKI Repository</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Sourcepath</maml:name>
         <maml:description>
           <maml:para>This directory will be scanned for crt/cer/crl files. It is assumed that files will be in a subdirectory named 'Repository' relative to the index.html file.</maml:para>
@@ -1824,8 +2055,26 @@
         <dev:defaultValue>.\</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -1858,7 +2107,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>New-ZPkiWebsite</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IisSiteName</maml:name>
           <maml:description>
             <maml:para>{{ Fill IisSiteName Description }}</maml:para>
@@ -1870,7 +2119,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>HttpFqdn</maml:name>
           <maml:description>
             <maml:para>{{ Fill HttpFqdn Description }}</maml:para>
@@ -1882,7 +2131,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>LocalPath</maml:name>
           <maml:description>
             <maml:para>{{ Fill LocalPath Description }}</maml:para>
@@ -1908,7 +2157,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>HttpFqdn</maml:name>
         <maml:description>
           <maml:para>{{ Fill HttpFqdn Description }}</maml:para>
@@ -1920,7 +2169,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IisSiteName</maml:name>
         <maml:description>
           <maml:para>{{ Fill IisSiteName Description }}</maml:para>
@@ -1944,7 +2193,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>LocalPath</maml:name>
         <maml:description>
           <maml:para>{{ Fill LocalPath Description }}</maml:para>
@@ -1957,8 +2206,26 @@
         <dev:defaultValue>C:\ADCS\Web</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -2034,6 +2301,15 @@
           <maml:description>
             <maml:para>CertType Either "RootCA", "SubCA", or "NTAuthCA", "CrossCA", "KRA", "User", "Machine"</maml:para>
           </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">RootCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">SubCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">NTAuthCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CrossCA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">KRA</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">User</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Machine</command:parameterValue>
+          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -2105,8 +2381,26 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -2125,23 +2419,160 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-ZPkiIssuancePolicyGroupLink</command:name>
+      <command:name>Remove-ZPkiAdIssuancePolicyGroupLink</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>ZPkiIssuancePolicyGroupLink</command:noun>
+      <command:noun>ZPkiAdIssuancePolicyGroupLink</command:noun>
       <maml:description>
-        <maml:para>Removes configuration for AMA group link in an Assurance policy object in ADDS.</maml:para>
+        <maml:para>{{ Fill in the Synopsis }}</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Author anders !Ä!T! runesson D"Ö"T info</maml:para>
+      <maml:para>{{ Fill in the Description }}</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-ZPkiIssuancePolicyGroupLink</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Remove-ZPkiAdIssuancePolicyGroupLink</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuancePolicyName</maml:name>
           <maml:description>
-            <maml:para>Display Name of the policy to remove.</maml:para>
+            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>IssuancePolicyName</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:remarks>
+          <maml:para>{{ Add example description here }}</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Set-ZPkiAdIssuancePolicyGroupLink</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>ZPkiAdIssuancePolicyGroupLink</command:noun>
+      <maml:description>
+        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>{{ Fill in the Description }}</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-ZPkiAdIssuancePolicyGroupLink</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>IssuancePolicyName</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>GroupName</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill GroupName Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2176,9 +2607,21 @@
     </command:syntax>
     <command:parameters>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>GroupName</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill GroupName Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>Display Name of the policy to remove.</maml:para>
+          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2212,8 +2655,26 @@
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -2245,11 +2706,18 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Set-ZPkiCaPostInstallConfig</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuedCertValidityPeriod</maml:name>
           <maml:description>
             <maml:para>Max validity in issued certificates</maml:para>
           </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -2257,19 +2725,7 @@
           </dev:type>
           <dev:defaultValue>Years</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
-          <maml:name>RepositoryLocalPath</maml:name>
-          <maml:description>
-            <maml:para>Path to CDP/AIA repository</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>C:\ADCS\Web\Repository</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>IssuedCertValidityPeriodUnits</maml:name>
           <maml:description>
             <maml:para>Max validity in issued certificates</maml:para>
@@ -2281,11 +2737,18 @@
           </dev:type>
           <dev:defaultValue>1</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>CrlPeriod</maml:name>
           <maml:description>
             <maml:para>CRL validity</maml:para>
           </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -2293,7 +2756,7 @@
           </dev:type>
           <dev:defaultValue>Weeks</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>CrlPeriodUnits</maml:name>
           <maml:description>
             <maml:para>CRL validity</maml:para>
@@ -2305,11 +2768,18 @@
           </dev:type>
           <dev:defaultValue>26</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>CrlOverlap</maml:name>
           <maml:description>
             <maml:para>CRL overlap</maml:para>
           </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -2317,7 +2787,7 @@
           </dev:type>
           <dev:defaultValue>Weeks</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>CrlOverlapUnits</maml:name>
           <maml:description>
             <maml:para>CRL overlap</maml:para>
@@ -2329,11 +2799,18 @@
           </dev:type>
           <dev:defaultValue>6</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>CrlDeltaPeriod</maml:name>
           <maml:description>
             <maml:para>CRL Delta validity</maml:para>
           </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Days</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Weeks</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Months</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Years</command:parameterValue>
+          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -2341,7 +2818,7 @@
           </dev:type>
           <dev:defaultValue>Days</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>CrlDeltaPeriodUnits</maml:name>
           <maml:description>
             <maml:para>CRL Delta validity</maml:para>
@@ -2353,7 +2830,7 @@
           </dev:type>
           <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
           <maml:name>LdapConfigDn</maml:name>
           <maml:description>
             <maml:para>Distinguished Name of configuration partition in AD. Only needed if using LDAP for CDP/AIA publishing</maml:para>
@@ -2364,6 +2841,18 @@
             <maml:uri />
           </dev:type>
           <dev:defaultValue>Default</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+          <maml:name>RepositoryLocalPath</maml:name>
+          <maml:description>
+            <maml:para>Path to CDP/AIA repository</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>C:\ADCS\Web\Repository</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>RestartCertSvc</maml:name>
@@ -2379,7 +2868,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>CrlDeltaPeriod</maml:name>
         <maml:description>
           <maml:para>CRL Delta validity</maml:para>
@@ -2391,7 +2880,7 @@
         </dev:type>
         <dev:defaultValue>Days</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>CrlDeltaPeriodUnits</maml:name>
         <maml:description>
           <maml:para>CRL Delta validity</maml:para>
@@ -2403,7 +2892,7 @@
         </dev:type>
         <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>CrlOverlap</maml:name>
         <maml:description>
           <maml:para>CRL overlap</maml:para>
@@ -2415,7 +2904,7 @@
         </dev:type>
         <dev:defaultValue>Weeks</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>CrlOverlapUnits</maml:name>
         <maml:description>
           <maml:para>CRL overlap</maml:para>
@@ -2427,7 +2916,7 @@
         </dev:type>
         <dev:defaultValue>6</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>CrlPeriod</maml:name>
         <maml:description>
           <maml:para>CRL validity</maml:para>
@@ -2439,7 +2928,7 @@
         </dev:type>
         <dev:defaultValue>Weeks</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>CrlPeriodUnits</maml:name>
         <maml:description>
           <maml:para>CRL validity</maml:para>
@@ -2451,7 +2940,7 @@
         </dev:type>
         <dev:defaultValue>26</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuedCertValidityPeriod</maml:name>
         <maml:description>
           <maml:para>Max validity in issued certificates</maml:para>
@@ -2463,7 +2952,7 @@
         </dev:type>
         <dev:defaultValue>Years</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>IssuedCertValidityPeriodUnits</maml:name>
         <maml:description>
           <maml:para>Max validity in issued certificates</maml:para>
@@ -2475,7 +2964,7 @@
         </dev:type>
         <dev:defaultValue>1</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
         <maml:name>LdapConfigDn</maml:name>
         <maml:description>
           <maml:para>Distinguished Name of configuration partition in AD. Only needed if using LDAP for CDP/AIA publishing</maml:para>
@@ -2487,7 +2976,7 @@
         </dev:type>
         <dev:defaultValue>Default</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>RepositoryLocalPath</maml:name>
         <maml:description>
           <maml:para>Path to CDP/AIA repository</maml:para>
@@ -2512,8 +3001,26 @@
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -2818,139 +3325,26 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para></maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-        <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks />
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Set-ZPkiIssuancePolicyGroupLink</command:name>
-      <command:verb>Set</command:verb>
-      <command:noun>ZPkiIssuancePolicyGroupLink</command:noun>
-      <maml:description>
-        <maml:para>Registers a group for AMA in an Assurance policy in ADDS.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>Author anders !Ä!T! runesson D"Ö"T info</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Set-ZPkiIssuancePolicyGroupLink</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-          <maml:name>IssuancePolicyName</maml:name>
-          <maml:description>
-            <maml:para>Display name of issuance policy</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-          <maml:name>GroupName</maml:name>
-          <maml:description>
-            <maml:para>Name of the group to link to this policy</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>GroupName</maml:name>
-        <maml:description>
-          <maml:para>Name of the group to link to this policy</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+    <command:inputTypes>
+      <command:inputType>
         <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
+          <maml:name>None</maml:name>
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>Display name of issuance policy</maml:para>
+          <maml:para></maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
         <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
+          <maml:name>System.Object</maml:name>
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
         <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          <maml:para></maml:para>
         </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>
@@ -2982,7 +3376,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Submit-ZPkiRequest</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>CsrFile</maml:name>
           <maml:description>
             <maml:para>{{ Fill CsrFile Description }}</maml:para>
@@ -2994,7 +3388,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>SignedCertFile</maml:name>
           <maml:description>
             <maml:para>{{ Fill SignedCertFile Description }}</maml:para>
@@ -3006,7 +3400,7 @@
           </dev:type>
           <dev:defaultValue>Cert.cer</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>SanName</maml:name>
           <maml:description>
             <maml:para>{{ Fill SanName Description }}</maml:para>
@@ -3018,7 +3412,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Template</maml:name>
           <maml:description>
             <maml:para>{{ Fill Template Description }}</maml:para>
@@ -3030,7 +3424,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>Config</maml:name>
           <maml:description>
             <maml:para>{{ Fill Config Description }}</maml:para>
@@ -3045,7 +3439,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Config</maml:name>
         <maml:description>
           <maml:para>{{ Fill Config Description }}</maml:para>
@@ -3057,7 +3451,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>CsrFile</maml:name>
         <maml:description>
           <maml:para>{{ Fill CsrFile Description }}</maml:para>
@@ -3069,7 +3463,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>SanName</maml:name>
         <maml:description>
           <maml:para>{{ Fill SanName Description }}</maml:para>
@@ -3081,7 +3475,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>SignedCertFile</maml:name>
         <maml:description>
           <maml:para>{{ Fill SignedCertFile Description }}</maml:para>
@@ -3093,7 +3487,7 @@
         </dev:type>
         <dev:defaultValue>Cert.cer</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Template</maml:name>
         <maml:description>
           <maml:para>{{ Fill Template Description }}</maml:para>
@@ -3106,8 +3500,26 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
     <maml:alertSet>
       <maml:alert>
         <maml:para></maml:para>

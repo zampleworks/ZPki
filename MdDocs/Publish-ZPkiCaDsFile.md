@@ -77,6 +77,7 @@ CertType Either "RootCA", "SubCA", or "NTAuthCA", "CrossCA", "KRA", "User", "Mac
 Type: String
 Parameter Sets: Cert
 Aliases:
+Accepted values: RootCA, SubCA, NTAuthCA, CrossCA, KRA, User, Machine
 
 Required: False
 Position: Named
@@ -105,8 +106,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

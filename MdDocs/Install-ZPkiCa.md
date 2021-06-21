@@ -64,7 +64,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 22
+Position: 21
 Default value: C:\ADCS
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -94,7 +94,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 12
+Position: 11
 Default value: Low Assurance
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -109,7 +109,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 14
+Position: 13
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -124,7 +124,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 13
+Position: 12
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -139,7 +139,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 15
+Position: 14
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -184,9 +184,10 @@ Validity period for CA certificate
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 16
+Position: 15
 Default value: Years
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -201,7 +202,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 17
+Position: 16
 Default value: 20
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -216,7 +217,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 0
 Default value: ZampleWorks CA v1
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -231,7 +232,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 1
 Default value: O = ZampleWorks, C = SE
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -245,9 +246,10 @@ Valid values: "EnterpriseRootCA","EnterpriseSubordinateCA","StandaloneRootCA", o
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, StandaloneSubordinateCA
 
 Required: False
-Position: 3
+Position: 2
 Default value: EnterpriseRootCA
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -262,7 +264,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
+Position: 8
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -277,7 +279,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 10
+Position: 9
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -292,7 +294,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 11
+Position: 10
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -305,9 +307,10 @@ CRL Delta validity period
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 20
+Position: 19
 Default value: Days
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -322,7 +325,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 21
+Position: 20
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -335,9 +338,10 @@ CRL validity period
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
-Position: 18
+Position: 17
 Default value: Weeks
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -352,7 +356,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 19
+Position: 18
 Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -367,7 +371,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 4
 Default value: Microsoft Software Key Storage Provider
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -382,7 +386,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 24
+Position: 23
 Default value: C:\ADCS\DbLog
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -397,7 +401,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 23
+Position: 22
 Default value: C:\ADCS\Db
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -412,7 +416,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
+Position: 7
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -458,7 +462,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 5
 Default value: SHA256
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -504,7 +508,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: 3
 Default value: 2048
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -566,7 +570,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: 6
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -593,8 +597,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

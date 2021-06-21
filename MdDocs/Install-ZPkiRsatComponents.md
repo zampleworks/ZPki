@@ -1,24 +1,23 @@
-﻿---
+---
 external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# New-ZPkiRepoCssFile
+# Install-ZPkiRsatComponents
 
 ## SYNOPSIS
-Generate a new default CSS file for use with HTML repository
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-New-ZPkiRepoCssFile [[-CssFile] <String>] [-Force] [<CommonParameters>]
+Install-ZPkiRsatComponents [-IncludeAdTools] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -31,23 +30,8 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -CssFile
-{{ Fill CssFile Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 0
-Default value: C:\ADCS\Web\style.css
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Force
-{{ Fill Force Description }}
+### -IncludeAdTools
+{{ Fill IncludeAdTools Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -56,7 +40,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

@@ -221,3 +221,10 @@ Function Create-Dir {
 	    Write-Error "Failed to create target directory [$FullPath]."
     }
 }
+
+Function Test-IsAdmin {
+    [CmdletBinding()]
+    Param()
+    $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+    Write-Output $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
