@@ -4,7 +4,6 @@ Currently included is a powershell module and work is ongoing
 on a GUI client for windows to make cert management less painful. 
 
 Tested and works on Windows Server 2012R2+ and Windows 10.
-For Windows Server 2012R2 you must install .NET 4.6.
 
 For Windows 10 1803 and earlier, you must install RSAT manually
 to use all features, and enable the ADCS management tools. 

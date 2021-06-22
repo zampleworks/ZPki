@@ -14,6 +14,8 @@ $Module = "ZPki"
 
 $ErrorActionPreference = "Stop"
 
+Push-Location $PSScriptRoot
+
 $UserModulesDir = "{0}\Documents\WindowsPowerShell\Modules" -f $env:USERPROFILE
 $SystemModulesDir = "{0}\WindowsPowerShell\Modules" -f $env:ProgramFiles 
 
@@ -59,7 +61,9 @@ Try {
     } Else {
         Write-Verbose "Done installing $Module module to current user's profile!"
     }
+    Pop-Location
 } Catch {
+    Pop-Location
     Write-Host $_.Exception.Message -ForegroundColor red
     $_.Exception
     Read-Host "press play on tape"
