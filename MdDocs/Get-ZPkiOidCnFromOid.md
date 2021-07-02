@@ -13,7 +13,8 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Get-ZPkiOidCnFromOid -Oid <String> [<CommonParameters>]
+Get-ZPkiOidCnFromOid -Oid <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,6 +31,52 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -Domain
+Connect to specified domain instead of current user/local computer's domain.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DomainController
+Connect to specific domain controller.
+This takes precedence over both Domain and UserDomain parameter settings.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExtraVerbose
+Debug output
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Oid
 This OID will be converted to form used for OID object names in forest OID Container.
 
@@ -39,6 +86,38 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Rpc
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UserDomain
+If not set/false, connect to computer's domain.
+If true, connect to current user's domain.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

@@ -8,16 +8,18 @@ schema: 2.0.0
 # Get-ZPkiAdForestOid
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Retrieve or generate the Windows generated OID for the AD forest.
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdForestOid [<CommonParameters>]
+Get-ZPkiAdForestOid [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+When creating new templates and OIDs in AD, Windows will use a unique OID for your forest. This value is generated when the first template or OID object is created, and is stored on the OID container in AD.
+This cmdlet can retrieve this value, or generate it if no templates have been created yet.
 
 ## EXAMPLES
 
@@ -29,6 +31,84 @@ PS C:\> {{ Add example code here }}
 {{ Add example description here }}
 
 ## PARAMETERS
+
+### -Domain
+Connect to specified domain instead of current user/local computer's domain.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DomainController
+Connect to specific domain controller.
+This takes precedence over both Domain and UserDomain parameter settings.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExtraVerbose
+Debug output
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Rpc
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UserDomain
+If not set/false, connect to computer's domain.
+If true, connect to current user's domain.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).

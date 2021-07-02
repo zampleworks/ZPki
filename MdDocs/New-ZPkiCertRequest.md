@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-ZPkiCertRequest
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Not finished, do not use..
 
 ## SYNTAX
 

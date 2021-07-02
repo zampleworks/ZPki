@@ -5,29 +5,31 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdCasConfigString
+# Find-ZPkiAdObject
 
 ## SYNOPSIS
-List configuration strings for all Enterprise CAs in the forest
+Search AD for objects
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdCasConfigString [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
- [<CommonParameters>]
+Find-ZPkiAdObject -SearchBase <String> -LdapFilter <String> -SearchScope <String> [-Properties <String[]>]
+ [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+This cmdlet can search AD for objects matching LDAP filter.  
+Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with the MS ActiveDirectory module.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $RootDse = Get-ZPkiAdRootDse
+PS C:\> Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchScope Subtree -LdapFilter "(objectClass=user)"
 ```
 
-{{ Add example description here }}
+First, get the RootDSE and use the information to search in the default domain partition for all user objects.
 
 ## PARAMETERS
 
@@ -77,8 +79,39 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -LdapFilter
+Ldap query filter
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Properties
+Select properties to return
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Rpc
-Use RPC interface for querying. If false/not set, use ADWS (default)
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
@@ -86,6 +119,38 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchBase
+Ldap query search root
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchScope
+Search scope.
+Must be Base, OneLevel, or Subtree.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: OneLevel, Base, Subtree
+
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -117,7 +182,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.String[]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

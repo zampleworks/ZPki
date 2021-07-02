@@ -1,6 +1,6 @@
 ﻿---
 Module Name: ZPki
-Module Guid: 559f012c-1653-4a1b-93ba-6cb619453c07
+Module Guid: 9c890be1-0e6d-4965-a250-ee9b414b350e
 Download Help Link: {{ Update Download Link }}
 Help Version: {{ Please enter version of help manually (X.X.X.X) format }}
 Locale: en-US
@@ -14,10 +14,10 @@ Locale: en-US
 ### [Copy-ZPkiCertSrvFilesToRepo](Copy-ZPkiCertSrvFilesToRepo.md)
 {{ Fill in the Description }}
 
-### [Get-ZPkiIssuancePolicy](Get-ZPkiIssuancePolicy.md)
+### [Get-ZPkiAdIssuancePolicy](Get-ZPkiAdIssuancePolicy.md)
 {{ Fill in the Description }}
 
-### [Get-ZPkiIssuancePolicyGroupLinks](Get-ZPkiIssuancePolicyGroupLinks.md)
+### [Get-ZPkiAdIssuancePolicyGroupLinks](Get-ZPkiAdIssuancePolicyGroupLinks.md)
 {{ Fill in the Description }}
 
 ### [Get-ZPkiLocalCaConfigString](Get-ZPkiLocalCaConfigString.md)
@@ -27,6 +27,9 @@ Locale: en-US
 {{ Fill in the Description }}
 
 ### [Install-ZPkiCaCertificate](Install-ZPkiCaCertificate.md)
+{{ Fill in the Description }}
+
+### [Install-ZPkiRsatComponents](Install-ZPkiRsatComponents.md)
 {{ Fill in the Description }}
 
 ### [New-ZPkiCaBackup](New-ZPkiCaBackup.md)
@@ -47,7 +50,10 @@ Locale: en-US
 ### [Publish-ZPkiCaDsFile](Publish-ZPkiCaDsFile.md)
 {{ Fill in the Description }}
 
-### [Remove-ZPkiIssuancePolicyGroupLink](Remove-ZPkiIssuancePolicyGroupLink.md)
+### [Remove-ZPkiAdIssuancePolicyGroupLink](Remove-ZPkiAdIssuancePolicyGroupLink.md)
+{{ Fill in the Description }}
+
+### [Set-ZPkiAdIssuancePolicyGroupLink](Set-ZPkiAdIssuancePolicyGroupLink.md)
 {{ Fill in the Description }}
 
 ### [Set-ZPkiCaPostInstallConfig](Set-ZPkiCaPostInstallConfig.md)
@@ -56,10 +62,13 @@ Locale: en-US
 ### [Set-ZPkiCaUrlConfig](Set-ZPkiCaUrlConfig.md)
 {{ Fill in the Description }}
 
-### [Set-ZPkiIssuancePolicyGroupLink](Set-ZPkiIssuancePolicyGroupLink.md)
+### [Submit-ZPkiRequest](Submit-ZPkiRequest.md)
 {{ Fill in the Description }}
 
-### [Submit-ZPkiRequest](Submit-ZPkiRequest.md)
+### [Find-ZPkiAdObject](Find-ZPkiAdObject.md)
+{{ Fill in the Description }}
+
+### [Find-ZPkiAdUser](Find-ZPkiAdUser.md)
 {{ Fill in the Description }}
 
 ### [Get-ZPkiAdCasConfigString](Get-ZPkiAdCasConfigString.md)
@@ -68,7 +77,13 @@ Locale: en-US
 ### [Get-ZPkiAdForestOid](Get-ZPkiAdForestOid.md)
 {{ Fill in the Description }}
 
+### [Get-ZPkiAdRootDse](Get-ZPkiAdRootDse.md)
+{{ Fill in the Description }}
+
 ### [Get-ZPkiAdTemplate](Get-ZPkiAdTemplate.md)
+{{ Fill in the Description }}
+
+### [Get-ZPkiAdTemplateRiskScore](Get-ZPkiAdTemplateRiskScore.md)
 {{ Fill in the Description }}
 
 ### [Get-ZPkiDbLastRowId](Get-ZPkiDbLastRowId.md)

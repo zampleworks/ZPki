@@ -9,28 +9,10 @@ $DefaultCss = "*,::after,::before{box-sizing:border-box}blockquote,body,dd,dl,fi
 
 . $PSScriptRoot\ZPki-Functions.ps1
 
-<#
-    .SYNOPSIS
-    Install and configure an ADCS based CA. 
-    
-    .DESCRIPTION
-    This cmdlet will
-    1. Install ADCS role
-    2. Create local directories for ADCS content
-    3. Create CAPolicy.inf and copy to C:\Windows
-    4. Configure CA and generate CA cert or cert request
-    
-    If this is a sub CA, get the signed CA cert from superior CA and
-    install it with the Install-ZPkiCaCertificate cmdlet.
 
-    Next step is typically running Set-ZPkiCaPostInstallConfig.
-    
-    Author anders !Ä!T! runesson D"Ö"T info
-
-    .ExternalHelp PsZPki-help.xml
-#>
 Function Install-ZPkiCa {
 # .ExternalHelp PsZPki-help.xml
+
     [CmdletBinding()]
     Param(
         # CN in CA certificate Subject

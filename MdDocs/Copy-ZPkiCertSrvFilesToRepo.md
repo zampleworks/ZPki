@@ -18,8 +18,7 @@ Copy-ZPkiCertSrvFilesToRepo [[-LocalRepositoryPath] <String>] [[-FileType] <Stri
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+Author anders !Ä!T! runesson D"Ö"T info
 
 ## EXAMPLES
 

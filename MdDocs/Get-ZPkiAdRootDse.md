@@ -5,26 +5,29 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdCasConfigString
+# Get-ZPkiAdRootDse
 
 ## SYNOPSIS
-List configuration strings for all Enterprise CAs in the forest
+Get RootDSE for Active Directory. Use parameters to control which domain to connect to.
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdCasConfigString [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
+Get-ZPkiAdRootDse [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+If run without parameters, cmdlet will connect to computer's joined domain. If -UserDomain is supplied, the cmdlet will connect to calling user's domain. 
+Using -Domain or -DomainController you can connect to specific DC's, or to another domain in the forest, or any trusted forest.
+
+Default is to connect to ADWS. Use -Rpc if you need to connect via RPC instead.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdRootDse
 ```
 
 {{ Add example description here }}
@@ -78,7 +81,8 @@ Accept wildcard characters: False
 ```
 
 ### -Rpc
-Use RPC interface for querying. If false/not set, use ADWS (default)
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
@@ -117,7 +121,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.String[]
+### xyz.zwks.pkilib.ad.AdObject
 
 ## NOTES
 

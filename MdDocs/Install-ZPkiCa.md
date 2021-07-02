@@ -41,17 +41,16 @@ install it with the Install-ZPkiCaCertificate cmdlet.
 
 Next step is typically running Set-ZPkiCaPostInstallConfig.
 
-Author anders !Ä!T!
-runesson D"Ö"T info
+Author anders !Ä!T! runesson D"Ö"T info
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Install-ZPkiCa -CaCommonName "ZampleWorks PKI v1 Issuing CA" -CaDnSuffix = "O = ZampleWorks, C = SE"
 ```
 
-{{ Add example description here }}
+This will install an Enterprise Root CA with Subject built from supplied CN and DN suffix. 
 
 ## PARAMETERS
 

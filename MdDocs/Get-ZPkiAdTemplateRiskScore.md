@@ -5,16 +5,16 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdCasConfigString
+# Get-ZPkiAdTemplateRiskScore
 
 ## SYNOPSIS
-List configuration strings for all Enterprise CAs in the forest
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdCasConfigString [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
- [<CommonParameters>]
+Get-ZPkiAdTemplateRiskScore [-Name <String>] [-Domain <String>] [-DomainController <String>] [-UserDomain]
+ [-Rpc] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -77,8 +77,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Name
+Find template by Name
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Rpc
-Use RPC interface for querying. If false/not set, use ADWS (default)
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
@@ -117,7 +133,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.String[]
+### xyz.zwks.pkilib.cert.ICertTemplate[]
 
 ## NOTES
 

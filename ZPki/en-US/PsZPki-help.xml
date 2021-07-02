@@ -1226,9 +1226,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Install-ZPkiCa -CaCommonName "ZampleWorks PKI v1 Issuing CA" -CaDnSuffix = "O = ZampleWorks, C = SE"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>This will install an Enterprise Root CA with Subject built from supplied CN and DN suffix.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

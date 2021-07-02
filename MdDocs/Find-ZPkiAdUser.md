@@ -5,29 +5,29 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdCasConfigString
+# Find-ZPkiAdUser
 
 ## SYNOPSIS
-List configuration strings for all Enterprise CAs in the forest
+Search AD for user objects.
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdCasConfigString [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
- [<CommonParameters>]
+Find-ZPkiAdUser [-Name <String>] [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>] [-Rpc]
+ [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Similar to Find-ZPkiAdObject, but searches specifically for user objects. Filter by -Name, which will match attributes: name, displayname, cn, samaccountname, userprincipalname.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-ZPkiAdUser -Name "Tommy Teapot"
 ```
 
-{{ Add example description here }}
+Search for AD users in the default naming context (Get-ZPkiAdRootDse | Select defaultnamingcontext)
 
 ## PARAMETERS
 
@@ -77,13 +77,77 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Name
+Search by name.
+Will match attributes 'name', 'cn', 'displayname'
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Properties
+Select properties to return
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Rpc
-Use RPC interface for querying. If false/not set, use ADWS (default)
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchBase
+Search in OU/container
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchScope
+Search scope.
+Must be Base, OneLevel, or Subtree.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: OneLevel, Base, Subtree
 
 Required: False
 Position: Named
@@ -117,7 +181,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.String[]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

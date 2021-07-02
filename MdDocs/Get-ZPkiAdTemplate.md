@@ -8,13 +8,26 @@ schema: 2.0.0
 # Get-ZPkiAdTemplate
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get certificate templates from AD
 
 ## SYNTAX
 
+### Default (Default)
 ```
-Get-ZPkiAdTemplate [-Oid <String>] [-Name <String>] [-PublishedBy <String>] [-IncludePublishingCAs]
- [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiAdTemplate [-PublishedBy <String>] [-IncludePublishingCAs] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+```
+
+### Name
+```
+Get-ZPkiAdTemplate [-Name <String>] [-PublishedBy <String>] [-IncludePublishingCAs] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+```
+
+### Oid
+```
+Get-ZPkiAdTemplate [-Oid <String>] [-PublishedBy <String>] [-IncludePublishingCAs] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -97,13 +110,13 @@ Find template by Name
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Name
 Aliases:
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -112,7 +125,7 @@ Find template by OID
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Oid
 Aliases:
 
 Required: False
@@ -127,6 +140,22 @@ Find template published on a specific CA
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Rpc
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -158,11 +187,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### System.String
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.cert.ICertTemplate[]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 
