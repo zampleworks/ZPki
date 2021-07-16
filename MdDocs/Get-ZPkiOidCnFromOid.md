@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiOidCnFromOid
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Generate cn for an OID object
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Get-ZPkiOidCnFromOid -Oid <String> [-Rpc] [-Domain <String>] [-DomainController 
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+OID objects in the config partition in AD have their cn attribute set to a specific format. This cmdlet will generate that format.
 
 ## EXAMPLES
 

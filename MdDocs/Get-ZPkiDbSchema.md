@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiDbSchema
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get ADCS Db schema
 
 ## SYNTAX
 
@@ -17,16 +17,14 @@ Get-ZPkiDbSchema [-ConfigString <String>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Print schema definition of ADCS database on ADCS instance ConfigString
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiDbSchema
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 

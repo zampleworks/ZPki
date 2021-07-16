@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-ZPkiAdObject
 
 ## SYNOPSIS
-Search AD for objects
+Search AD for objects.
 
 ## SYNTAX
 
@@ -19,7 +19,8 @@ Find-ZPkiAdObject -SearchBase <String> -LdapFilter <String> -SearchScope <String
 
 ## DESCRIPTION
 This cmdlet can search AD for objects matching LDAP filter.  
-Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with the MS ActiveDirectory module.
+Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with the MS ActiveDirectory module.  
+This cmdlet will attempt to print attributes in human-readable form where the MS ActiveDirectory prints raw data, such as lastlogontimestamp and useraccountcontrol attributes.
 
 ## EXAMPLES
 
@@ -182,7 +183,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

@@ -1750,22 +1750,6 @@ Function Get-ZPkiAdIssuancePolicy {
 
 
 <#
-    .SYNOPSIS
-    Installs RSAT ADCS management tools. Required for cmdlets that
-    call the CA COM interface directly, such ass the *-ZPkiDb* cmdlets.
-
-    .DESCRIPTION
-    Some cmdlets in this module require extra COM modules installed to 
-    interface with ADCS. These components are available in Microsoft's 
-    Remote Server Administration Tools. 
-    For convenience, a switch is included to add ADDS admin tools as well.
-
-    On Windows clients, this cmdlet requires Windows 10 1809. On earlier 
-    versions of Windows you have to download and install the RSAT packate
-    from Microsoft manually.
-
-    Author anders !Ä!T! runesson D"Ö"T info
-
     .ExternalHelp PsZPki-help.xml
 #>
 Function Install-ZPkiRsatComponents {

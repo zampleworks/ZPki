@@ -25,10 +25,10 @@ This cmdlet can retrieve this value, or generate it if no templates have been cr
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdForestOid
 ```
 
-{{ Add example description here }}
+Get the OID for your forest
 
 ## PARAMETERS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiDbLastRowId
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get the row ID of the last row in the ADCS Db.
 
 ## SYNTAX
 
@@ -17,16 +17,23 @@ Get-ZPkiDbLastRowId [-ConfigString <String>] [-Table <String>] [-ExtraVerbose] [
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get the row ID of the last row in the ADCS Db.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiDbLastRowId
 ```
 
-{{ Add example description here }}
+Get the last row of Db on local ADCS instance.
+
+### Example 2
+```powershell
+PS C:\> Get-ZPkiDbLastRowId (Get-ZPkiAdCasConfigString | Select -First 1)
+```
+
+Get the last row of Db on the ADCS instance defined by the first config string found by Get-ZPkiAdCasConfigString.
 
 ## PARAMETERS
 

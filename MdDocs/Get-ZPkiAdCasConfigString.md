@@ -18,13 +18,13 @@ Get-ZPkiAdCasConfigString [-Rpc] [-Domain <String>] [-DomainController <String>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+List configuration strings for all Enterprise CAs in the forest
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdCasConfigString
 ```
 
 {{ Add example description here }}

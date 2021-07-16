@@ -1367,11 +1367,14 @@
       <command:verb>Install</command:verb>
       <command:noun>ZPkiRsatComponents</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Installs RSAT ADCS management tools. Required for cmdlets that
+call the CA COM interface directly, such as the -ZPkiDb cmdlets.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Some cmdlets in this module require extra COM modules installed to  interface with ADCS. These components are available in Microsoft's  Remote Server Administration Tools.  For convenience, a switch is included to add ADDS admin tools as well.</maml:para>
+      <maml:para>On Windows clients, this cmdlet requires Windows 10 1809. On earlier  versions of Windows you have to download and install the RSAT packate from Microsoft manually.</maml:para>
+      <maml:para>Author anders !Ä!T! runesson D"Ö"T info</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1379,7 +1382,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>IncludeAdTools</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IncludeAdTools Description }}</maml:para>
+            <maml:para>Also install RSAT ActiveDirectory module</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1393,7 +1396,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>IncludeAdTools</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IncludeAdTools Description }}</maml:para>
+          <maml:para>Also install RSAT ActiveDirectory module</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1431,9 +1434,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Install-ZPkiRsatComponents</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Installs RSAT ADCS management tools</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

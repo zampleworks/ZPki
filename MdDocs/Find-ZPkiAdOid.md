@@ -1,36 +1,34 @@
-﻿---
+---
 external help file: PkiCertClient.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdRootDse
+# Find-ZPkiAdOid
 
 ## SYNOPSIS
-Get RootDSE for Active Directory. Use parameters to control which domain to connect to.
+Find OID registrations in AD. Retrieve all OIDs, or filter by type and/or name.
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdRootDse [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
- [<CommonParameters>]
+Find-ZPkiAdOid [-Name <String>] [-Type <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
+ [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-If run without parameters, cmdlet will connect to computer's joined domain. If -UserDomain is supplied, the cmdlet will connect to calling user's domain. 
-Using -Domain or -DomainController you can connect to specific DC's, or to another domain in the forest, or any trusted forest.
-
-Default is to connect to ADWS. Use -Rpc if you need to connect via RPC instead.
+Search objects under CN=OID, CN=Public Key Services, CN=Services in the AD forests' configuration partition.  
+Can filter by type (template, application policy, or issuance policy) and/or by displayName.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Get-ZPkiAdRootDse
+PS C:\> Find-ZPkiAdOid
 ```
 
-Get RootDSE object and all properties.
+List all OID objects in configuration partition
 
 ## PARAMETERS
 
@@ -80,6 +78,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Name
+Search by name.
+Will match attribute displayName
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Rpc
 Use RPC interface for querying.
 If false/not set, use ADWS (default)
@@ -88,6 +102,23 @@ If false/not set, use ADWS (default)
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Type
+Search by name.
+Will match attribute displayName
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: Template, IssuancePolicy, ApplicationPolicy
 
 Required: False
 Position: Named
@@ -121,7 +152,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.ad.AdObject
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

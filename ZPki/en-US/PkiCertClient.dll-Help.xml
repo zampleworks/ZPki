@@ -6,12 +6,13 @@
       <command:verb>Find</command:verb>
       <command:noun>ZPkiAdObject</command:noun>
       <maml:description>
-        <maml:para>Search AD for objects</maml:para>
+        <maml:para>Search AD for objects.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>This cmdlet can search AD for objects matching LDAP filter.
-Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with the MS ActiveDirectory module.</maml:para>
+Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with the MS ActiveDirectory module.
+This cmdlet will attempt to print attributes in human-readable form where the MS ActiveDirectory prints raw data, such as lastlogontimestamp and useraccountcontrol attributes.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -251,7 +252,7 @@ Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -270,6 +271,232 @@ Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with 
 PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchScope Subtree -LdapFilter "(objectClass=user)"</dev:code>
         <dev:remarks>
           <maml:para>First, get the RootDSE and use the information to search in the default domain partition for all user objects.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Find-ZPkiAdOid</command:name>
+      <command:verb>Find</command:verb>
+      <command:noun>ZPkiAdOid</command:noun>
+      <maml:description>
+        <maml:para>Find OID registrations in AD. Retrieve all OIDs, or filter by type and/or name.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Search objects under CN=OID, CN=Public Key Services, CN=Services in the AD forests' configuration partition.
+Can filter by type (template, application policy, or issuance policy) and/or by displayName.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Find-ZPkiAdOid</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Search by name. Will match attribute displayName</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Type</maml:name>
+          <maml:description>
+            <maml:para>Search by name. Will match attribute displayName</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Template</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">IssuancePolicy</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ApplicationPolicy</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Domain</maml:name>
+        <maml:description>
+          <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DomainController</maml:name>
+        <maml:description>
+          <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExtraVerbose</maml:name>
+        <maml:description>
+          <maml:para>Debug output</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Search by name. Will match attribute displayName</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Rpc</maml:name>
+        <maml:description>
+          <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Type</maml:name>
+        <maml:description>
+          <maml:para>Search by name. Will match attribute displayName</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UserDomain</maml:name>
+        <maml:description>
+          <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Find-ZPkiAdOid</dev:code>
+        <dev:remarks>
+          <maml:para>List all OID objects in configuration partition</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -525,7 +752,7 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -558,7 +785,7 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>List configuration strings for all Enterprise CAs in the forest</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -712,7 +939,7 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiAdCasConfigString</dev:code>
         <dev:remarks>
           <maml:para>{{ Add example description here }}</maml:para>
         </dev:remarks>
@@ -884,9 +1111,9 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiAdForestOid</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Get the OID for your forest</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1059,7 +1286,7 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ZPkiAdRootDse</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Get RootDSE object and all properties.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1071,11 +1298,11 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdTemplate</command:noun>
       <maml:description>
-        <maml:para>Get certificate templates from AD</maml:para>
+        <maml:para>Get certificate templates from AD.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>List or search for templates in Active Directory. You can filter by name, template OID, or which CA that currently publishes this template.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1392,7 +1619,7 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1617,11 +1844,11 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
       <command:verb>Get</command:verb>
       <command:noun>ZPkiDbLastRowId</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get the row ID of the last row in the ADCS Db.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Get the row ID of the last row in the ADCS Db.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1735,9 +1962,16 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiDbLastRowId</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Get the last row of Db on local ADCS instance.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiDbLastRowId (Get-ZPkiAdCasConfigString | Select -First 1)</dev:code>
+        <dev:remarks>
+          <maml:para>Get the last row of Db on the ADCS instance defined by the first config string found by Get-ZPkiAdCasConfigString.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1749,11 +1983,12 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
       <command:verb>Get</command:verb>
       <command:noun>ZPkiDbRow</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Query ADCS Db</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Query ADCS database for rows matching given filters.
+You can query the request table, CRL table, or extensions table.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1939,9 +2174,16 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiDbRow -ConfigString $c</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>This will return all rows in Db on ADCS instance $c</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiDbRow -ConfigString $c -Filters "RequestID==2"</dev:code>
+        <dev:remarks>
+          <maml:para>This will return the row with ID 2 in Db on ADCS instance $c</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1953,11 +2195,11 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
       <command:verb>Get</command:verb>
       <command:noun>ZPkiDbSchema</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get ADCS Db schema</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Print schema definition of ADCS database on ADCS instance ConfigString</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2041,9 +2283,9 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiDbSchema</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2055,11 +2297,11 @@ PS C:\&gt; Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchSc
       <command:verb>Get</command:verb>
       <command:noun>ZPkiOidCnFromOid</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Generate cn for an OID object</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>OID objects in the config partition in AD have their cn attribute set to a specific format. This cmdlet will generate that format.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

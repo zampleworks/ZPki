@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiAdTemplate
 
 ## SYNOPSIS
-Get certificate templates from AD
+Get certificate templates from AD.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Get-ZPkiAdTemplate [-Oid <String>] [-PublishedBy <String>] [-IncludePublishingCA
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+List or search for templates in Active Directory. You can filter by name, template OID, or which CA that currently publishes this template. 
 
 ## EXAMPLES
 
@@ -191,7 +191,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7853.1232, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

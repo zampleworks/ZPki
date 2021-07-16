@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiDbRow
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Query ADCS Db
 
 ## SYNTAX
 
@@ -18,16 +18,24 @@ Get-ZPkiDbRow [-ConfigString <String>] [-Filters <String[]>] [-Properties <Strin
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Query ADCS database for rows matching given filters.  
+You can query the request table, CRL table, or extensions table.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiDbRow -ConfigString $c
 ```
 
-{{ Add example description here }}
+This will return all rows in Db on ADCS instance $c
+
+### Example 2
+```powershell
+PS C:\> Get-ZPkiDbRow -ConfigString $c -Filters "RequestID==2"
+```
+
+This will return the row with ID 2 in Db on ADCS instance $c
 
 ## PARAMETERS
 
