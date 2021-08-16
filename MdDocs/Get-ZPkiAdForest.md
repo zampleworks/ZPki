@@ -5,30 +5,32 @@ online version:
 schema: 2.0.0
 ---
 
-# Find-ZPkiAdOid
+# Get-ZPkiAdForest
 
 ## SYNOPSIS
-Find OID registrations in AD. Retrieve all OIDs, or filter by type and/or name.
+Get AD forest information
 
 ## SYNTAX
 
 ```
-Find-ZPkiAdOid [-Name <String>] [-Type <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiAdForest [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Search objects under CN=OID, CN=Public Key Services, CN=Services in the AD forests' configuration partition.  
-Can filter by type (template, application policy, or issuance policy) and/or by displayName.
+Get basic information about an AD forest, including: 
+ - fSMO masters
+ - partitions
+ - global catalogs
+ 
+et cetera. This cmdlet shows the same information as Get-AdForest from Microsoft's ActiveDirectory module.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Find-ZPkiAdOid
+PS C:\> Get-ZPkiAdForest
 ```
-
-List all OID objects in configuration partition
 
 ## PARAMETERS
 
@@ -78,22 +80,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-Search by name.
-Will match attribute displayName
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Rpc
 Use RPC interface for querying.
 If false/not set, use ADWS (default)
@@ -102,23 +88,6 @@ If false/not set, use ADWS (default)
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Type
-Search by name.
-Will match attribute displayName
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: Template, IssuancePolicy, ApplicationPolicy
 
 Required: False
 Position: Named
@@ -152,7 +121,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7898.29342, Culture=neutral, PublicKeyToken=null]]
+### xyz.zwks.pkilib.ad.AdObject
 
 ## NOTES
 

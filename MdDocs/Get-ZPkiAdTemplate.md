@@ -37,10 +37,10 @@ List or search for templates in Active Directory. You can filter by name, templa
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdTemplate
 ```
 
-{{ Add example description here }}
+List all templates in the computer's domain.
 
 ## PARAMETERS
 
@@ -191,7 +191,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7898.29342, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

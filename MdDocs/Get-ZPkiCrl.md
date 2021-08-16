@@ -1,36 +1,63 @@
-﻿---
+---
 external help file: PkiCertClient.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Find-ZPkiAdOid
+# Get-ZPkiCrl
 
 ## SYNOPSIS
-Find OID registrations in AD. Retrieve all OIDs, or filter by type and/or name.
+Read CRL file from local file, URI or raw bytes.
 
 ## SYNTAX
 
+### Path
 ```
-Find-ZPkiAdOid [-Name <String>] [-Type <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Path] <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
+ [-ExtraVerbose] [<CommonParameters>]
+```
+
+### Uri
+```
+Get-ZPkiCrl [-Uri] <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
+ [-ExtraVerbose] [<CommonParameters>]
+```
+
+### Bytes
+```
+Get-ZPkiCrl [-Bytes] <Byte[]> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Search objects under CN=OID, CN=Public Key Services, CN=Services in the AD forests' configuration partition.  
-Can filter by type (template, application policy, or issuance policy) and/or by displayName.
+Returns a .NET object representing a CRL file.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Find-ZPkiAdOid
+PS C:\> Get-ZPkiCrl -Uri "http://crl4.digicert.com/sha2-ev-server-g3.crl"
 ```
 
-List all OID objects in configuration partition
+Download and parse CRL file from a public CA.
 
 ## PARAMETERS
+
+### -Bytes
+Byte array of ASN.1 encoded data
+
+```yaml
+Type: Byte[]
+Parameter Sets: Bytes
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Domain
 Connect to specified domain instead of current user/local computer's domain.
@@ -78,17 +105,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-Search by name.
-Will match attribute displayName
+### -Path
+Path to CRL file
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Path
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -110,18 +136,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Type
-Search by name.
-Will match attribute displayName
+### -Uri
+Uri (HTTP or LDAP) where a CRL can be downloaded
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Uri
 Aliases:
-Accepted values: Template, IssuancePolicy, ApplicationPolicy
 
-Required: False
-Position: Named
+Required: True
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -152,7 +176,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7898.29342, Culture=neutral, PublicKeyToken=null]]
+### xyz.zwks.pkilib.cert.Crl
 
 ## NOTES
 

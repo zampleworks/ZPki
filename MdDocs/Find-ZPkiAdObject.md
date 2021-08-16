@@ -13,7 +13,7 @@ Search AD for objects.
 ## SYNTAX
 
 ```
-Find-ZPkiAdObject -SearchBase <String> -LdapFilter <String> -SearchScope <String> [-Properties <String[]>]
+Find-ZPkiAdObject [-SearchBase <String>] -LdapFilter <String> [-SearchScope <String>] [-Properties <String[]>]
  [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
 ```
 
@@ -134,7 +134,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -151,7 +151,7 @@ Parameter Sets: (All)
 Aliases:
 Accepted values: OneLevel, Base, Subtree
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -183,7 +183,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7866.36010, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7898.29342, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 
