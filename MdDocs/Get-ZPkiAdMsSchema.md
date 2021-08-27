@@ -5,32 +5,29 @@ online version:
 schema: 2.0.0
 ---
 
-# Find-ZPkiAdObject
+# Get-ZPkiAdMsSchema
 
 ## SYNOPSIS
-Search AD for objects.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Find-ZPkiAdObject [-SearchBase <String>] -LdapFilter <String> [-SearchScope <String>] [-Properties <String[]>]
- [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiAdMsSchema [-ExchDomainDN <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
+ [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This cmdlet can search AD for objects matching LDAP filter.  
-Use -LdapFilter, -SearchBase, -SearchScope, and -Properties like you would with the MS ActiveDirectory module.  
-This cmdlet will attempt to print attributes in human-readable form where the MS ActiveDirectory prints raw data, such as lastlogontimestamp and useraccountcontrol attributes.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> $RootDse = Get-ZPkiAdRootDse
-PS C:\> Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchScope Subtree -LdapFilter "(objectClass=user)"
+PS C:\> {{ Add example code here }}
 ```
 
-First, get the RootDSE and use the information to search in the default domain partition for all user objects.
+{{ Add example description here }}
 
 ## PARAMETERS
 
@@ -65,11 +62,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ExtraVerbose
-Debug output
+### -ExchDomainDN
+Check exchange version in this domain (distinguished name)
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -80,26 +77,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -LdapFilter
-Ldap query filter
+### -ExtraVerbose
+Debug output
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Properties
-Select properties to return
-
-```yaml
-Type: String[]
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -118,38 +100,6 @@ If false/not set, use ADWS (default)
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SearchBase
-Ldap query search root
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SearchScope
-Search scope.
-Must be Base, OneLevel, or Subtree.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: OneLevel, Base, Subtree
 
 Required: False
 Position: Named
@@ -183,7 +133,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7899.41089, Culture=neutral, PublicKeyToken=null]]
+### xyz.zwks.pkilib.ad.MsSchemaVersions
 
 ## NOTES
 
