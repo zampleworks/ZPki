@@ -1,27 +1,24 @@
-﻿---
-external help file: PsZPki-help.xml
+---
+external help file: PkiCertClient.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# New-ZPkiWebsite
+# Test-ZPkiTlsConnection
 
 ## SYNOPSIS
-Create a new IIS website to host AIA or CDP Repository
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-New-ZPkiWebsite [[-IisSiteName] <String>] [-HttpFqdn] <String> [[-LocalPath] <String>] [-InstallWebEnroll]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Test-ZPkiTlsConnection [-Uri] <String> -Port <UInt32> [-IgnoreValidation] [-CertFilePath <String>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Installs IIS and creates a new IIS site with the given local root path and host header binding.
-
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -34,8 +31,68 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -HttpFqdn
-{{ Fill HttpFqdn Description }}
+### -CertFilePath
+Save server certificate to file
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExtraVerbose
+Debug output
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IgnoreValidation
+If set, no validation of server certificates will be performed
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Port
+Port for TCP connection
+
+```yaml
+Type: UInt32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Uri
+URI to connect to
 
 ```yaml
 Type: String
@@ -43,84 +100,9 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -IisSiteName
-{{ Fill IisSiteName Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
 Position: 0
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -InstallWebEnroll
-{{ Fill InstallWebEnroll Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -LocalPath
-{{ Fill LocalPath Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: C:\ADCS\Web
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -129,11 +111,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### System.String
 
 ## OUTPUTS
 
-### System.Object
+### xyz.zwks.pkilib.common.NetClient+SecurityOptions
+
 ## NOTES
 
 ## RELATED LINKS

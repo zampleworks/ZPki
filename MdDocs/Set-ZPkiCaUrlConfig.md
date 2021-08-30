@@ -15,22 +15,23 @@ Add/remove CDP and AIA URL configuration
 ### addcdp
 ```
 Set-ZPkiCaUrlConfig [-HttpCdpFqdn <String>] [-HttpCdpPath <String>] [-AddLdapCdp] [-AddFileCdp]
- [-CdpFilePath <String>] [<CommonParameters>]
+ [-CdpFilePath <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### addaia
 ```
-Set-ZPkiCaUrlConfig [-HttpAiaFqdn <String>] [-HttpAiaPath <String>] [-AddLdapAia] [<CommonParameters>]
+Set-ZPkiCaUrlConfig [-HttpAiaFqdn <String>] [-HttpAiaPath <String>] [-AddLdapAia] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### addocsp
 ```
-Set-ZPkiCaUrlConfig [-OcspUri <String>] [<CommonParameters>]
+Set-ZPkiCaUrlConfig [-OcspUri <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### clear
 ```
-Set-ZPkiCaUrlConfig [-ClearCDPs] [-ClearAIAs] [<CommonParameters>]
+Set-ZPkiCaUrlConfig [-ClearCDPs] [-ClearAIAs] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -213,6 +214,36 @@ Include OCSP URI
 Type: String
 Parameter Sets: addocsp
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named

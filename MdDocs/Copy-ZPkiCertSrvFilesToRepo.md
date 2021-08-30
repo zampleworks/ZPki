@@ -8,8 +8,7 @@ schema: 2.0.0
 # Copy-ZPkiCertSrvFilesToRepo
 
 ## SYNOPSIS
-Copies files from C:\Windows\system32\certsrv\CertEnroll to CDP/AIA repository.
-Crt files with server name in file name will be renamed to a sane name.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
@@ -18,21 +17,21 @@ Copy-ZPkiCertSrvFilesToRepo [[-LocalRepositoryPath] <String>] [[-FileType] <Stri
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T! runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Copy-ZPkiCertSrvFilesToRepo -LocalRepositoryPath C:\ADCS\Web\Repository
+PS C:\> {{ Add example code here }}
 ```
 
-This copies all .crt and .crl files from C:\Windows\System32\Certsrv\CertEnroll to C:\ADCS\Web\Repository. .crt files will be renamed to the Common name in the certificate Subject field.
+{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -FileType
-Choose file type to copy: "crl", "crt", or "all".
+{{ Fill FileType Description }}
 
 ```yaml
 Type: String
@@ -42,13 +41,13 @@ Accepted values: crl, crt, all
 
 Required: False
 Position: 1
-Default value: All
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -LocalRepositoryPath
-Local repository path to copy files to
+{{ Fill LocalRepositoryPath Description }}
 
 ```yaml
 Type: String
@@ -57,7 +56,7 @@ Aliases:
 
 Required: False
 Position: 0
-Default value: C:\ADCS\Web\Repository
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

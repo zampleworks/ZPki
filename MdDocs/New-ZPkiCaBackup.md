@@ -22,7 +22,7 @@ Installed local certificates
 
 ```
 New-ZPkiCaBackup [[-BackupsDirectoryName] <String>] [[-BackupsParentDirectory] <String>]
- [[-BackupPwd] <String>] [[-RetentionCount] <Int32>] [-BackupKey] [<CommonParameters>]
+ [[-BackupPwd] <String>] [[-RetentionCount] <Int32>] [-SkipBackupKey] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,21 +39,6 @@ PS C:\> {{ Add example code here }}
 {{ Add example description here }}
 
 ## PARAMETERS
-
-### -BackupKey
-Include private key in backup
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: True
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -BackupPwd
 Password for p12 file
@@ -111,6 +96,21 @@ Aliases:
 Required: False
 Position: 3
 Default value: 10
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SkipBackupKey
+{{ Fill SkipBackupKey Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

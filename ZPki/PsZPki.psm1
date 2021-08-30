@@ -18,7 +18,7 @@ Function Install-ZPkiCa {
         # CN in CA certificate Subject
         [string]
         $CaCommonName = "ZampleWorks CA v1",
-        
+
         # Distinguished name suffix for CA certificate Subject
         [string]
         $CaDnSuffix = "O = ZampleWorks, C = SE",
@@ -31,12 +31,12 @@ Function Install-ZPkiCa {
         # CA Private key length
         [int]
         $KeyLength = 2048,
-    
+
         # CSP or KSP provider to use for key storage.
         [string]
         $CryptoProvider = "Microsoft Software Key Storage Provider",
 
-        # Require admin interaction on each key use. 
+        # Require admin interaction on each key use.
         [switch]
         $AllowAdminInteraction,
 
@@ -50,7 +50,7 @@ Function Install-ZPkiCa {
         [switch]
         $BasicConstraintsIsCritical = $True,
 
-        <# 
+        <#
           Default CA type is Enterprise root, so appropriate PathLength is 0 (meaning no sub CA can be issued)
           Valid input for PathLength is an integer >= 0, or 'None' to remove constraint.
           PathLength = None and EnableBasicConstraints = $True will still include the attribute in the cert.
@@ -71,7 +71,7 @@ Function Install-ZPkiCa {
         [string]
         $CpsNotice,
 
-        # OID for CPS 
+        # OID for CPS
         [string]
         $CpsOid,
 
@@ -87,8 +87,8 @@ Function Install-ZPkiCa {
         [switch]
         $IncludeAssurancePolicy,
 
-        <# 
-            For a domain joined CA server we can determine the OID to use 
+        <#
+            For a domain joined CA server we can determine the OID to use
             if AssurancePolicyName is given and such a policy has been
             created in AD already.
         #>
@@ -137,7 +137,7 @@ Function Install-ZPkiCa {
         [string]
         [ValidateSet("Hours","Days","Weeks","Months", "Years")]
         $CrlDeltaPeriod = "Days",
-        
+
         # CRL Delta validity period
         [int]
         $CrlDeltaPeriodUnits = 0,
@@ -165,7 +165,6 @@ Function Install-ZPkiCa {
         # Transaction log directory
         [string]
         $DbLogPath = "C:\ADCS\DbLog"
-    
     )
 
     If(-Not (Test-IsAdmin)) {
@@ -173,16 +172,16 @@ Function Install-ZPkiCa {
         return
     }
 
-    $IsRoot = $CaType -like "*root*"
+    #$IsRoot = $CaType -like "*root*"
     $IsStandalone = $CaType -like "*standalone*"
 
     # Command will give more than actual providers, but never mind. Command might not work if matching on "*Name: " if language is not english.
-    $InstalledProviders = certutil -csplist | ? { $_ -like "*: *" } | % { $_.Substring($_.IndexOf(":") + 2) }
+    $InstalledProviders = certutil -csplist | Where-Object { $_ -like "*: *" } | ForEach-Object { $_.Substring($_.IndexOf(":") + 2) }
     If($InstalledProviders -notcontains $CryptoProvider) {
-        Write-Host "Crypto provider supplied, but provider is not installed on system." -ForegroundColor Red
-        Write-Host "Selected provider: [$CryptoProvider]. Installed providers: " -ForegroundColor Red
+        Write-Verbose "Crypto provider supplied, but provider is not installed on system."
+        Write-Verbose "Selected provider: [$CryptoProvider]. Installed providers: "
         Foreach($p in $InstalledProviders) {
-            Write-Host "[$p]" -ForegroundColor Red 
+            Verbose "[$p]"
         }
         Write-Error "Exiting."
     }
@@ -224,7 +223,7 @@ Function Install-ZPkiCa {
             return
         }
 
-        $Ap = get-adobject -filter {displayname -eq $AssurancePolicyName} -searchbase "CN=OID,CN=Public Key Services,CN=Services,CN=Configuration,$(Get-AdRootDse | Select -expand rootDomainNamingContext)" -properties displayname,name,mspki-cert-template-oid | select mspki-cert-template-oid,displayname
+        $Ap = get-adobject -filter {displayname -eq $AssurancePolicyName} -searchbase "CN=OID,CN=Public Key Services,CN=Services,CN=Configuration,$(Get-AdRootDse | Select-Object -expand rootDomainNamingContext)" -properties displayname,name,mspki-cert-template-oid | Select-Object mspki-cert-template-oid,displayname
         $AssurancePolicyOid = $Ap.'mspki-cert-template-oid'
         If([string]::IsNullOrWhiteSpace($AssurancePolicyOid)) {
             $WellKnownAssurancePolicies = @{
@@ -237,7 +236,7 @@ Function Install-ZPkiCa {
                 return
             }
             $ForestOid = Get-ZPkiAdForestOid
-            
+
             If([string]::IsNullOrWhiteSpace($ForestOid)) {
                 Write-Error "Failed to determine Assurance policy OID."
                 return
@@ -258,7 +257,7 @@ Function Install-ZPkiCa {
         Write-Error "Policy attributes should not be set in root CA certs. Use -RootCaForcePolicy to override."
     }
 
-    $EnableEkuSection = $EkuOids -ne $Null -And $EkuOids.Count -gt 0
+    $EnableEkuSection = $Null -ne $EkuOids -And $EkuOids.Count -gt 0
     If($EnableEkuSection) {
         Foreach($eku in $EkuOids) {
             If($eku -eq "Oid1" -or $eku -eq "Oid2") {
@@ -284,7 +283,7 @@ Function Install-ZPkiCa {
     $EkuSection = ""
 
     $SectionNames = ""
-    $WritePolicySections = $False
+    #$WritePolicySections = $False
 
     If($EnableCps) {
         $CpsSection = Get-CaPolicyPolicySection -PolicyName "CPS" -PolicyOid $CpsOid -PolicyNotice $CpsNotice -PolicyUrl $CpsURL
@@ -341,7 +340,7 @@ Function Install-ZPkiCa {
     New-ADCSPath -PathName "Policy and documents directory" -Path $DocsPath
     New-ADCSPath -PathName "Certificate requests directory" -Path $ReqsPath
     New-ADCSPath -PathName "Signed certificates directory" -Path $SignedPath
-    New-ADCSPath -PathName "Backup directory" -Path $SignedPath
+    New-ADCSPath -PathName "Backup directory" -Path $BackupsPath
 
     Write-Progress -Activity "Installing ADCS windows role"
     Write-Verbose "Installing ADCS Windows role"
@@ -353,7 +352,7 @@ Function Install-ZPkiCa {
 
     Write-Verbose "Installing $($CAType)"
     $Result = 0
-    Switch($CAType) {    
+    Switch($CAType) {
         "EnterpriseRootCA" {
             If($AllowAdminInteraction) {
                 $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
@@ -369,7 +368,7 @@ Function Install-ZPkiCa {
         }
 
         "EnterpriseSubordinateCA" {
-            Write-Host "This installation step may produce a message that looks like an error"
+            Write-Verbose "This installation step may produce a message that looks like an error"
             If($AllowAdminInteraction) {
                 $Result = Install-AdcsCertificationAuthority  `
                 -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $Keylength `
@@ -380,7 +379,7 @@ Function Install-ZPkiCa {
                 $Result = Install-AdcsCertificationAuthority  `
                 -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $Keylength `
                 -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd 
+                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd
             }
         }
 
@@ -409,12 +408,12 @@ Function Install-ZPkiCa {
     }
 
     If($Result.ErrorId -eq 398) {
-        Write-Host ""
-        Write-Host "The configuration was succcessful, but will not be complete until you install the signed CA certificate."
-        Write-Host "Copy the file [$AdcsPath\CACert.req] to the root CA and sign it. When it is signed, place the signed"
-        Write-Host "certificate in the [$FilePublishPath] directory. Then run the following cmdlet to finish installing the certificate: "
-        Write-Host ":\> Install-ZPkiCaCertificate -CertFile <file>"
-        Write-Host ""
+        Write-Verbose ""
+        Write-Verbose "The configuration was succcessful, but will not be complete until you install the signed CA certificate."
+        Write-Verbose "Copy the file [$AdcsPath\CACert.req] to the root CA and sign it. When it is signed, place the signed"
+        Write-Verbose "certificate in the [$FilePublishPath] directory. Then run the following cmdlet to finish installing the certificate: "
+        Write-Verbose ":\> Install-ZPkiCaCertificate -CertFile <file>"
+        Write-Verbose ""
     } ElseIf($Result.ErrorId -ne 0 -And $Result.ErrorId -ne 398) {
         Write-Error "CA Installation result: [$Result]"
     }
@@ -424,9 +423,9 @@ Function Install-ZPkiCa {
 <#
     .SYNOPSIS
     Installs a signed CA certificate for this CA
-    
+
     .DESCRIPTION
-    This is used when installing a subordinate CA. The installation generates a 
+    This is used when installing a subordinate CA. The installation generates a
     Certificate Signing Request file that needs to get signed by another CA.
     Use this cmdlet to install the resulting signed certificate.
 
@@ -453,10 +452,10 @@ Function Install-ZPkiCaCertificate {
     If($Cert.Issuer -ne $Cert.Subject) {
         $Verified = $Cert.Verify()
         If(-Not $Verified) {
-            Write-Host "Certificate $CertFile cannot be verified as valid. Ensure that all AIA and CDP paths are valid and accessible." -ForegroundColor Red
-            Write-Host "Test certificate with 'certutil -verify -urlfetch $CertFile' to see which URLs are not responding." -ForegroundColor Red
-            Write-Host "GUI command: 'certutil -url $CertFile' to see which URLs are not responding." -ForegroundColor Red
-            Write-Host ""
+            Write-Verbose "Certificate $CertFile cannot be verified as valid. Ensure that all AIA and CDP paths are valid and accessible." -ForegroundColor Red
+            Write-Verbose "Test certificate with 'certutil -verify -urlfetch $CertFile' to see which URLs are not responding." -ForegroundColor Red
+            Write-Verbose "GUI command: 'certutil -url $CertFile' to see which URLs are not responding." -ForegroundColor Red
+            Write-Verbose ""
             Write-Error "Cannot install CA certificate. Ensure CA certificate chain validates before running this command again."
         }
     }
@@ -464,7 +463,7 @@ Function Install-ZPkiCaCertificate {
     $CertUtilOutput = certutil -Installcert "$CertFile"
 
     If(-Not $?) {
-        Write-Host $CertUtilOutput
+        Write-Verbose $CertUtilOutput
         Write-Error "CA certificate install command failed"
     }
 
@@ -475,14 +474,14 @@ Function Install-ZPkiCaCertificate {
 <#
     .SYNOPSIS
     Generates a HTML index file for CDP/AIA repository
-    
+
     .DESCRIPTION
     This cmdlet will generate a helpful HTML page containing web links to all CA certificates and CRL files in the given
     directory (SourcePath). You can include Javascript/CSS files of your choosing by using the CssFiles/JsFiles parameters.
     You can generate a default CSS file with the New-ZPkiRepoCssFile.
 
     Recommendation: create both binary and PEM versions of each cert in the source directory.
-    Follow this naming standard: cacert.crt and cacert.pem.crt. If you do the pem versions will 
+    Follow this naming standard: cacert.crt and cacert.pem.crt. If you do the pem versions will
     be included on the same table row.
 
     The cmdlet assumes the following layout of files in the generated HTML:
@@ -495,44 +494,52 @@ Function Install-ZPkiCaCertificate {
 
     .ExternalHelp PsZPki-help.xml
 #>
+
 Function New-ZPkiRepoIndex {
- Param(
+    [CmdletBinding(ConfirmImpact='Medium', SupportsShouldProcess=$true)]
+    Param(
+        <#
+            This directory will be scanned for crt/cer/crl files.
+            It is assumed that files will be in a subdirectory named 'Repository' relative to the index.html file.
+        #>
+        [string]
+        $Sourcepath = ".\",
 
-    <# 
-        This directory will be scanned for crt/cer/crl files.
-        It is assumed that files will be in a subdirectory named 'Repository' relative to the index.html file.
-    #>
-    [string]
-    $Sourcepath = ".\",
+        # Path for generated index file.
+        [string]
+        $IndexFile = "index.html",
 
-    # Path for generated index file.
-    [string]
-    $IndexFile = "index.html",
+        # Style sheet to include in html
+        [string[]]
+        $CssFiles,
 
-    # Style sheet to include in html
-    [string[]]
-    $CssFiles,
+        # Javascript to include in html
+        [string[]]
+        $JsFiles,
 
-    # Javascript to include in html
-    [string[]]
-    $JsFiles,
+        # HTML title tag
+        [string]
+        $PageTitle = "PKI Repository",
 
-    # HTML title tag
-    [string]
-    $PageTitle = "PKI Repository",
+        # HTML h1 tab
+        [string]
+        $PageHeader = "PKI Repository",
 
-    # HTML h1 tab
-    [string]
-    $PageHeader = "PKI Repository",
+        # HTML header for the CA certs section
+        [string]
+        $CertsHeader = "CA Certificates",
 
-    # HTML header for the CA certs section
-    [string]
-    $CertsHeader = "CA Certificates",
+        # HTML header for the CA CRLs section
+        [string]
+        $CrlsHeader = "CRL files"
+    )
 
-    # HTML header for the CA CRLs section
-    [string]
-    $CrlsHeader = "CRL files"
-)
+    If(Test-Path $IndexFile) {
+        If(-Not (ShouldProcess("Overwrite file $IndexFile"))) {
+            Write-Output "File $IndexFile exists, will not overwrite. use -Confirm:`$false to avoid confirmation prompts."
+            return
+        }
+    }
 
     $Certs = @(Get-ChildItem $Sourcepath -Filter "*.cer") + (Get-ChildItem $Sourcepath -Filter "*.crt") + (Get-ChildItem $Sourcepath -Filter "*.pem")
     $Crls = Get-ChildItem $Sourcepath -Filter "*.crl"
@@ -543,19 +550,19 @@ Function New-ZPkiRepoIndex {
     $StyleSheets = $CssFiles | Where-Object { -Not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { Write-Output "$t<link rel=`"stylesheet`" href=`"$_`">$n" }
     $JavaScripts = $JsFiles | Where-Object { -Not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { Write-Output "<script src=`"$_`"></script>$n" }
 
-    $Head = "" + 
-        "<head>$n" + 
-            "$t<title>$PageTitle</title>$n" + 
-            "$t<meta http-equiv=`"Content-type`" content=`"text/html; charset=utf-8`">$n" + 
-            "$t<meta http-equiv=`"X-UA-Compatible`" content=`"IE=edge`">$n" + 
+    $Head = "" +
+        "<head>$n" +
+            "$t<title>$PageTitle</title>$n" +
+            "$t<meta http-equiv=`"Content-type`" content=`"text/html; charset=utf-8`">$n" +
+            "$t<meta http-equiv=`"X-UA-Compatible`" content=`"IE=edge`">$n" +
             "$StyleSheets$n" +
         "</head>"
 
-    $PageHeadContainer = "" + 
-                "$t<div class='row'>$n" + 
-                    "$t$t<div class='page header page-header col-sm-12'>$n" + 
-                    "$t$t$t<h1>$PageHeader</h1>$n" + 
-                    "$t$t</div>$n" + 
+    $PageHeadContainer = "" +
+                "$t<div class='row'>$n" +
+                    "$t$t<div class='page header page-header col-sm-12'>$n" +
+                    "$t$t$t<h1>$PageHeader</h1>$n" +
+                    "$t$t</div>$n" +
                 "$t</div>$n"
 
     $Serials = @()
@@ -580,21 +587,20 @@ Function New-ZPkiRepoIndex {
 
             $Serials += @($c.SerialNumber)
 
-            $baseName = $_.baseName
             $PemFileName = "{0}\{1}.pem.crt" -f $_.DirectoryName, $_.BaseName
             $HasPem = Test-Path -Path $PemFileName -PathType Leaf
-        
-            $Out = New-Object PSObject -Property @{ 
-                    'CertFile' = $_.FullName; 
-                    'X509' = $c; 
-                    'Serial' = $c.SerialNumber; 
+
+            $Out = New-Object PSObject -Property @{
+                    'CertFile' = $_.FullName;
+                    'X509' = $c;
+                    'Serial' = $c.SerialNumber;
                     'NotAfter' = $c.NotAfter;
                     'Issuer' = $Issuer;
                     'Subject' = $Name;
                     'File' = [Uri]::EscapeUriString($_.Name)
                     'HasPem' = $HasPem
-                } 
-        
+                }
+
             If($HasPem) {
                 $PemFile = Get-ChildItem $PemFileName
                 $Out | Add-Member -MemberType NoteProperty -Name "PemFile" -Value ([Uri]::EscapeUriString($PemFile.Name))
@@ -604,7 +610,7 @@ Function New-ZPkiRepoIndex {
     }
 
     $CertsTableRows = $XCerts | Sort-Object -property @{ e = { $_.X509.Issuer -eq $_.X509.Subject }; Ascending = $false}, { $_.X509.Subject } | ForEach-Object {
-    
+
         $LinkOut = If($_.File -match ".*\.pem(\.*)") {
             Write-Output "<a href=`"Repository/{3}`">PEM Format (base64 text)</a>$n"
         } Else {
@@ -616,23 +622,22 @@ Function New-ZPkiRepoIndex {
         } else { Write-Output "" }
 
         Write-Output (
-            ("$t$t$t$t<tr>$n" + 
-                "$t$t$t$t$t<td>{0}</td>$n" + 
-                "$t$t$t$t$t<td>{1}</td>$n" + 
-                "$t$t$t$t$t<td>{2}</td>$n" + 
-                "$t$t$t$t$t<td>$n" + 
-                "$t$t$t$t$t$t$LinkOut" + 
-                $PemOut + 
-                "$t$t$t$t$t</td>$n" + 
+            ("$t$t$t$t<tr>$n" +
+                "$t$t$t$t$t<td>{0}</td>$n" +
+                "$t$t$t$t$t<td>{1}</td>$n" +
+                "$t$t$t$t$t<td>{2}</td>$n" +
+                "$t$t$t$t$t<td>$n" +
+                "$t$t$t$t$t$t$LinkOut" +
+                $PemOut +
+                "$t$t$t$t$t</td>$n" +
             "$t$t$t$t</tr>$n") -f $_.Subject, $_.Issuer, $_.Serial, $_.File, $_.PemFile
-        
         )
     }
 
-    $CertsListContainer = "" + 
-                "$t<div class='container row'>$n" + 
-                    "$t$t<div class='cert header'>$n" + 
-                    "$t$t$t<h2>$CertsHeader</h2>$n" + 
+    $CertsListContainer = "" +
+                "$t<div class='container row'>$n" +
+                    "$t$t<div class='cert header'>$n" +
+                    "$t$t$t<h2>$CertsHeader</h2>$n" +
                     "$t$t</div>$n" +
                     "$t$t<div class='cert table col-sm-10'>$n" +
                     "$t$t$t<table class='table table-striped'><thead><th>CA name</th><th>Issuer name</th><th>Serial</th><th>Download link</th></thead>$n" +
@@ -644,28 +649,27 @@ Function New-ZPkiRepoIndex {
                 "$t</div>"
 
     $CrlsTableRows = $Crls | ForEach-Object {
-        #$crl = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 
+        #$crl = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
         #[byte[]] $crlBytes = Get-Content $_.FullName -Encoding Byte
         #$Crl.Import($crlBytes)
 
         Write-Output (
-            ("$t$t$t$t<tr>$n" + 
-                "$t$t$t$t$t<td>{0}</td>$n" + 
-    #            "$t$t$t$t$t<td>{1}</td>$n" + 
-    #            "$t$t$t$t$t<td>{2}</td>$n" + 
-                "$t$t$t$t$t<td><a href=`"Repository/{1}`">Download</a></td>$n" + 
+            ("$t$t$t$t<tr>$n" +
+                "$t$t$t$t$t<td>{0}</td>$n" +
+    #            "$t$t$t$t$t<td>{1}</td>$n" +
+    #            "$t$t$t$t$t<td>{2}</td>$n" +
+                "$t$t$t$t$t<td><a href=`"Repository/{1}`">Download</a></td>$n" +
             "$t$t$t$t</tr>$n") -f $_.BaseName, [uri]::EscapeUriString($_.Name)
-        
         )
     }
 
-    $CrlsListContainer = "" + 
-                "$t<div class='container row'>$n" + 
-                    "$t$t<div class='crl header'>$n" + 
-                    "$t$t$t<h2>$CrlsHeader</h2>$n" + 
+    $CrlsListContainer = "" +
+                "$t<div class='container row'>$n" +
+                    "$t$t<div class='crl header'>$n" +
+                    "$t$t$t<h2>$CrlsHeader</h2>$n" +
                     "$t$t</div>$n" +
                     "$t$t<div class='crl table col-sm-10'>$n" +
-                    "$t$t$t<table class='table table-striped'>$n" + 
+                    "$t$t$t<table class='table table-striped'>$n" +
                     "$t$t$t<thead><tr><th>CRL file</th><th>Download link</th></tr></thead>$n" +
                     "$t$t$t$t<tbody>$n" +
                     "$CrlsTableRows" +
@@ -674,31 +678,27 @@ Function New-ZPkiRepoIndex {
                     "$t$t</div>$n" +
                 "$t</div>"
 
-    $Output = "" + 
-        "<!DOCTYPE html>$n" + 
-        "<html>$n" + 
-            "$Head$n" + 
-            "<body>$n" + 
-                "<div class='container content'>$n" + 
-                "$PageHeadContainer$n" + 
-                "$CertsListContainer$n" + 
-                "$CrlsListContainer$n" + 
-                "</div>$n" + 
-                "$Javascripts$n" + 
-            "</body>$n" + 
+    $Output = "" +
+        "<!DOCTYPE html>$n" +
+        "<html>$n" +
+            "$Head$n" +
+            "<body>$n" +
+                "<div class='container content'>$n" +
+                "$PageHeadContainer$n" +
+                "$CertsListContainer$n" +
+                "$CrlsListContainer$n" +
+                "</div>$n" +
+                "$Javascripts$n" +
+            "</body>$n" +
         "</html>"
 
-
-    #$Output
-
-    $Output | Out-File $IndexFile -Force -encoding utf8 
-
+    $Output | Out-File $IndexFile -Force -encoding utf8
 }
 
 <#
     .SYNOPSIS
     Generate a new default CSS file for use with HTML repository
-    
+
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
@@ -706,33 +706,30 @@ Function New-ZPkiRepoIndex {
     .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiRepoCssFile {
-    [CmdletBinding()]
+    [CmdletBinding(ConfirmImpact='Medium', SupportsShouldProcess=$true)]
     Param(
         [string]
-        $CssFile = "C:\ADCS\Web\style.css",
-
-        [switch]
-        $Force
+        $CssFile = "C:\ADCS\Web\style.css"
     )
 
-    If(Test-Path $CssFile -PathType Container) {
-        Write-Error "Style sheet file $CssFile exists, but it is a directory"
-    }
-    If(Test-Path $CssFile -PathType Leaf) {
-        If($Force) {
-            $DefaultCss | Out-File $CssFile -Force
-        } Else {
-            Write-Error "Style sheet file $CssFile already exists. Use -Force to overwrite file."
+    If(Test-Path $CssFile) {
+        If(-Not (ShouldProcess("Overwrite file $CssFile"))) {
+            Write-Output "File $CssFile exists, will not overwrite. use -Confirm:`$false to avoid confirmation prompts."
+            return
         }
-    } Else {
-        $DefaultCss | Out-File $CssFile
     }
+
+    If(Test-Path $CssFile -PathType Container) {
+        Remove-Item $CssFile -Recurse
+    }
+
+    $DefaultCss | Out-File $CssFile -Force
 }
 
 <#
     .SYNOPSIS
     Create a new IIS website to host AIA or CDP Repository
-    
+
     .DESCRIPTION
     Installs IIS and creates a new IIS site with the given local root path and host header binding.
 
@@ -741,16 +738,15 @@ Function New-ZPkiRepoCssFile {
     .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiWebsite {
-    [CmdletBinding()]
+    [CmdletBinding(ConfirmImpact='Medium', SupportsShouldProcess=$true)]
     Param(
-        
         [string]
         $IisSiteName,
 
         [string]
         [Parameter(Mandatory=$True)]
         $HttpFqdn,
-    
+
         [string]
         $LocalPath = "C:\ADCS\Web",
 
@@ -761,19 +757,24 @@ Function New-ZPkiWebsite {
     Write-Progress -Activity "Installing web components"
     Write-Verbose "Installing IIS"
 
-    Install-WindowsFeature Web-Server -IncludeAllSubFeature -IncludeManagementTools | Out-Null
-        
+    $IisInstalled = Get-WindowsFeature WebServer | Select-Object -ExpandProperty Installed
+    If((-Not $IisInstalled) -And (ShouldProcess("Install IIS"))) {
+        Install-WindowsFeature Web-Server -IncludeAllSubFeature -IncludeManagementTools | Out-Null
+    }
+
     Write-Warning "Adding web sites. Remember to update DNS to point to this server."
-    
-    If((Get-IISSite | Where-Object { $_.Name -eq $HttpFqdn } | Measure-Object | Select -ExpandProperty Count) -lt 1) {
+
+    If((Get-IISSite | Where-Object { $_.Name -eq $HttpFqdn } | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
         If([string]::IsNullOrWhiteSpace($IisSiteName)) {
             $SiteName = $HttpFqdn
         } Else {
             $SiteName = $IisSiteName
         }
 
-        Write-Verbose "Creating web site named $SiteName with root directory $LocalPath"
-        New-IISSite -Name $HttpFqdn -PhysicalPath $LocalPath -BindingInformation "*:80:$HttpFqdn"
+        If(ShouldProcess("Create new IIS Web site $SiteName")) {
+            Write-Verbose "Creating web site named $SiteName with root directory $LocalPath"
+            New-IISSite -Name $HttpFqdn -PhysicalPath $LocalPath -BindingInformation "*:80:$HttpFqdn"
+        }
     }
 }
 
@@ -781,7 +782,7 @@ Function New-ZPkiWebsite {
     .SYNOPSIS
     Copies files from C:\Windows\system32\certsrv\CertEnroll to CDP/AIA repository.
     Crt files with server name in file name will be renamed to a sane name.
-    
+
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
@@ -803,7 +804,7 @@ Function Copy-ZPkiCertSrvFilesToRepo {
     )
 
     Write-Verbose "Copying CA cert to repository and creating PEM version"
-    $CaSubjectName = Get-ItemProperty $CertSvcRegPath -Name Active | Select -ExpandProperty Active
+    $CaSubjectName = Get-ItemProperty $CertSvcRegPath -Name Active | Select-Object -ExpandProperty Active
 
     If($FileType -eq "crl" -or $FileType -eq "crt") {
         $Types = $($FileType)
@@ -811,9 +812,9 @@ Function Copy-ZPkiCertSrvFilesToRepo {
         $Types = "crl","crt"
     }
 
-    $Types | ForEach-Object { 
-        Get-ChildItem -Path $CertSrvDir -Filter "*.$_" | ForEach-Object { 
-            Write-Host $_.FullName
+    $Types | ForEach-Object {
+        Get-ChildItem -Path $CertSrvDir -Filter "*.$_" | ForEach-Object {
+            Write-Verbose $_.FullName
             $hostname = & hostname
             $base = $_.BaseName
             $Fullname = $_.FullName
@@ -833,7 +834,7 @@ Function Copy-ZPkiCertSrvFilesToRepo {
 <#
     .SYNOPSIS
     Publish cert or CRL file in ADDS
-    
+
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
@@ -865,7 +866,7 @@ Function Publish-ZPkiCaDsFile {
     )
 
     If(-Not (Test-Path $PublishFile -PathType Leaf)) {
-        Write-Host ("File [{0}] not found, please check path and try again." -f $PublishFile) -ForegroundColor Red
+        Write-Error ("File [{0}] not found, please check path and try again." -f $PublishFile)
         return
     }
 
@@ -888,8 +889,7 @@ Function Publish-ZPkiCaDsFile {
         Write-Verbose "Refreshing local machine certificate stores.."
         gpupdate /force | Out-Null
     } else {
-        Write-Host "Error when running publish command: " -ForegroundColor Red
-        $Output
+        Write-Error "Error when running publish command: $Output"
     }
 
 }
@@ -899,7 +899,7 @@ Function Publish-ZPkiCaDsFile {
     Performs post-installation configuration tasks.
     Sets registry values for CRL/Delta validity time,
     validity time for issued certs, and sets LDAP path.
-    
+
     .DESCRIPTION
 
     Author anders !Ä!T! runesson D"Ö"T info
@@ -907,32 +907,32 @@ Function Publish-ZPkiCaDsFile {
     .ExternalHelp PsZPki-help.xml
 #>
 Function Set-ZPkiCaPostInstallConfig {
-    [CmdletBinding()]
+    [CmdletBinding(ConfirmImpact='Medium', SupportsShouldProcess=$true)]
     Param(
 
         # Max validity in issued certificates
         [string]
         [ValidateSet("Hours","Days","Weeks","Months", "Years")]
         $IssuedCertValidityPeriod = "Years",
-        
+
         # Max validity in issued certificates
         [int]
         $IssuedCertValidityPeriodUnits = 1,
 
-        # CRL validity 
+        # CRL validity
         [string]
         [ValidateSet("Hours","Days","Weeks","Months", "Years")]
         $CrlPeriod = "Weeks",
 
-        # CRL validity 
+        # CRL validity
         [int]
         $CrlPeriodUnits = 26,
 
-        # CRL overlap 
+        # CRL overlap
         [string]
         [ValidateSet("Hours","Days","Weeks","Months", "Years")]
         $CrlOverlap = "Weeks",
-        
+
         # CRL overlap
         [int]
         $CrlOverlapUnits = 6,
@@ -941,15 +941,15 @@ Function Set-ZPkiCaPostInstallConfig {
         [string]
         [ValidateSet("Hours","Days","Weeks","Months", "Years")]
         $CrlDeltaPeriod = "Days",
-        
+
         # CRL Delta validity
         [int]
         $CrlDeltaPeriodUnits = 0,
-    
+
         # Distinguished Name of configuration partition in AD. Only needed if using LDAP for CDP/AIA publishing
         [string]
         $LdapConfigDn = "default",
-    
+
         # Path to CDP/AIA repository
         [string]
         $RepositoryLocalPath = "C:\ADCS\Web\Repository",
@@ -963,15 +963,15 @@ Function Set-ZPkiCaPostInstallConfig {
         Write-Error "This cmdlet requires admin privileges to run."
         return
     }
-    
+
     Write-Progress -Activity "Updating registry values"
 
-    $Domain = gwmi -Class Win32_ComputerSystem | Select -expand Domain 
+    $Domain = Get-WmiObject -Class Win32_ComputerSystem | Select-Object -expand Domain
     If(-Not [string]::IsNullOrWhiteSpace($Domain) -and $Domain -ne 'WORKGROUP' -and $LdapConfigDn -eq "default") {
-        $LdapConfigDn = Get-ADRootDSE -Server $Domain | Select -ExpandProperty configurationNamingContext
-    } 
+        $LdapConfigDn = Get-ADRootDSE -Server $Domain | Select-Object -ExpandProperty configurationNamingContext
+    }
 
-    $CaSubjectName = Get-ItemProperty $CertSvcRegPath -Name Active | Select -ExpandProperty Active
+    $CaSubjectName = Get-ItemProperty $CertSvcRegPath -Name Active | Select-Object -ExpandProperty Active
 
     # Catype 0 = EnterpriseRoot, 1 = EnterpriseSub, 2 = StandaloneRoot, 3 = StandaloneSub
     $CaType = Get-ItemProperty "$CertSvcRegPath\$CaSubjectName" -Name "CAType" | Select-Object -ExpandProperty CAType
@@ -1000,12 +1000,12 @@ Function Set-ZPkiCaPostInstallConfig {
     }
 
     If($RestartCertSvc) {
-        Restart-Service certsvc 
+        Restart-Service certsvc
     }
 
     Write-Verbose "Copying CA cert to repository and creating PEM version"
 
-    Get-ChildItem -Path $CertSrvDir -Filter "*.crt" | % { 
+    Get-ChildItem -Path $CertSrvDir -Filter "*.crt" | ForEach-Object {
         $hostname = & hostname
         $base = $_.BaseName
         $Fullname = $_.FullName
@@ -1025,9 +1025,9 @@ Function Set-ZPkiCaPostInstallConfig {
 <#
     .SYNOPSIS
     Add/remove CDP and AIA URL configuration
-    
+
     .DESCRIPTION
-    the *Fqdn and *Path parameters are for building a complete HTTP URI. 
+    the *Fqdn and *Path parameters are for building a complete HTTP URI.
     For example,
         $HttpCdpFqdn = my.server.com
         $HttpCdpPath = "Repository"
@@ -1038,18 +1038,18 @@ Function Set-ZPkiCaPostInstallConfig {
     .ExternalHelp PsZPki-help.xml
 #>
 Function Set-ZPkiCaUrlConfig {
-    [CmdletBinding()]
+    [CmdletBinding(ConfirmImpact='Medium', SupportsShouldProcess=$true)]
     Param(
         # FQDN for accessing CDP over HTTP
         [Parameter(ParameterSetName="addcdp")]
         [string]
         $HttpCdpFqdn,
-    
+
         # HTTP path for accessing CDP over HTTP
         [Parameter(ParameterSetName="addcdp")]
         [string]
         $HttpCdpPath = "Repository",
-    
+
         # FQDN for accessing AIA over HTTP
         [Parameter(ParameterSetName="addaia")]
         [string]
@@ -1096,21 +1096,21 @@ Function Set-ZPkiCaUrlConfig {
         $ClearAIAs
     )
 
-    If($ClearCDPs) {
+    If($ClearCDPs -And (ShouldProcess("all", "Remove CDP URL entries"))) {
         Write-Verbose "Removing all CDP URL's. Adding default file URL."
         Get-CACrlDistributionPoint | Remove-CACrlDistributionPoint -Confirm:$False | Out-Null
         Add-CACrlDistributionPoint -Uri "$CertSrvDir\%7%8%9.crl" -PublishToServer -Confirm:$False | Out-Null
     }
 
-    If($ClearAIAs) {
+    If($ClearAIAs -And (ShouldProcess("all", "Remove AIA URL entries"))) {
         Write-Verbose "Removing all AIA URL's. Adding default file URL."
 
         Get-CAAuthorityInformationAccess | Remove-CAAuthorityInformationAccess -Confirm:$False | Out-Null
 
         # Setting default file path does not work via Set-CAAuthorityInformationAccess.
-        $ActiveCa = Get-ItemProperty $CertSvcRegPath -Name Active | Select -ExpandProperty Active
+        $ActiveCa = Get-ItemProperty $CertSvcRegPath -Name Active | Select-Object -ExpandProperty Active
         $DefaultCrtFilePath = ("1:$CertSrvDir\%1_%3%4.crt")
-        Set-ItemProperty -Path "$CertSvcRegPath\$ActiveCa" -Name "CACertPublicationURLs" -Value $DefaultCrtFilePath 
+        Set-ItemProperty -Path "$CertSvcRegPath\$ActiveCa" -Name "CACertPublicationURLs" -Value $DefaultCrtFilePath
     }
 
     If($ClearCDPs -or $ClearAIAs) {
@@ -1152,15 +1152,14 @@ Function Set-ZPkiCaUrlConfig {
     certutil -crl | Out-Null
 
     Restart-Service certsvc
-
 }
 
 <#
     .SYNOPSIS
     Exports an x509 certificate as base64 PEM
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1189,9 +1188,9 @@ Function Export-CertAsPem {
 <#
     .SYNOPSIS
     Get the config string for the local CA. To get config strings for other CAs, use Get-ZPkiAdCasConfigString
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1203,9 +1202,9 @@ Function Get-ZPkiLocalCaConfigString {
 <#
     .SYNOPSIS
     This cmdlet is not finished. Do not use.
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1219,16 +1218,16 @@ Function Get-NewRequests {
         Throw "Requests path not found: [$ReqsPath]"
     }
 
-    Get-ChildItem $ReqsPath -Filter *.req | % { Write-Output $_ }
-    Get-ChildItem $ReqsPath -Filter *.csr | % { Write-Output $_ }
+    Get-ChildItem $ReqsPath -Filter *.req | ForEach-Object { Write-Output $_ }
+    Get-ChildItem $ReqsPath -Filter *.csr | ForEach-Object { Write-Output $_ }
 }
 
 <#
     .SYNOPSIS
     This cmdlet is not finished. Do not use.
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1241,7 +1240,7 @@ Function Submit-ZPkiRequest {
 
         [Parameter(Mandatory=$True)]
         [string]
-        $SignedCertFile = "cert.cer",
+        $SignedCertFile,
 
         [Parameter(Mandatory=$False)]
         [string[]]
@@ -1262,7 +1261,7 @@ Function Submit-ZPkiRequest {
         $SignedCertPath = $Cwd
     } Else {
         $SignedCertPath = $SignedCertFile.Substring(0, $SignedCertFile.LastIndexOf("\"))
-        $SignedCertPath = Get-Item $SignedCertPath | Select -ExpandProperty FullName
+        $SignedCertPath = Get-Item $SignedCertPath | Select-Object -ExpandProperty FullName
     }
 
     If(-Not (Test-Path $CsrFile -PathType Leaf)) {
@@ -1272,26 +1271,26 @@ Function Submit-ZPkiRequest {
         Write-Error "$SignedCertPath not found or is not a directory"
     }
 
-    $CsrFile = Get-Item $CsrFile | Select -ExpandProperty FullName
+    $CsrFile = Get-Item $CsrFile | Select-Object -ExpandProperty FullName
     Set-Location $SignedCertPath
-    
+
     If([string]::IsNullOrWhiteSpace($Config)) {
         $Config = Get-ZPkiLocalCaConfigString
     }
 
     $SignedCertFileName = $SignedCertFile.Substring($SignedCertFile.LastIndexOf("\") + 1)
-    
+
     $i = 0
     While (Test-Path $SignedCertFile -PathType Leaf) {
         $i++
         $SignedCertFile = "{0}\{1}{2}" -f $SignedCertPath, $SignedCertFileName.Substring(0, $SignedCertFileName.LastIndexOf(".")), "-$($i).cer"
-    } 
+    }
 
     $SanAttr = ""
     if(-Not [string]::IsNullOrWhiteSpace($SanName)) {
         $SanAttr = $SanName -join "&DNS="
         $SanAttr = "\nSAN:DNS=$SanAttr"
-    } 
+    }
 
     # Submit request to CA
     If([string]::IsNullOrWhiteSpace($SanAttr) -and [string]::IsNullOrWhiteSpace($Template)) {
@@ -1300,15 +1299,13 @@ Function Submit-ZPkiRequest {
         $OutText = certreq -f -config $Config -submit -attrib "CertificateTemplate:$Template$SanAttr" $CsrFile $SignedCertFile
     }
 
-    rm *.rsp -Force | Out-Null
+    Remove-Item *.rsp -Force | Out-Null
 
     # Combine all output lines into single string
     If($OutText -is [array]) {
         $AllText = $OutText -join " "
-        $Line = $OutText[0]
     } Else {
         $AllText = $OutText
-        $Line = $OutText
     }
 
     # Parse for Request ID
@@ -1316,34 +1313,34 @@ Function Submit-ZPkiRequest {
         $Rid = $Matches[1]
     } Else {
         Write-Verbose "Could not automatically determine request Id. You may need to get this from the CA manually. "
-        
+
         $OutText
         Return
     }
 
-    # Parse for request status 
+    # Parse for request status
     If($AllText -like "*Certificate request is pending: Taken Under Submission*") {
 
-        $ResubText = certutil -config "$Config" -resubmit $Rid
+        certutil -config "$Config" -resubmit $Rid | Out-Null
         If(-Not $?) {
-            Write-Host "Request is pending approval of CA manager. Please ask CA manager to issue the certificate."
-            Write-Host "Certificate request can be issued with the following command, if you have proper permission:"
-            Write-host "> certutil -config `"$Config`" -resubmit $Rid"
-            $R = Read-Host "When the request has been issued, return here and press enter to continue"
+            Write-Verbose "Request is pending approval of CA manager. Please ask CA manager to issue the certificate."
+            Write-Verbose "Certificate request can be issued with the following command, if you have proper permission:"
+            Write-Verbose "> certutil -config `"$Config`" -resubmit $Rid"
+            Read-Host "When the request has been issued, return here and press enter to continue"
         }
-        
+
         # Try to save cert file after it has been issued
         certreq -retrieve -f -config $Config $Rid $SignedCertFile
     } Elseif($AllText -notlike "*(Issued)*") {
-        Write-Host "Cert was not issued. CA output:"
+        Write-Output "Cert was not issued. CA output:"
         $OutText
         Return
     }
 
-    rm *.rsp -Force | Out-Null
+    Remove-Item *.rsp -Force | Out-Null
 
-    Write-Host "Request Id: $Rid, certificate saved in $SignedCertFile"
-    
+    Write-Output "Request Id: $Rid, certificate saved in $SignedCertFile"
+
     Set-Location $Cwd
 }
 
@@ -1352,12 +1349,14 @@ Function Submit-ZPkiRequest {
     Generate random password containing alphanumeric characters and the following set: !@#$%^&*()_-+=[{]};:<>|./?
 
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiRandomPassword {
+    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', 'Does not change system state.')]
     param(
         [Parameter()]
         [int]$Length = 128,
@@ -1366,7 +1365,7 @@ Function New-ZPkiRandomPassword {
         [Parameter()]
         [switch]$ConvertToSecureString
     )
-    
+
     Add-Type -AssemblyName 'System.Web'
     $password = [System.Web.Security.Membership]::GeneratePassword($Length,$NumberOfAlphaNumericCharacters)
     if ($ConvertToSecureString.IsPresent -and $ConvertToSecureString) {
@@ -1385,35 +1384,33 @@ Function New-ZPkiRandomPassword {
         3. Installed local certificates
 
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
 #>
 Function New-ZPkiCaBackup {
     [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', 'Does not change system state.')]
     Param(
-        # Directory for backups within root directory
         [string]
         $BackupsDirectoryName = "Backups",
 
-        # Parent directory for backups
         [string]
         $BackupsParentDirectory = "C:\ADCS",
-        
-        # Password for p12 file
+
         [Parameter(Mandatory=$false)]
         [string]
         $BackupPwd,
 
-        # Not currently implemented
         [int]
         $RetentionCount = 10,
 
-        # Include private key in backup
         [switch]
-        $BackupKey = $True
+        $SkipBackupKey
     )
+
+    $BackupKey = -Not $SkipBackupKey
 
     #
     # Directories to be copied to backup directory. just straight file copy.
@@ -1423,6 +1420,7 @@ Function New-ZPkiCaBackup {
         'Db' = ''
         'CaConfig' = ''
     }
+
     Write-Progress -Activity "CA Backup" -Status "Creating backup directories"
     Write-Verbose "Creating backup directories.."
 
@@ -1432,14 +1430,11 @@ Function New-ZPkiCaBackup {
     $CurrentBackupLocation = "$BackupsParentDirectory\$BackupsDirectoryName"
     $CurrentBackupDirectory = "$CurrentBackupLocation\$BackupDirName"
 
-    Create-Dir -Name $BackupsDirectoryName -Path $BackupsParentDirectory -Verbose
-    Create-Dir -Name $BackupDirName -Path "$CurrentBackupLocation" -Verbose 
+    New-AdcsBackupDir -Name $BackupsDirectoryName -Path $BackupsParentDirectory -Verbose
+    New-AdcsBackupDir -Name $BackupDirName -Path "$CurrentBackupLocation" -Verbose
 
     Foreach($Dir in $BackupDirs.GetEnumerator()) {
-        $Name = $Dir.Key
-        $Path = $Dir.Value
-
-        Create-Dir -Name $Name -Path $CurrentBackupDirectory -Verbose
+        New-AdcsBackupDir -Name $Dir.Key -Path $CurrentBackupDirectory -Verbose
     }
 
     $DbDir = "$CurrentBackupDirectory\Db"
@@ -1454,7 +1449,7 @@ Function New-ZPkiCaBackup {
     $bckOutput = certutil -backupdb $DbDir
 
     If(-Not $?) {
-        Write-Host "Error backing up CA:" -ForegroundColor Red
+        Write-Output "Error backing up CA:"
         Write-Error $bckOutput
     }
 
@@ -1463,11 +1458,10 @@ Function New-ZPkiCaBackup {
             $BackupPwd = New-ZPkiRandomPassword -Length 32 -NumberOfNonAlphaNumChars 10
             Write-Output $BackupPwd
         }
-        $BckKeyOutput = certutil -backupkey -f -p $BackupPwd $CaConfigDir
+        certutil -backupkey -f -p $BackupPwd $CaConfigDir | Out-Null
 
         If(-Not $?) {
-            Write-Host "Error backing up CA certificate and private key:" -ForegroundColor Red
-            Write-Error $bckOutput
+            Write-Error "Error backing up CA certificate and private key: $bckOutput"
         }
     }
 
@@ -1480,7 +1474,7 @@ Function New-ZPkiCaBackup {
 
     If(Test-Path "C:\Windows\CAPolicy.inf") {
 	    Write-Verbose "Copying CAPolicy.inf"
-	    Copy C:\Windows\CAPolicy.inf "$CaConfigDir" | Out-Null
+	    Copy-Item C:\Windows\CAPolicy.inf "$CaConfigDir" | Out-Null
     } Else {
 	    Write-Verbose " >> CAPolicy.inf not found" -foregroundcolor Yellow
     }
@@ -1488,13 +1482,13 @@ Function New-ZPkiCaBackup {
     Write-Verbose "Exporting registry values"
     reg export hklm\system\currentcontrolset\services\certsvc\configuration "$($CaConfigDir)\registry.reg" /y | Out-Null
 
-    get-childitem cert:\LocalMachine\my | % { 
+    get-childitem cert:\LocalMachine\my | ForEach-Object {
         $tp = $_.SerialNumber;
         $cn = $_.Subject
         If(-Not $cn.StartsWith("CN=WMSvc-")) {
-            $bytes = $_.export("cert"); 
+            $bytes = $_.export("cert");
             Write-Verbose "Saving certificate $($_.Subject)"
-            [System.IO.File]::WriteAllBytes("$CaConfigDir\$cn - $tp.cer", $bytes) 
+            [System.IO.File]::WriteAllBytes("$CaConfigDir\$cn - $tp.cer", $bytes)
         }
     }
 }
@@ -1502,9 +1496,9 @@ Function New-ZPkiCaBackup {
 <#
     .SYNOPSIS
     Removes configuration for AMA group link in an Assurance policy object in ADDS.
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1522,19 +1516,18 @@ Function Remove-ZPkiAdIssuancePolicyGroupLink {
 
     Import-Module ActiveDirectory -Verbose:$False
     $root = Get-ADRootDSE
-    $domain = Get-ADDomain -current loggedonuser
 
     $searchBase = $root.configurationnamingcontext
     $OID = Get-ADObject -searchBase $searchBase -Filter { ((displayname -eq $IssuancePolicyName) -or (name -eq $IssuancePolicyName)) -and (objectClass -eq "msPKI-Enterprise-Oid")} -properties *
 
-    If ($OID -eq $null) {
+    If ($null -eq $OID) {
         Write-Error ("Issuance Policy [{0}] could not be found!" -f $IssuancePolicyName)
-    } Elseif (($OID | Measure-Object | Select -ExpandProperty Count) -gt 1) {
-        Write-Error ("Multiple matches found. Issuance Policy search term [{0}] matches {1}" -f $IssuancePolicyName, (($OID | Select -expand DisplayName) -join ", "))
-    } 
+    } Elseif (($OID | Measure-Object | Select-Object -ExpandProperty Count) -gt 1) {
+        Write-Error ("Multiple matches found. Issuance Policy search term [{0}] matches {1}" -f $IssuancePolicyName, (($OID | Select-Object -expand DisplayName) -join ", "))
+    }
 
     Try {
-        If($OID.'msDS-OIDToGroupLink' -ne $Null -And $PSCmdlet.ShouldProcess($IssuancePolicyName, "Delete AMA group link from Issuance Policy (group: $($Oid.'msDS-OIDToGroupLink'))")) {
+        If($Null -ne $OID.'msDS-OIDToGroupLink' -And $PSCmdlet.ShouldProcess($IssuancePolicyName, "Delete AMA group link from Issuance Policy (group: $($Oid.'msDS-OIDToGroupLink'))")) {
             Set-ADObject -Identity $OID -Clear "msDS-OIDToGroupLink" | Out-Null
         }
 
@@ -1547,9 +1540,9 @@ Function Remove-ZPkiAdIssuancePolicyGroupLink {
 <#
     .SYNOPSIS
     Registers a group for AMA in an Assurance policy in ADDS.
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1557,11 +1550,11 @@ Function Remove-ZPkiAdIssuancePolicyGroupLink {
 Function Set-ZPkiAdIssuancePolicyGroupLink {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     Param (
-        # Display name of issuance policy 
+        # Display name of issuance policy
         [Parameter(Mandatory=$true)]
         [string]
         $IssuancePolicyName,
-    
+
         # Name of the group to link to this policy
         [Parameter(Mandatory=$true)]
         [string]
@@ -1572,23 +1565,22 @@ Function Set-ZPkiAdIssuancePolicyGroupLink {
 
     Import-Module ActiveDirectory -Verbose:$False
     $root = Get-ADRootDSE
-    $domain = Get-ADDomain -current loggedonuser
 
     $searchBase = $root.configurationnamingcontext
     $OID = Get-ADObject -searchBase $searchBase -Filter { ((displayname -eq $IssuancePolicyName) -or (name -eq $IssuancePolicyName)) -and (objectClass -eq "msPKI-Enterprise-Oid")} -properties *
 
-    If ($OID -eq $null) {
+    If ($null -eq $OID) {
         Write-Error ("Issuance Policy [{0}] could not be found!" -f $IssuancePolicyName)
-    } Elseif (($OID | Measure-Object | Select -ExpandProperty Count) -gt 1) {
-        Write-Error ("Multiple matches found. Issuance Policy search term [{0}] matches {1}" -f $IssuancePolicyName, (($OID | Select -expand DisplayName) -join ", "))
-    } 
+    } Elseif (($OID | Measure-Object | Select-Object -ExpandProperty Count) -gt 1) {
+        Write-Error ("Multiple matches found. Issuance Policy search term [{0}] matches {1}" -f $IssuancePolicyName, (($OID | Select-Object -expand DisplayName) -join ", "))
+    }
 
     $Group = Get-ADGroup -Filter { (Name -eq $GroupName) -and (objectClass -eq "group") }
-    If($Group -eq $Null) {
+    If($Null -eq $Group) {
         Write-Error "Group not found: [$GroupName]"
     }
-    If(($Group | Measure-Object | Select -ExpandProperty Count) -gt 1) {
-        Write-Error ("Multiple matches found. Group search term [{0}] matches {1}" -f $GroupName, (($Group | Select -expand Name) -join ", "))
+    If(($Group | Measure-Object | Select-Object -ExpandProperty Count) -gt 1) {
+        Write-Error ("Multiple matches found. Group search term [{0}] matches {1}" -f $GroupName, (($Group | Select-Object -expand Name) -join ", "))
     }
 
     If ($Group.groupCategory -ne "Security") {
@@ -1607,7 +1599,7 @@ Function Set-ZPkiAdIssuancePolicyGroupLink {
     }
 
     Try {
-        If($OID.'msDS-OIDToGroupLink' -ne $Null -And $PSCmdlet.ShouldProcess($IssuancePolicyName, "Delete the previous AMA group link from Issuance Policy")) {
+        If($Null -ne $OID.'msDS-OIDToGroupLink' -And $PSCmdlet.ShouldProcess($IssuancePolicyName, "Delete the previous AMA group link from Issuance Policy")) {
             Set-ADObject -Identity $OID -Clear "msDS-OIDToGroupLink" | Out-Null
         }
 
@@ -1623,11 +1615,11 @@ Function Set-ZPkiAdIssuancePolicyGroupLink {
 <#
     .SYNOPSIS
     Shows all configured AMA policy links in ADDS.
-    
+
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
-    
+
     .ExternalHelp PsZPki-help.xml
 #>
 Function Get-ZPkiAdIssuancePolicyGroupLinks {
@@ -1643,19 +1635,17 @@ Function Get-ZPkiAdIssuancePolicyGroupLinks {
     Import-Module ActiveDirectory
 
     $root = Get-ADRootDSE
-    $domain = Get-ADDomain -Current loggedonuser
     $configNCDN = [String]$root.configurationNamingContext
 
     If (-Not [string]::IsNullOrWhiteSpace($IssuancePolicyName)) {
         $OIDs = Get-ADObject -Filter {(objectclass -eq "msPKI-Enterprise-Oid") -and ((name -eq $IssuancePolicyName) -or (displayname -eq $IssuancePolicyName) -or (distinguishedName -like $IssuancePolicyName)) } -searchBase $configNCDN -properties *
-        If ($OIDs -eq $null) {
+        If ($null -eq $OIDs) {
             Write-Error "Issuance Policy [$IssuancePolicyName] not found in AD."
         }
     } Else {
-        
         $OIDs = Get-ADObject -LDAPFilter "(&(objectClass=msPKI-Enterprise-Oid)(msDS-OIDToGroupLink=*)(flags=2))" -searchBase $configNCDN -properties *
-        If ($OIDs -eq $null) {
-            Write-Verbose "No issuance policies with group links found in AD." 
+        If ($null -eq $OIDs) {
+            Write-Verbose "No issuance policies with group links found in AD."
         }
     }
 
@@ -1667,7 +1657,7 @@ Function Get-ZPkiAdIssuancePolicyGroupLinks {
             # In case the Issuance Policy is linked to a group, it is good to check whether there is any problem with the mapping.
             $GroupDN = $OID."msDS-OIDToGroupLink"
             $Group = Get-ADGroup -Identity $GroupDN
-        
+
             If ($Group.groupCategory -ne "Security") {
                 Write-Error ("Policy {0}: {1} is not a security group" -f $IssuancePolicyName, $Group.Name)
             }
@@ -1689,7 +1679,7 @@ Function Get-ZPkiAdIssuancePolicyGroupLinks {
     Lists all Issuance policy objects in ADDS.
 
     .DESCRIPTION
-    
+
     Author anders !Ä!T! runesson D"Ö"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1707,19 +1697,17 @@ Function Get-ZPkiAdIssuancePolicy {
     Import-Module ActiveDirectory
 
     $root = Get-ADRootDSE
-    $domain = Get-ADDomain -Current loggedonuser
     $configNCDN = [String]$root.configurationNamingContext
 
     If (-Not [string]::IsNullOrWhiteSpace($IssuancePolicyName)) {
         $OIDs = Get-ADObject -Filter {(objectclass -eq "msPKI-Enterprise-Oid") -and (flags -eq 2) -and ((name -eq $IssuancePolicyName) -or (displayname -eq $IssuancePolicyName) -or (distinguishedName -like $IssuancePolicyName)) } -searchBase $configNCDN -properties *
-        If ($OIDs -eq $null) {
+        If ($null -eq $OIDs) {
             Write-Error "Issuance Policy [$IssuancePolicyName] not found in AD."
         }
     } Else {
-        
         $OIDs = Get-ADObject -LDAPFilter "(&(objectClass=msPKI-Enterprise-Oid)(flags=2))" -searchBase $configNCDN -properties *
-        If ($OIDs -eq $null) {
-            Write-Verbose "No issuance policies with group links found in AD." 
+        If ($null -eq $OIDs) {
+            Write-Verbose "No issuance policies with group links found in AD."
         }
     }
 
@@ -1731,7 +1719,7 @@ Function Get-ZPkiAdIssuancePolicy {
             # In case the Issuance Policy is linked to a group, it is good to check whether there is any problem with the mapping.
             $GroupDN = $OID."msDS-OIDToGroupLink"
             $Group = Get-ADGroup -Identity $GroupDN
-        
+
             If ($Group.groupCategory -ne "Security") {
                 Write-Error ("Policy {0}: {1} is not a security group" -f $IssuancePolicyName, $Group.Name)
             }
@@ -1764,12 +1752,12 @@ Function Install-ZPkiRsatComponents {
         Write-Error "This cmdlet requires admin privileges to run."
         return
     }
-    
+
     Write-Progress -Activity "Installing RSAT components" -id 0
     $OsName = (Get-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('ProductName')
     $OsMajor = [System.Environment]::OSVersion.Version.Major
     $OsMinor = [System.Environment]::OSVersion.Version.Build
-        
+
     If($OsName -like "*Server*") {
         Write-Progress -Activity "Installing ADCS Tools" -ParentId 0 -Id 1
         Add-WindowsFeature RSAT-ADCS-Mgmt, RSAT-Online-Responder | Select-Object RestartNeeded
@@ -1779,26 +1767,26 @@ Function Install-ZPkiRsatComponents {
         }
     } Else {
         If($OsMajor -lt 10) {
-            Write-Host "Your version of windows requires that you download"
-            Write-Host "Remote Server Administration Tools from Microsoft.com and"
-            Write-Host "install it manually."
+            Write-Output "Your version of windows requires that you download"
+            Write-Output "Remote Server Administration Tools from Microsoft.com and"
+            Write-Output "install it manually."
             return
         } Elseif ($OsMajor -eq 10 -and $OsMinor -lt 17763) {
-            Write-Host "Your version of windows requires that you download"
-            Write-Host "Remote Server Administration Tools from Microsoft.com and"
-            Write-Host "install it manually."
-            Write-Host "RSAT for Windows 10, 1803 and older: https://www.microsoft.com/en-us/download/details.aspx?id=45520"
+            Write-Output "Your version of windows requires that you download"
+            Write-Output "Remote Server Administration Tools from Microsoft.com and"
+            Write-Output "install it manually."
+            Write-Output "RSAT for Windows 10, 1803 and older: https://www.microsoft.com/en-us/download/details.aspx?id=45520"
             return
         }
 
         $RsatAdcs = get-windowscapability -online -Name "Rsat.CertificateServices.Tools~~~~0.0.1.0"
         $RsatAdds = get-windowscapability -online -Name “Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0”
-        
+
         If($RsatAdcs.State -eq "Installed" -and ($RsatAdds.State -eq "Installed" -or $IncludeAdTools -eq $false)) {
             $RsatAdcs, $RsatAdds | Select-Object Name, State
             return
         }
-        
+
         Write-Progress -Activity "Checking Windows update settings.." -ParentId 0 -Id 1
         $WuSetting = $Null
         If(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -PathType Container) {
@@ -1841,7 +1829,7 @@ Export-ModuleMember -Function Install-ZPkiCaCertificate
 Export-ModuleMember -Function New-ZPkiRepoIndex
 Export-ModuleMember -Function New-ZPkiWebsite
 Export-ModuleMember -Function Copy-ZPkiCertSrvFilesToRepo
-Export-ModuleMember -Function Publish-ZPkiCaDsFile 
+Export-ModuleMember -Function Publish-ZPkiCaDsFile
 Export-ModuleMember -Function Set-ZPkiCaPostInstallConfig
 Export-ModuleMember -Function Set-ZPkiCaUrlConfig
 Export-ModuleMember -Function New-ZPkiCaBackup

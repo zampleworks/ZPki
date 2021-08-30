@@ -8,8 +8,7 @@ schema: 2.0.0
 # Get-ZPkiLocalCaConfigString
 
 ## SYNOPSIS
-Get the config string for the local CA.
-To get config strings for other CAs, use Get-ZPkiAdCasConfigString
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
@@ -18,8 +17,7 @@ Get-ZPkiLocalCaConfigString [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 

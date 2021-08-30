@@ -18,7 +18,7 @@ validity time for issued certs, and sets LDAP path.
 Set-ZPkiCaPostInstallConfig [[-IssuedCertValidityPeriod] <String>] [[-IssuedCertValidityPeriodUnits] <Int32>]
  [[-CrlPeriod] <String>] [[-CrlPeriodUnits] <Int32>] [[-CrlOverlap] <String>] [[-CrlOverlapUnits] <Int32>]
  [[-CrlDeltaPeriod] <String>] [[-CrlDeltaPeriodUnits] <Int32>] [[-LdapConfigDn] <String>]
- [[-RepositoryLocalPath] <String>] [-RestartCertSvc] [<CommonParameters>]
+ [[-RepositoryLocalPath] <String>] [-RestartCertSvc] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -202,6 +202,36 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

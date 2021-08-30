@@ -8,7 +8,7 @@ schema: 2.0.0
 # Install-ZPkiCaCertificate
 
 ## SYNOPSIS
-Installs a signed CA certificate for this CA
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
@@ -18,13 +18,7 @@ Install-ZPkiCaCertificate [[-CertFile] <String>] [-SkipCopyToRepository] [[-Adcs
 ```
 
 ## DESCRIPTION
-This is used when installing a subordinate CA.
-The installation generates a 
-Certificate Signing Request file that needs to get signed by another CA.
-Use this cmdlet to install the resulting signed certificate.
-
-Author anders !Ä!T!
-runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
@@ -47,7 +41,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: C:\ADCS\Web\Repository
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -77,7 +71,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

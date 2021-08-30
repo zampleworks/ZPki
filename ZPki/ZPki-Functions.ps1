@@ -5,7 +5,7 @@ Function Get-HttpUri {
         ,$Path
         ,$Document
     )
-    If($Path -ne $null) {
+    If($null -ne $Path) {
         $Path = $Path.Trim('/')
     } Else {
         $Path = ""
@@ -19,7 +19,7 @@ Function Get-HttpUri {
 }
 
 Function Get-LdapUri {
-    Param( 
+    Param(
         [switch]
         $IsAIA
     )
@@ -47,7 +47,7 @@ Function Get-FileUri {
 }
 
 Function New-ADCSPath {
-    [CmdletBinding()]
+    [CmdletBinding(ConfirmImpact='Medium', SupportsShouldProcess=$true)]
     Param(
         [string]
         $PathName,
@@ -55,8 +55,8 @@ Function New-ADCSPath {
         $Path
     )
 
-    If(-Not (Test-Path $Path -PathType Any)) {
-        Write-Verbose "Creating ADCS Directory [$PathName]"
+    If(-Not (Test-Path $Path -PathType Any) -And (ShouldProcess($PathName, "Create ADCS directory"))) {
+        Write-Verbose "Creating ADCS Directory [$PathName] at [$Path]"
         New-Item $Path -ItemType Directory | Out-Null
     } Elseif(Test-Path $Path -PathType Leaf) {
         Write-Error "ADCS Directory exists, but is a file. Cannot continue. [$PathName]: [$Path]"
@@ -100,10 +100,10 @@ Function Get-CaPolicyCertSrvSection {
     $futf = [int] $ForceUTF8
     $ekc = [int] $EnableKeyCounting
 
-    Write-Output (("[Certsrv_Server]", 
+    Write-Output (("[Certsrv_Server]",
         "RenewalKeyLength = $Keylength",
         "RenewalValidityPeriod = $CACertValidityPeriod",
-        "RenewalValidityPeriodUnits = $CACertValidityPeriodUnits", 
+        "RenewalValidityPeriodUnits = $CACertValidityPeriodUnits",
         "CRLPeriod = $CRLPeriod",
         "CRLPeriodUnits = $CRLPeriodUnits",
         "CRLDeltaPeriod = $DeltaPeriod",
@@ -133,7 +133,7 @@ Function Get-CaPolicyPolicySection {
         Write-Error "Get-CaPolicyPolicySection(): Policy Notice and Url cannot both be empty. Policy name: [$PolicyName]"
     }
 
-    $Section = "" 
+    $Section = ""
     $Section = "[$PolicyName]`r`nOID=$PolicyOid`r`n"
     If(-Not [string]::IsNullOrWhiteSpace($PolicyNotice)) {
         $Section = "$($Section)Notice=$PolicyNotice`r`n"
@@ -163,13 +163,13 @@ Function Get-CaPolicyBasicConstraintsSection {
         [bool]
         $Critical
     )
-    
+
     $Crit = If($Critical) { "Yes" } Else { "No" }
     $Pl = ""
     If($PathLength -ne "None") {
         $Pl = "PathLength = $PathLength"
     }
-    
+
     Write-Output (("[BasicConstraintsExtension]",
     $Pl,
     "Critical = $Crit`r`n") -join "`r`n")
@@ -183,9 +183,9 @@ Function Get-CaPolicyEkuSection {
         [switch]
         $Critical
     )
-    
+
     $Crit = If($Critical) { "Yes" } Else { "No" }
-    Write-Output (( & { 
+    Write-Output (( & {
         Write-Output "[EnhancedKeyUsageExtension]"
         Write-Output "Critical = $Crit"
 
@@ -197,7 +197,8 @@ Function Get-CaPolicyEkuSection {
     }) -join "`r`n")
 }
 
-Function Create-Dir {
+Function New-AdcsBackupDir {
+    [CmdletBinding(ConfirmImpact="Medium", SupportsShouldProcess=$true)]
     Param(
         [string]
         $Path,
@@ -213,7 +214,7 @@ Function Create-Dir {
 	    Write-Error "Target directory [$FullPath] already exists, but is a file. Please remove the file or use a different path."
     }
 
-    If(-Not (Test-Path $FullPath)) {
+    If(-Not (Test-Path $FullPath) -And (ShouldProcess($FullPath, "Create backup directory"))) {
 	    mkdir $FullPath | Out-Null
     }
 

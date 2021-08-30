@@ -15,7 +15,7 @@ Generates a HTML index file for CDP/AIA repository
 ```
 New-ZPkiRepoIndex [[-Sourcepath] <String>] [[-IndexFile] <String>] [[-CssFiles] <String[]>]
  [[-JsFiles] <String[]>] [[-PageTitle] <String>] [[-PageHeader] <String>] [[-CertsHeader] <String>]
- [[-CrlsHeader] <String>] [<CommonParameters>]
+ [[-CrlsHeader] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -166,6 +166,36 @@ Aliases:
 Required: False
 Position: 0
 Default value: .\
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

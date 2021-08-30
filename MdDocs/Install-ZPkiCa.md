@@ -8,7 +8,7 @@ schema: 2.0.0
 # Install-ZPkiCa
 
 ## SYNOPSIS
-Install and configure an ADCS based CA.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
@@ -26,36 +26,21 @@ Install-ZPkiCa [[-CaCommonName] <String>] [[-CaDnSuffix] <String>] [[-CaType] <S
 ```
 
 ## DESCRIPTION
-This cmdlet will
-1.
-Install ADCS role
-2.
-Create local directories for ADCS content
-3.
-Create CAPolicy.inf and copy to C:\Windows
-4.
-Configure CA and generate CA cert or cert request
-
-If this is a sub CA, get the signed CA cert from superior CA and
-install it with the Install-ZPkiCaCertificate cmdlet.
-
-Next step is typically running Set-ZPkiCaPostInstallConfig.
-
-Author anders !Ä!T! runesson D"Ö"T info
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Install-ZPkiCa -CaCommonName "ZampleWorks PKI v1 Issuing CA" -CaDnSuffix = "O = ZampleWorks, C = SE"
+PS C:\> {{ Add example code here }}
 ```
 
-This will install an Enterprise Root CA with Subject built from supplied CN and DN suffix. 
+{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -ADCSPath
-Root directory for ADCS files
+{{ Fill ADCSPath Description }}
 
 ```yaml
 Type: String
@@ -64,13 +49,13 @@ Aliases:
 
 Required: False
 Position: 21
-Default value: C:\ADCS
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -AllowAdminInteraction
-Require admin interaction on each key use.
+{{ Fill AllowAdminInteraction Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -79,13 +64,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyName
-Assurance policy name, used for Autodetect of Assurance policy.
+{{ Fill AssurancePolicyName Description }}
 
 ```yaml
 Type: String
@@ -94,13 +79,13 @@ Aliases:
 
 Required: False
 Position: 11
-Default value: Low Assurance
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyNotice
-Notice text for Assurance Policy
+{{ Fill AssurancePolicyNotice Description }}
 
 ```yaml
 Type: String
@@ -115,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyOid
-Assurance policy OID
+{{ Fill AssurancePolicyOid Description }}
 
 ```yaml
 Type: String
@@ -130,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyUrl
-URL for Assurance policy document
+{{ Fill AssurancePolicyUrl Description }}
 
 ```yaml
 Type: String
@@ -145,9 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -AutoDetectAssurancePolicy
-For a domain joined CA server we can determine the OID to use 
-if AssurancePolicyName is given and such a policy has been
-created in AD already.
+{{ Fill AutoDetectAssurancePolicy Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -156,7 +139,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -171,13 +154,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: True
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CaCertValidityPeriod
-Validity period for CA certificate
+{{ Fill CaCertValidityPeriod Description }}
 
 ```yaml
 Type: String
@@ -187,13 +170,13 @@ Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
 Position: 15
-Default value: Years
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CaCertValidityPeriodUnits
-Validity period for CA certificate
+{{ Fill CaCertValidityPeriodUnits Description }}
 
 ```yaml
 Type: Int32
@@ -202,13 +185,13 @@ Aliases:
 
 Required: False
 Position: 16
-Default value: 20
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CaCommonName
-CN in CA certificate Subject
+{{ Fill CaCommonName Description }}
 
 ```yaml
 Type: String
@@ -217,13 +200,13 @@ Aliases:
 
 Required: False
 Position: 0
-Default value: ZampleWorks CA v1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CaDnSuffix
-Distinguished name suffix for CA certificate Subject
+{{ Fill CaDnSuffix Description }}
 
 ```yaml
 Type: String
@@ -232,14 +215,13 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: O = ZampleWorks, C = SE
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CaType
-CA type.
-Valid values: "EnterpriseRootCA","EnterpriseSubordinateCA","StandaloneRootCA", or "StandaloneSubordinateCA"
+{{ Fill CaType Description }}
 
 ```yaml
 Type: String
@@ -249,13 +231,13 @@ Accepted values: EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, St
 
 Required: False
 Position: 2
-Default value: EnterpriseRootCA
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CpsNotice
-Notice text for CPS extension
+{{ Fill CpsNotice Description }}
 
 ```yaml
 Type: String
@@ -270,7 +252,7 @@ Accept wildcard characters: False
 ```
 
 ### -CpsOid
-OID for CPS
+{{ Fill CpsOid Description }}
 
 ```yaml
 Type: String
@@ -285,7 +267,7 @@ Accept wildcard characters: False
 ```
 
 ### -CpsUrl
-URI for CPS document
+{{ Fill CpsUrl Description }}
 
 ```yaml
 Type: String
@@ -300,7 +282,7 @@ Accept wildcard characters: False
 ```
 
 ### -CrlDeltaPeriod
-CRL Delta validity period
+{{ Fill CrlDeltaPeriod Description }}
 
 ```yaml
 Type: String
@@ -310,13 +292,13 @@ Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
 Position: 19
-Default value: Days
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CrlDeltaPeriodUnits
-CRL Delta validity period
+{{ Fill CrlDeltaPeriodUnits Description }}
 
 ```yaml
 Type: Int32
@@ -325,13 +307,13 @@ Aliases:
 
 Required: False
 Position: 20
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CrlPeriod
-CRL validity period
+{{ Fill CrlPeriod Description }}
 
 ```yaml
 Type: String
@@ -341,13 +323,13 @@ Accepted values: Hours, Days, Weeks, Months, Years
 
 Required: False
 Position: 17
-Default value: Weeks
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CrlPeriodUnits
-CRL validity period
+{{ Fill CrlPeriodUnits Description }}
 
 ```yaml
 Type: Int32
@@ -356,13 +338,13 @@ Aliases:
 
 Required: False
 Position: 18
-Default value: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -CryptoProvider
-CSP or KSP provider to use for key storage.
+{{ Fill CryptoProvider Description }}
 
 ```yaml
 Type: String
@@ -371,13 +353,13 @@ Aliases:
 
 Required: False
 Position: 4
-Default value: Microsoft Software Key Storage Provider
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -DbLogPath
-Transaction log directory
+{{ Fill DbLogPath Description }}
 
 ```yaml
 Type: String
@@ -386,13 +368,13 @@ Aliases:
 
 Required: False
 Position: 23
-Default value: C:\ADCS\DbLog
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -DbPath
-Database directory
+{{ Fill DbPath Description }}
 
 ```yaml
 Type: String
@@ -401,13 +383,13 @@ Aliases:
 
 Required: False
 Position: 22
-Default value: C:\ADCS\Db
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -EkuOids
-OID strings to include in EKU section
+{{ Fill EkuOids Description }}
 
 ```yaml
 Type: String[]
@@ -422,7 +404,7 @@ Accept wildcard characters: False
 ```
 
 ### -EkuSectionIsCritical
-Mark EKU section as critical
+{{ Fill EkuSectionIsCritical Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -431,14 +413,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -EnableBasicConstraints
-Enableds Basic Constraints extension in CA certificate.
-Defaults to true.
+{{ Fill EnableBasicConstraints Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -447,13 +428,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: True
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Hash
-Hash algorithm to use.
+{{ Fill Hash Description }}
 
 ```yaml
 Type: String
@@ -462,13 +443,13 @@ Aliases:
 
 Required: False
 Position: 5
-Default value: SHA256
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -IncludeAllIssuancePolicy
-Include All Issuance Policy in CA certificate
+{{ Fill IncludeAllIssuancePolicy Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -477,14 +458,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: True
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -IncludeAssurancePolicy
-Include an Assurance policy in CA certificate.
-Requires Autodetect or policy definition using appropriate parameters.
+{{ Fill IncludeAssurancePolicy Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -493,13 +473,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -KeyLength
-CA Private key length
+{{ Fill KeyLength Description }}
 
 ```yaml
 Type: Int32
@@ -508,13 +488,13 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: 2048
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -OverwriteDb
-If reinstalling ADCS this parameter may be needed
+{{ Fill OverwriteDb Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -523,13 +503,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -OverwriteInAd
-If reinstalling ADCS this parameter may be needed
+{{ Fill OverwriteInAd Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -538,13 +518,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -OverwriteKey
-If reinstalling ADCS this parameter may be needed
+{{ Fill OverwriteKey Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -553,15 +533,13 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -PathLength
-Default CA type is Enterprise root, so appropriate PathLength is 0 (meaning no sub CA can be issued)
-Valid input for PathLength is an integer \>= 0, or 'None' to remove constraint.
-PathLength = None and EnableBasicConstraints = $True will still include the attribute in the cert.
+{{ Fill PathLength Description }}
 
 ```yaml
 Type: String
@@ -570,14 +548,13 @@ Aliases:
 
 Required: False
 Position: 6
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -RootCaForcePolicy
-By default policy entries are disallowed in root certificates.
-Include this parameter to force inclusion of policy in root cert.
+{{ Fill RootCaForcePolicy Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -586,7 +563,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
