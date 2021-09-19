@@ -252,7 +252,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7922.22659, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -479,7 +479,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7922.22659, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -752,7 +752,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7922.22659, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -770,6 +770,227 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
         <dev:code>PS C:\&gt; Find-ZPkiAdUser -Name "Tommy Teapot"</dev:code>
         <dev:remarks>
           <maml:para>Search for AD users in the default naming context (Get-ZPkiAdRootDse | Select defaultnamingcontext)</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Find-ZPkiLocalCert</command:name>
+      <command:verb>Find</command:verb>
+      <command:noun>ZPkiLocalCert</command:noun>
+      <maml:description>
+        <maml:para>Search for certificates in local windows stores</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Search for certificates matching SearchFor parameter. SearchFor will match: 1. Serial number (exact match only) 2. Thumbprint (exact match only) 3. Subject name (substring match) 4. Subject Alternative Name (substring match)</maml:para>
+      <maml:para>By default searching will be done in CurrentUser\My certificate store. Use GlobalSearch to search in all stores and all store locations.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Find-ZPkiLocalCert</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>SearchFor</maml:name>
+          <maml:description>
+            <maml:para>Search string</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>GlobalSearch</maml:name>
+          <maml:description>
+            <maml:para>Search in all stores and locations</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Find-ZPkiLocalCert</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>SearchFor</maml:name>
+          <maml:description>
+            <maml:para>Search string</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Store</maml:name>
+          <maml:description>
+            <maml:para>Certificate store location</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">CurrentUser</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">LocalMachine</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">StoreLocation</command:parameterValue>
+          <dev:type>
+            <maml:name>StoreLocation</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>StoreName</maml:name>
+          <maml:description>
+            <maml:para>Certificate store name</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">AddressBook</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">AuthRoot</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CertificateAuthority</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Disallowed</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">My</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Root</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">TrustedPeople</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">TrustedPublisher</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">StoreName</command:parameterValue>
+          <dev:type>
+            <maml:name>StoreName</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExtraVerbose</maml:name>
+        <maml:description>
+          <maml:para>Debug output</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>GlobalSearch</maml:name>
+        <maml:description>
+          <maml:para>Search in all stores and locations</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>SearchFor</maml:name>
+        <maml:description>
+          <maml:para>Search string</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Store</maml:name>
+        <maml:description>
+          <maml:para>Certificate store location</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">StoreLocation</command:parameterValue>
+        <dev:type>
+          <maml:name>StoreLocation</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>StoreName</maml:name>
+        <maml:description>
+          <maml:para>Certificate store name</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">StoreName</command:parameterValue>
+        <dev:type>
+          <maml:name>StoreName</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Uri</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Find-ZPkiLocalCert -SearchFor myserver.com -StoreLocation LocalMachine</dev:code>
+        <dev:remarks>
+          <maml:para>Search for certs in LocalMachine\My store for certs matching 'myserver.com'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Find-ZPkiLocalCert -SearchFor myserver.com -GlobalSearch</dev:code>
+        <dev:remarks>
+          <maml:para>Search for certs in all local stores in both CurrentUser and LocalMachine for certs matching 'myserver.com'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2160,7 +2381,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7922.22659, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -2561,7 +2782,7 @@ This parser does not currently interpret any context specific tags. Only Univers
       <command:verb>Get</command:verb>
       <command:noun>ZPkiCertCdpUris</command:noun>
       <maml:description>
-        <maml:para>Get CRL Uris from certificate</maml:para>
+        <maml:para>Get CDP Uris from certificate</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -2596,7 +2817,7 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiCertCdpUris</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Cert</maml:name>
           <maml:description>
             <maml:para>.NET X509 Certificate object</maml:para>
@@ -2604,6 +2825,32 @@ This parser does not currently interpret any context specific tags. Only Univers
           <command:parameterValue required="true" variableLength="false">X509Certificate2</command:parameterValue>
           <dev:type>
             <maml:name>X509Certificate2</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiCertCdpUris</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>ICert</maml:name>
+          <maml:description>
+            <maml:para>Zampleworks Pkilib Certificate object</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">ICertificate</command:parameterValue>
+          <dev:type>
+            <maml:name>ICertificate</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -2660,7 +2907,7 @@ This parser does not currently interpret any context specific tags. Only Univers
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Cert</maml:name>
         <maml:description>
           <maml:para>.NET X509 Certificate object</maml:para>
@@ -2685,6 +2932,18 @@ This parser does not currently interpret any context specific tags. Only Univers
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>ICert</maml:name>
+        <maml:description>
+          <maml:para>Zampleworks Pkilib Certificate object</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">ICertificate</command:parameterValue>
+        <dev:type>
+          <maml:name>ICertificate</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
           <maml:para>Path to certificate file</maml:para>
@@ -2701,6 +2960,22 @@ This parser does not currently interpret any context specific tags. Only Univers
       <command:inputType>
         <dev:type>
           <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Security.Cryptography.X509Certificates.X509Certificate2</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>xyz.zwks.pkilib.cert.ICertificate</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -4003,7 +4278,7 @@ You can query the request table, CRL table, or extensions table.</maml:para>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>xyz.zwks.pkilib.ICertificateRequest</maml:name>
+          <maml:name>xyz.zwks.pkilib.cert.ICertificateRequest</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>

@@ -180,7 +180,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.ICertificateRequest
+### xyz.zwks.pkilib.cert.ICertificateRequest
 
 ## NOTES
 

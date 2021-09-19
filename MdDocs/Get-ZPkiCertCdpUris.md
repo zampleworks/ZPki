@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiCertCdpUris
 
 ## SYNOPSIS
-Get CRL Uris from certificate
+Get CDP Uris from certificate
 
 ## SYNTAX
 
@@ -24,7 +24,12 @@ Get-ZPkiCertCdpUris -Bytes <Byte[]> [-ExtraVerbose] [<CommonParameters>]
 
 ### CertObject
 ```
-Get-ZPkiCertCdpUris -Cert <X509Certificate2> [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCertCdpUris [-Cert] <X509Certificate2> [-ExtraVerbose] [<CommonParameters>]
+```
+
+### ICertificate
+```
+Get-ZPkiCertCdpUris [-ICert] <ICertificate> [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,9 +70,9 @@ Parameter Sets: CertObject
 Aliases:
 
 Required: True
-Position: Named
+Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -83,6 +88,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ICert
+Zampleworks Pkilib Certificate object
+
+```yaml
+Type: ICertificate
+Parameter Sets: ICertificate
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -107,6 +127,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.String
+
+### System.Security.Cryptography.X509Certificates.X509Certificate2
+
+### xyz.zwks.pkilib.cert.ICertificate
 
 ## OUTPUTS
 
