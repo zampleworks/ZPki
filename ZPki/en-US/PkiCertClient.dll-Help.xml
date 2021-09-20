@@ -252,7 +252,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7933.17570, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -479,7 +479,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7933.17570, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -752,7 +752,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7933.17570, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -2381,7 +2381,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7933.17570, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3014,7 +3014,7 @@ This parser does not currently interpret any context specific tags. Only Univers
       <command:verb>Get</command:verb>
       <command:noun>ZPkiCrl</command:noun>
       <maml:description>
-        <maml:para>Read CRL file from local file, URI or raw bytes.</maml:para>
+        <maml:para>Read CRL file from local file, URI or raw bytes. HTTP or LDAP Uris only.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -3023,7 +3023,7 @@ This parser does not currently interpret any context specific tags. Only Univers
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ZPkiCrl</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Bytes</maml:name>
           <maml:description>
             <maml:para>Byte array of ASN.1 encoded data</maml:para>
@@ -3095,7 +3095,7 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiCrl</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
             <maml:para>Path to CRL file</maml:para>
@@ -3167,14 +3167,14 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiCrl</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Uri</maml:name>
           <maml:description>
             <maml:para>Uri (HTTP or LDAP) where a CRL can be downloaded</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Uri</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -3239,7 +3239,7 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Bytes</maml:name>
         <maml:description>
           <maml:para>Byte array of ASN.1 encoded data</maml:para>
@@ -3287,7 +3287,7 @@ This parser does not currently interpret any context specific tags. Only Univers
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
           <maml:para>Path to CRL file</maml:para>
@@ -3311,14 +3311,14 @@ This parser does not currently interpret any context specific tags. Only Univers
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Uri</maml:name>
         <maml:description>
           <maml:para>Uri (HTTP or LDAP) where a CRL can be downloaded</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>Uri</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -3339,7 +3339,23 @@ This parser does not currently interpret any context specific tags. Only Univers
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>None</maml:name>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Uri</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Byte[]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>

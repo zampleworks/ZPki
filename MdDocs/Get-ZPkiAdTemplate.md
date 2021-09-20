@@ -191,7 +191,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7932.30900, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7933.17570, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

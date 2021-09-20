@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PkiCertClient.dll-Help.xml
 Module Name: ZPki
 online version:
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiCrl
 
 ## SYNOPSIS
-Read CRL file from local file, URI or raw bytes.
+Read CRL file from local file, URI or raw bytes. HTTP or LDAP Uris only.
 
 ## SYNTAX
 
@@ -20,8 +20,8 @@ Get-ZPkiCrl [-Path] <String> [-Rpc] [-Domain <String>] [-DomainController <Strin
 
 ### Uri
 ```
-Get-ZPkiCrl [-Uri] <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
- [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Uri] <Uri> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ### Bytes
@@ -55,7 +55,7 @@ Aliases:
 Required: True
 Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -116,7 +116,7 @@ Aliases:
 Required: True
 Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -140,14 +140,14 @@ Accept wildcard characters: False
 Uri (HTTP or LDAP) where a CRL can be downloaded
 
 ```yaml
-Type: String
+Type: Uri
 Parameter Sets: Uri
 Aliases:
 
 Required: True
 Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -172,7 +172,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### System.String
+
+### System.Uri
+
+### System.Byte[]
 
 ## OUTPUTS
 
