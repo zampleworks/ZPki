@@ -177,13 +177,19 @@ Function Install-ZPkiCa {
 
     # Command will give more than actual providers, but never mind. Command might not work if matching on "*Name: " if language is not english.
     $InstalledProviders = certutil -csplist | Where-Object { $_ -like "*: *" } | ForEach-Object { $_.Substring($_.IndexOf(":") + 2) }
-    If($InstalledProviders -notcontains $CryptoProvider) {
+    
+    $CspShort = $CryptoProvider
+    If($CryptoProvider -like "*#*") {
+        $CspShort = $CryptoProvider -split  "#" | Select-Object -Last 1
+    }
+
+    If($InstalledProviders -notcontains $CspShort) {
         Write-Verbose "Crypto provider supplied, but provider is not installed on system."
         Write-Verbose "Selected provider: [$CryptoProvider]. Installed providers: "
         Foreach($p in $InstalledProviders) {
-            Verbose "[$p]"
+            Write-Verbose "[$p]"
         }
-        Write-Error "Exiting."
+        Write-Error "Crypto provider [$CryptoProvider] not found. Exiting."
     }
 
     Try {
@@ -283,23 +289,19 @@ Function Install-ZPkiCa {
     $EkuSection = ""
 
     $SectionNames = ""
-    #$WritePolicySections = $False
-
+    
     If($EnableCps) {
-        $CpsSection = Get-CaPolicyPolicySection -PolicyName "CPS" -PolicyOid $CpsOid -PolicyNotice $CpsNotice -PolicyUrl $CpsURL
-        $WritePolicySections = $True
+        $CpsSection = Get-CaPolicyPolicySection -PolicyName "CPS" -PolicyOid $CpsOid -PolicyNotice $CpsNotice -PolicyUrl $CpsURL    
         $SectionNames = "CPS"
     }
 
     If($IncludeAssurancePolicy) {
         $AssuranceSection = Get-CaPolicyPolicySection -PolicyName "AssurancePolicy" -PolicyOid $AssurancePolicyOid -PolicyNotice $AssurancePolicyNotice -PolicyUrl $AssurancePolicyURL
-        $WritePolicySections = $True
         $SectionNames = "$SectionNames,AssurancePolicy".Trim(',')
     }
 
     If($IncludeAllIssuancePolicy) {
         $AllIssuanceSection = Get-CaPolicyPolicySection -PolicyName "AllIssuancePolicy" -PolicyOid $AllIssuancePolicyOid
-        $WritePolicySections = $True
         $SectionNames = "$SectionNames,AllIssuancePolicy".Trim(',')
     }
 
@@ -535,7 +537,7 @@ Function New-ZPkiRepoIndex {
     )
 
     If(Test-Path $IndexFile) {
-        If(-Not (ShouldProcess("Overwrite file $IndexFile"))) {
+        If(-Not ($PSCmdlet.ShouldProcess("Overwrite file $IndexFile"))) {
             Write-Output "File $IndexFile exists, will not overwrite. use -Confirm:`$false to avoid confirmation prompts."
             return
         }
@@ -713,7 +715,7 @@ Function New-ZPkiRepoCssFile {
     )
 
     If(Test-Path $CssFile) {
-        If(-Not (ShouldProcess("Overwrite file $CssFile"))) {
+        If(-Not ($PSCmdlet.ShouldProcess("Overwrite file $CssFile"))) {
             Write-Output "File $CssFile exists, will not overwrite. use -Confirm:`$false to avoid confirmation prompts."
             return
         }
@@ -758,7 +760,7 @@ Function New-ZPkiWebsite {
     Write-Verbose "Installing IIS"
 
     $IisInstalled = Get-WindowsFeature WebServer | Select-Object -ExpandProperty Installed
-    If((-Not $IisInstalled) -And (ShouldProcess("Install IIS"))) {
+    If((-Not $IisInstalled) -And ($PSCmdlet.ShouldProcess("Install IIS"))) {
         Install-WindowsFeature Web-Server -IncludeAllSubFeature -IncludeManagementTools | Out-Null
     }
 
@@ -771,7 +773,7 @@ Function New-ZPkiWebsite {
             $SiteName = $IisSiteName
         }
 
-        If(ShouldProcess("Create new IIS Web site $SiteName")) {
+        If($PSCmdlet.ShouldProcess("Create new IIS Web site $SiteName")) {
             Write-Verbose "Creating web site named $SiteName with root directory $LocalPath"
             New-IISSite -Name $HttpFqdn -PhysicalPath $LocalPath -BindingInformation "*:80:$HttpFqdn"
         }
@@ -1096,13 +1098,13 @@ Function Set-ZPkiCaUrlConfig {
         $ClearAIAs
     )
 
-    If($ClearCDPs -And (ShouldProcess("all", "Remove CDP URL entries"))) {
+    If($ClearCDPs -And ($PSCmdlet.ShouldProcess("all", "Remove CDP URL entries"))) {
         Write-Verbose "Removing all CDP URL's. Adding default file URL."
         Get-CACrlDistributionPoint | Remove-CACrlDistributionPoint -Confirm:$False | Out-Null
         Add-CACrlDistributionPoint -Uri "$CertSrvDir\%7%8%9.crl" -PublishToServer -Confirm:$False | Out-Null
     }
 
-    If($ClearAIAs -And (ShouldProcess("all", "Remove AIA URL entries"))) {
+    If($ClearAIAs -And ($PSCmdlet.ShouldProcess("all", "Remove AIA URL entries"))) {
         Write-Verbose "Removing all AIA URL's. Adding default file URL."
 
         Get-CAAuthorityInformationAccess | Remove-CAAuthorityInformationAccess -Confirm:$False | Out-Null

@@ -26,8 +26,6 @@ $RepoDir = "C:\ADCS\Web\Repository"
 
 $CaCommonName = "ZampleWorks Sub CA v1"
 
-$HttpFqdn = "pki.ad.zampleworks.com"
-
 <###########################################################################
  #   Required section - install ADDS tools for AD info lookup
  #   AD tools are used for lookup of domain/forest names, and check Enterprise Admin rights.
@@ -50,6 +48,8 @@ $EnterpriseAdmin = (whoami -groups | Where-Object { $_ -like "*$EaGroup*" } | Me
 If(-Not $EnterpriseAdmin) {
     Write-Error "You must be a member of $EaGroup to install an Enterprise Root CA."
 }
+
+$HttpFqdn = "pki.$AdForestDns"
 
 <###########################################################################
  #   Required section - install CA certificate for our directly superior CA.
@@ -106,7 +106,7 @@ If($DnsRec -eq $Null) {
 }
 
 Write-Progress -Activity "Running CA installation script"
-Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -EnableBasicConstraints -BasicConstraintsIsCritical -IncludeAllIssuancePolicy -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -Verbose
+Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -Verbose -OverwriteKey -OverwriteDb
 
 # Website must be installed and configured now so CDP checking works, otherwise installing the signed CA certificate will fail.
 New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
@@ -149,4 +149,4 @@ Set-ZPkiCaUrlConfig -HttpAiaFqdn $HttpFqdn
 
 Write-Progress -Activity "Generating content for AIA/CDP Web site"
 New-ZPkiRepoIndex -Sourcepath $RepoDir -IndexFile "$WebrootDir\index.html" -CssFiles "style.css"
-New-ZPkiRepoCssFile "$WebrootDir\style.css" -force
+New-ZPkiRepoCssFile "$WebrootDir\style.css"

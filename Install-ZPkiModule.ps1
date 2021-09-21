@@ -16,11 +16,17 @@ $ErrorActionPreference = "Stop"
 
 Push-Location $PSScriptRoot
 
+Try {
+    Write-Verbose "Unblocking files.."
+    Get-ChildItem -Recurse -Filter * | Unblock-File -Confirm:$false
+} Catch {
+    Write-Warning "Could not unblock files. You may need to run the unblock command manually: `nGet-ChildItem -Recurse -Filter * | Unblock-File -Confirm:`$false -Verbose"
+}
+
 $UserModulesDir = "{0}\Documents\WindowsPowerShell\Modules" -f $env:USERPROFILE
 $SystemModulesDir = "{0}\WindowsPowerShell\Modules" -f $env:ProgramFiles 
 
 If($SystemWide) {
-    
     $principal = New-Object Security.Principal.WindowsPrincipal -ArgumentList ([Security.Principal.WindowsIdentity]::GetCurrent())
     If(-Not $principal.IsInRole( [Security.Principal.WindowsBuiltInRole]::Administrator)) {
         Write-Error "Installing system-wide requires admin privileges! Run the script again as admin to install system wide."

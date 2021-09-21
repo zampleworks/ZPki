@@ -3,7 +3,7 @@ Param()
 
 $ErrorActionPreference = "Stop"
 
-Import-Module .\ZPki.psm1
+Import-Module ZPki
 
 Write-Progress -Activity "Installing ADCS tools and DNS Server tools.."
 
@@ -22,6 +22,10 @@ If(-Not $EnterpriseAdmin) {
     Write-Error "You must be a member of $EaGroup to install an Enterprise Root CA."
 }
 
+
+<#
+ Automatically creating DNS record requires permission on DNS server and RPC access to DNS server.
+#>
 Write-Progress -Activity "Creating DNS record for HTTP"
 
 $HttpFqdn = "pki.$AdForestDns"
@@ -34,10 +38,12 @@ If($RoutableIpv4) {
 }
 
 Write-Progress -Activity "Running CA installation script"
-Install-ZPkiCa -CaType EnterpriseRootCA -EnableBasicConstraints -BasicConstraintsIsCritical -IncludeAllIssuancePolicy
+Install-ZPkiCa -CaType EnterpriseRootCA -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256
 
 Write-Progress -Activity "Running CA post config"
-Set-ZPkiCaPostInstallConfig -InstallWebCdp -HttpCdpFqdn $HttpFqdn -RestartCertSvc
+Set-ZPkiCaPostInstallConfig
+
+New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
 
 Write-Progress -Activity "Updating CA CDP/AIA information"
 Set-ZPkiCaUrlConfig -ClearCDPs -ClearAIAs

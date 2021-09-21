@@ -55,7 +55,7 @@ Function New-ADCSPath {
         $Path
     )
 
-    If(-Not (Test-Path $Path -PathType Any) -And (ShouldProcess($PathName, "Create ADCS directory"))) {
+    If(-Not (Test-Path $Path -PathType Any) -And ($PSCmdlet.ShouldProcess($PathName, "Create ADCS directory"))) {
         Write-Verbose "Creating ADCS Directory [$PathName] at [$Path]"
         New-Item $Path -ItemType Directory | Out-Null
     } Elseif(Test-Path $Path -PathType Leaf) {
@@ -214,7 +214,7 @@ Function New-AdcsBackupDir {
 	    Write-Error "Target directory [$FullPath] already exists, but is a file. Please remove the file or use a different path."
     }
 
-    If(-Not (Test-Path $FullPath) -And (ShouldProcess($FullPath, "Create backup directory"))) {
+    If(-Not (Test-Path $FullPath) -And ($PSCmdlet.ShouldProcess($FullPath, "Create backup directory"))) {
 	    mkdir $FullPath | Out-Null
     }
 

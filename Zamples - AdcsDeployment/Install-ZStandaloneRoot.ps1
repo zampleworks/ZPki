@@ -45,7 +45,6 @@ Install-ZPkiCa -CaCommonName "ZampleWorks Root CA v1" -CaType StandaloneRootCA -
 Write-Progress -Activity "Running CA post config"
 Set-ZPkiCaPostInstallConfig -LdapConfigDn "dc=ad,dc=zampleworks,dc=com" -RestartCertSvc
 
-
 <#
  Set CDP and AIA URIs for issued certificates. Remove any default ones and add HTTP only.
 #>
@@ -55,5 +54,3 @@ Write-Progress -Activity "Updating CA CDP/AIA information"
 Set-ZPkiCaUrlConfig -ClearCDPs -ClearAIAs
 Set-ZPkiCaUrlConfig -HttpCdpFqdn $HttpFqdn -AddFileCdp
 Set-ZPkiCaUrlConfig -HttpAiaFqdn $HttpFqdn
-
-
