@@ -57,29 +57,29 @@ $HttpFqdn = "pki.$AdForestDns"
  #   verify that it is a valid CA cert. Also try to find a CRL file to publish.
  ###########################################################################>
 
-$SigningCaCertFile = Get-childItem | Where-Object { $_.Name -match ".*\.(crt|cer)$" -and $_.Name -notlike "*.pem.*" }
-If(($SigningCaCertFile | Measure-Object | Select -ExpandProperty Count) -ne 1) {
+$SigningCaCertFile = Get-childItem | Where-Object { $_.Name -match ".*\.(crt|cer)$" -and $_.Name -notlike "*.pem.*" } | Select-Object -ExpandProperty FullName
+If(($SigningCaCertFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
     Write-Error "Please copy the signing CA certificate file to this directory. It will be published to ADDS stores. Please don't put multiple cert files in this directory. cwd: [$(Get-Location)]"
 }
-$SigningCaCertFile = $SigningCaCertFile[0]
+$SigningCaCertFile = $SigningCaCertFile | Select-Object -First 1
 
 $SigningCaCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 $SigningCaCertFile
 
 Write-Verbose "Found cert for superior CA $($SigningCaCert.Subject)"
 
-$SigningCaCrlFile = Get-childItem | Where-Object { $_ -match ".*\.crl$" }
-If(($SigningCaCrlFile | Measure-Object | Select -ExpandProperty Count) -ne 1) {
+$SigningCaCrlFile = Get-childItem | Where-Object { $_ -match ".*\.crl$" } | Select-Object -expand FullName
+If(($SigningCaCrlFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
     Write-Error "Please copy the superior CA CRL file to this directory. It will be published to ADDS stores. Please don't put multiple CRL files in this directory. cwd: [$(Get-Location)]"
 }
-$SigningCaCrlFile = $SigningCaCrlFile[0]
+$SigningCaCrlFile = $SigningCaCrlFile | Select-Object -First 1
 
 $SigningCaCert.Subject -match "CN=([^,]*),?.*" | Out-Null
 $SigningCaCn = $Matches[1]
 
-Publish-ZPkiCaDsFile -PublishFile $SigningCaCertFile.FullName -CertType RootCA -Verbose
+Publish-ZPkiCaDsFile -PublishFile $SigningCaCertFile -CertType RootCA -Verbose
 
 # Publishing CRL in AD is only necessary if you use LDAP CDP. If needed, uncomment the following line.
-# Publish-ZPkiCaDsFile -PublishFile $SigningCaCrlFile.FullName -CdpContainer $SigningCaCn -CdpObject $SigningCaCn -Verbose
+# Publish-ZPkiCaDsFile -PublishFile $SigningCaCrlFile -CdpContainer $SigningCaCn -CdpObject $SigningCaCn -Verbose
 
 <# 
     OPTIONAL SECTION - Register DNS record in AD DNS
@@ -89,11 +89,11 @@ Publish-ZPkiCaDsFile -PublishFile $SigningCaCertFile.FullName -CertType RootCA -
 Write-Verbose "Checking for DNS record.."
 
 $DnsRec = Resolve-DnsName $HttpFqdn -ErrorAction SilentlyContinue
-If($DnsRec -eq $Null) {
+If($Null -eq $DnsRec) {
     Write-Progress -Activity "Creating DNS record for HTTP"
     Try {
-        $RoutableIpv4 = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $Null } | Select -First 1
-        $RoutableIpv6 = Get-NetIPConfiguration | Where-Object { $_.IPv6DefaultGateway -ne $Null } | Select -First 1
+        $RoutableIpv4 = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $Null } | Select-Object -First 1
+        # $RoutableIpv6 = Get-NetIPConfiguration | Where-Object { $_.IPv6DefaultGateway -ne $Null } | Select-Object -First 1
         
         Write-Verbose "Adding DNS record for $HttpFqdn.."
         If($RoutableIpv4) {
@@ -106,15 +106,15 @@ If($DnsRec -eq $Null) {
 }
 
 Write-Progress -Activity "Running CA installation script"
-Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -Verbose -OverwriteKey -OverwriteDb
+Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -Verbose
 
 # Website must be installed and configured now so CDP checking works, otherwise installing the signed CA certificate will fail.
 New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
 
 # Copy CA certs and CRLs to repo directory
-cp *.crt $RepoDir
-cp *.cer $RepoDir
-cp *.crl $RepoDir
+Copy-Item *.crt $RepoDir
+Copy-Item *.cer $RepoDir
+Copy-Item *.crl $RepoDir
 
 $FoundCert = $False
 Do {
@@ -133,7 +133,7 @@ Do {
 
 If($SignedCertFile.Name -ne "$CaCommonName.crt") {
     $n = "$RepoDir\$CaCommonName.crt"
-    mv $SignedCertFile.FullName $n
+    Move-Item $SignedCertFile.FullName $n
     $SignedCertFile = Get-Item $n
 }
 

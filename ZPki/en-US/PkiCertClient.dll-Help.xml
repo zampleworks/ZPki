@@ -252,7 +252,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7940.26408, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -479,7 +479,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7940.26408, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -752,7 +752,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7940.26408, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -2381,7 +2381,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7940.26408, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>

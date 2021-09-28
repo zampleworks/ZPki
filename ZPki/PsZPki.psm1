@@ -346,7 +346,7 @@ Function Install-ZPkiCa {
 
     Write-Progress -Activity "Installing ADCS windows role"
     Write-Verbose "Installing ADCS Windows role"
-    Install-WindowsFeature ADCS-Cert-Authority -IncludeAllSubFeature -IncludeManagementTools | Out-Null
+    Install-WindowsFeature ADCS-Cert-Authority -IncludeManagementTools | Out-Null
 
     Import-Module ADCSDeployment
 
@@ -364,7 +364,7 @@ Function Install-ZPkiCa {
             } Else {
                 $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
                 -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix `
+                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -CryptoProviderName $CryptoProvider `
                 -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
             }
         }
@@ -373,27 +373,27 @@ Function Install-ZPkiCa {
             Write-Verbose "This installation step may produce a message that looks like an error"
             If($AllowAdminInteraction) {
                 $Result = Install-AdcsCertificationAuthority  `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $Keylength `
+                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
                 -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
                 -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd `
                 -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false
             } Else {
                 $Result = Install-AdcsCertificationAuthority  `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $Keylength `
+                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
                 -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd
+                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -CryptoProviderName $CryptoProvider
             }
         }
 
         "StandaloneRootCA" {
             If($AllowAdminInteraction) {
                 $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
+                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
                 -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
                 -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
             } Else {
                 $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
+                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
                 -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix `
                 -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
             }
@@ -454,9 +454,9 @@ Function Install-ZPkiCaCertificate {
     If($Cert.Issuer -ne $Cert.Subject) {
         $Verified = $Cert.Verify()
         If(-Not $Verified) {
-            Write-Verbose "Certificate $CertFile cannot be verified as valid. Ensure that all AIA and CDP paths are valid and accessible." -ForegroundColor Red
-            Write-Verbose "Test certificate with 'certutil -verify -urlfetch $CertFile' to see which URLs are not responding." -ForegroundColor Red
-            Write-Verbose "GUI command: 'certutil -url $CertFile' to see which URLs are not responding." -ForegroundColor Red
+            Write-Verbose "Certificate $CertFile cannot be verified as valid. Ensure that all AIA and CDP paths are valid and accessible."
+            Write-Verbose "Test certificate with 'certutil -verify -urlfetch $CertFile' to see which URLs are not responding."
+            Write-Verbose "GUI command: 'certutil -url $CertFile' to see which URLs are not responding."
             Write-Verbose ""
             Write-Error "Cannot install CA certificate. Ensure CA certificate chain validates before running this command again."
         }
