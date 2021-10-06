@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-ZPkiAdIssuancePolicyGroupLink
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Removes AMA group link from Issuance Policy OID
 
 ## SYNTAX
 
@@ -17,16 +17,14 @@ Remove-ZPkiAdIssuancePolicyGroupLink [-IssuancePolicyName] <String> [-WhatIf] [-
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Removes AMA group link from Issuance Policy OID
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-ZPkiAdIssuancePolicyGroupLink
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 

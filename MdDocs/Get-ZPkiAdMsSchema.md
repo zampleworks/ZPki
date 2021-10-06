@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiAdMsSchema
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get registered schema and object versions for Microsoft services such as ADDS, Exchange, and SfB.
 
 ## SYNTAX
 
@@ -18,16 +18,14 @@ Get-ZPkiAdMsSchema [-ExchDomainDN <String>] [-Rpc] [-Domain <String>] [-DomainCo
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get system/object/schema versions for ADDS, Exchange, and SfB.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdMsSchema
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 

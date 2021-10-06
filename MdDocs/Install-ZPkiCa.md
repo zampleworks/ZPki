@@ -8,7 +8,7 @@ schema: 2.0.0
 # Install-ZPkiCa
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Install and configure ADCS on the local machine.
 
 ## SYNTAX
 
@@ -26,21 +26,20 @@ Install-ZPkiCa [[-CaCommonName] <String>] [[-CaDnSuffix] <String>] [[-CaType] <S
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Install and configure ADCS on the local machine. Most parameters have sane default values, but you definitely want to change CaCommonName.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Install-ZPkiCa
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -ADCSPath
-{{ Fill ADCSPath Description }}
+Root path of ADCS directory. This will contain (by default) subdirectories for ADCS database, 
+log file, requests, web repository, etc.
 
 ```yaml
 Type: String
@@ -55,7 +54,7 @@ Accept wildcard characters: False
 ```
 
 ### -AllowAdminInteraction
-{{ Fill AllowAdminInteraction Description }}
+This switch is required if you want to store CA keys on HSM
 
 ```yaml
 Type: SwitchParameter
@@ -70,7 +69,8 @@ Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyName
-{{ Fill AssurancePolicyName Description }}
+Used together with -AutoDetectAssurancePolicy. Find the given Assurance Policy OID in
+Active Directory by matching AssurancePolicyName.
 
 ```yaml
 Type: String
@@ -85,7 +85,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyNotice
-{{ Fill AssurancePolicyNotice Description }}
+Text Notice for Assurance Policy
 
 ```yaml
 Type: String
@@ -100,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyOid
-{{ Fill AssurancePolicyOid Description }}
+Assurance Policy OID for CA certificate.
 
 ```yaml
 Type: String
@@ -115,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssurancePolicyUrl
-{{ Fill AssurancePolicyUrl Description }}
+URL for Assurance Policy
 
 ```yaml
 Type: String
@@ -130,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -AutoDetectAssurancePolicy
-{{ Fill AutoDetectAssurancePolicy Description }}
+Use this together with AssurancePolicyName to find Assurance Policy OID in Active Directory.
 
 ```yaml
 Type: SwitchParameter
@@ -145,7 +145,7 @@ Accept wildcard characters: False
 ```
 
 ### -BasicConstraintsIsCritical
-{{ Fill BasicConstraintsIsCritical Description }}
+Mark Basic Constraints extension as critical
 
 ```yaml
 Type: SwitchParameter
@@ -160,7 +160,7 @@ Accept wildcard characters: False
 ```
 
 ### -CaCertValidityPeriod
-{{ Fill CaCertValidityPeriod Description }}
+Validity for CA certificate
 
 ```yaml
 Type: String
@@ -176,7 +176,7 @@ Accept wildcard characters: False
 ```
 
 ### -CaCertValidityPeriodUnits
-{{ Fill CaCertValidityPeriodUnits Description }}
+Validity for CA certificate
 
 ```yaml
 Type: Int32
@@ -191,7 +191,7 @@ Accept wildcard characters: False
 ```
 
 ### -CaCommonName
-{{ Fill CaCommonName Description }}
+Common Name for CA
 
 ```yaml
 Type: String
@@ -206,7 +206,7 @@ Accept wildcard characters: False
 ```
 
 ### -CaDnSuffix
-{{ Fill CaDnSuffix Description }}
+Distinguished Name suffix for ADCS. Used when publishing CA in ADDS.
 
 ```yaml
 Type: String
@@ -221,7 +221,7 @@ Accept wildcard characters: False
 ```
 
 ### -CaType
-{{ Fill CaType Description }}
+CA installation type. Valid values: EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, StandaloneSubordinateCA
 
 ```yaml
 Type: String
@@ -237,7 +237,7 @@ Accept wildcard characters: False
 ```
 
 ### -CpsNotice
-{{ Fill CpsNotice Description }}
+Text notice for CPS
 
 ```yaml
 Type: String
@@ -252,7 +252,7 @@ Accept wildcard characters: False
 ```
 
 ### -CpsOid
-{{ Fill CpsOid Description }}
+Oid for CPS
 
 ```yaml
 Type: String
@@ -267,7 +267,7 @@ Accept wildcard characters: False
 ```
 
 ### -CpsUrl
-{{ Fill CpsUrl Description }}
+URL for CPS
 
 ```yaml
 Type: String
@@ -282,7 +282,7 @@ Accept wildcard characters: False
 ```
 
 ### -CrlDeltaPeriod
-{{ Fill CrlDeltaPeriod Description }}
+Delta period for CRL
 
 ```yaml
 Type: String
@@ -298,7 +298,7 @@ Accept wildcard characters: False
 ```
 
 ### -CrlDeltaPeriodUnits
-{{ Fill CrlDeltaPeriodUnits Description }}
+Delta period for CRL
 
 ```yaml
 Type: Int32
@@ -313,7 +313,7 @@ Accept wildcard characters: False
 ```
 
 ### -CrlPeriod
-{{ Fill CrlPeriod Description }}
+Validity period for CRL
 
 ```yaml
 Type: String
@@ -329,7 +329,7 @@ Accept wildcard characters: False
 ```
 
 ### -CrlPeriodUnits
-{{ Fill CrlPeriodUnits Description }}
+Validity period for CRL
 
 ```yaml
 Type: Int32
@@ -344,7 +344,9 @@ Accept wildcard characters: False
 ```
 
 ### -CryptoProvider
-{{ Fill CryptoProvider Description }}
+Specify which cryptographic provider to use. Can also be used to specify key algorithm. 
+For example to use ECC keys, set -CryptoProvider to "ECDSA_P256#Microsoft Software Key Storage Provider"
+and -KeyLength 256
 
 ```yaml
 Type: String
@@ -359,7 +361,7 @@ Accept wildcard characters: False
 ```
 
 ### -DbLogPath
-{{ Fill DbLogPath Description }}
+Path to ADCS database log directory
 
 ```yaml
 Type: String
@@ -374,7 +376,7 @@ Accept wildcard characters: False
 ```
 
 ### -DbPath
-{{ Fill DbPath Description }}
+Path to ADCS database directory
 
 ```yaml
 Type: String
@@ -389,7 +391,7 @@ Accept wildcard characters: False
 ```
 
 ### -EkuOids
-{{ Fill EkuOids Description }}
+Add these OIDs to Extended Key Usage extension
 
 ```yaml
 Type: String[]
@@ -404,7 +406,7 @@ Accept wildcard characters: False
 ```
 
 ### -EkuSectionIsCritical
-{{ Fill EkuSectionIsCritical Description }}
+Mark Extended Key Usage extension as critical
 
 ```yaml
 Type: SwitchParameter
@@ -419,7 +421,7 @@ Accept wildcard characters: False
 ```
 
 ### -EnableBasicConstraints
-{{ Fill EnableBasicConstraints Description }}
+Include Basic Constraints
 
 ```yaml
 Type: SwitchParameter
@@ -434,7 +436,7 @@ Accept wildcard characters: False
 ```
 
 ### -Hash
-{{ Fill Hash Description }}
+Choose hash algorithm
 
 ```yaml
 Type: String
@@ -449,7 +451,7 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeAllIssuancePolicy
-{{ Fill IncludeAllIssuancePolicy Description }}
+Include All Issuance Policy OID in certificate
 
 ```yaml
 Type: SwitchParameter
@@ -464,7 +466,7 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeAssurancePolicy
-{{ Fill IncludeAssurancePolicy Description }}
+Include Assurance Policy in certificate
 
 ```yaml
 Type: SwitchParameter
@@ -479,7 +481,7 @@ Accept wildcard characters: False
 ```
 
 ### -KeyLength
-{{ Fill KeyLength Description }}
+Key length for CA private key
 
 ```yaml
 Type: Int32
@@ -494,7 +496,7 @@ Accept wildcard characters: False
 ```
 
 ### -OverwriteDb
-{{ Fill OverwriteDb Description }}
+You may need to use this if you are reinstalling ADCS, for example after a failed install.
 
 ```yaml
 Type: SwitchParameter
@@ -509,7 +511,7 @@ Accept wildcard characters: False
 ```
 
 ### -OverwriteInAd
-{{ Fill OverwriteInAd Description }}
+You may need to use this if you are reinstalling an ADCS instance from backup, for example after upgrading Operating System.
 
 ```yaml
 Type: SwitchParameter
@@ -524,7 +526,7 @@ Accept wildcard characters: False
 ```
 
 ### -OverwriteKey
-{{ Fill OverwriteKey Description }}
+You may need to use this if you are reinstalling ADCS, for example after a failed install.
 
 ```yaml
 Type: SwitchParameter
@@ -539,7 +541,7 @@ Accept wildcard characters: False
 ```
 
 ### -PathLength
-{{ Fill PathLength Description }}
+Number to use for Path Length Constraint extension. 0 means this CA can only issue End Entity certificates.
 
 ```yaml
 Type: String
@@ -554,7 +556,7 @@ Accept wildcard characters: False
 ```
 
 ### -RootCaForcePolicy
-{{ Fill RootCaForcePolicy Description }}
+Normally you should not include any policies in a root CA certificate. Use this switch to force inclusion of policies.
 
 ```yaml
 Type: SwitchParameter

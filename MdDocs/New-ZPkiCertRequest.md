@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-ZPkiCertRequest
 
 ## SYNOPSIS
-Not finished, do not use..
+This cmdlet is not finished, do not use..
 
 ## SYNTAX
 
@@ -25,10 +25,10 @@ New-ZPkiCertRequest [-Subject <String>] [-CryptoProvider <String>] [-KeyAlg <Str
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-ZPkiCertRequest
 ```
 
-{{ Add example description here }}
+
 
 ## PARAMETERS
 

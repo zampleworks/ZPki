@@ -8,7 +8,7 @@ schema: 2.0.0
 # Install-ZPkiCaCertificate
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Install a signed CA certificate for intermediate CA
 
 ## SYNTAX
 
@@ -18,21 +18,20 @@ Install-ZPkiCaCertificate [[-CertFile] <String>] [-SkipCopyToRepository] [[-Adcs
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+When deploying an intermediate CA you will receive a CSR file that needs to be signed by the
+superior CA. After this is done, this cmdlet installs and configures the CA certificate.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Install-ZPkiCaCertificate -CertFile "C:\ADCS\cacert.cer"
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -AdcsRepositoryPath
-{{ Fill AdcsRepositoryPath Description }}
+Path to ADCS web repository
 
 ```yaml
 Type: String
@@ -47,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -CertFile
-{{ Fill CertFile Description }}
+Certificate file
 
 ```yaml
 Type: String
@@ -62,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -SkipCopyToRepository
-{{ Fill SkipCopyToRepository Description }}
+Don't copy files to web repository
 
 ```yaml
 Type: SwitchParameter

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiAdIssuancePolicy
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Lists all Issuance policy OIDs registered in Active Directory
 
 ## SYNTAX
 
@@ -17,21 +17,21 @@ Get-ZPkiAdIssuancePolicy [[-IssuancePolicyName] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Issuance Policy OIDs are registered in Active Directory's Configuration partition.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdIssuancePolicy
 ```
 
-{{ Add example description here }}
+Get all Issuance Policy OIDs
 
 ## PARAMETERS
 
 ### -IssuancePolicyName
-{{ Fill IssuancePolicyName Description }}
+Try to find Issuance Policy by name
 
 ```yaml
 Type: String

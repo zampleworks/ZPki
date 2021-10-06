@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PkiCertClient.dll-Help.xml
 Module Name: ZPki
 online version:
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Test-ZPkiTlsConnection
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Test TLS connection and return server certificate
 
 ## SYNTAX
 
@@ -18,16 +18,14 @@ Test-ZPkiTlsConnection [-Uri] <String> -Port <UInt32> [-IgnoreValidation] [-Cert
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Test TLS connection and return server certificate. Optionally save certificate to file.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Test-ZPkiTlsConnection -Uri "https://www.google.com"
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Install-ZPkiRsatComponents
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Install ADCS RSAT tools.
 
 ## SYNTAX
 
@@ -17,21 +17,19 @@ Install-ZPkiRsatComponents [-IncludeAdTools] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Install ADCS RSAT tools. On older Operating Systems you need to download them from Microsoft and run the installer first.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Install-ZPkiRsatComponents
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -IncludeAdTools
-{{ Fill IncludeAdTools Description }}
+Install ADDS admin tools as well as ADCS.
 
 ```yaml
 Type: SwitchParameter

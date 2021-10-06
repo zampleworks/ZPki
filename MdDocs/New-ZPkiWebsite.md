@@ -27,15 +27,15 @@ runesson D"Ö"T info
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-ZPkiWebsite -IisSiteName "ZampleWorks PKI web site" -HttpFqdn "pki.zampleworks.com" -LocalPath "C:\ADCS\Web"
 ```
 
-{{ Add example description here }}
+Installs IIS (if not installed) and creates a web site to host HTTP CDP and AIA.
 
 ## PARAMETERS
 
 ### -HttpFqdn
-{{ Fill HttpFqdn Description }}
+FQDN
 
 ```yaml
 Type: String
@@ -50,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -IisSiteName
-{{ Fill IisSiteName Description }}
+IIS web site name
 
 ```yaml
 Type: String

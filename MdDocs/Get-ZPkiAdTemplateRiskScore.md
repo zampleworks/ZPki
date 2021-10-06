@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiAdTemplateRiskScore
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+TODO: Not implemented yet!
 
 ## SYNTAX
 

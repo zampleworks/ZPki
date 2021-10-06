@@ -8,7 +8,7 @@ schema: 2.0.0
 # Copy-ZPkiCertSrvFilesToRepo
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Copy certificate and CRL files from ADCS to online repository directory
 
 ## SYNTAX
 
@@ -17,21 +17,24 @@ Copy-ZPkiCertSrvFilesToRepo [[-LocalRepositoryPath] <String>] [[-FileType] <Stri
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Enumerate all files in ADCS windows directory (C:\Windows\System32\Certsrv) and copies
+them to web repository. Certificate files with ADCS-style "<hostname>_<caname>.crt" file name will be renamed 
+to just "<caname>.crt". 
+All certs will also be exported as PEM files.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Copy-ZPkiCertSrvFilesToRepo -LocalRepositoryPath C:\ADCS\Web
 ```
 
-{{ Add example description here }}
+Processes both certificate and CRL files in C:\Windows\System32\Certsrv
 
 ## PARAMETERS
 
 ### -FileType
-{{ Fill FileType Description }}
+Valid values: "crl", "crt", or "all"
 
 ```yaml
 Type: String
@@ -47,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -LocalRepositoryPath
-{{ Fill LocalRepositoryPath Description }}
+Path to repository directory
 
 ```yaml
 Type: String

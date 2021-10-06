@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiAdIssuancePolicyGroupLinks
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get linked Issuance Policies linked to Authentication Mechanism Assurance (AMA) groups
 
 ## SYNTAX
 
@@ -17,21 +17,22 @@ Get-ZPkiAdIssuancePolicyGroupLinks [[-IssuancePolicyName] <String>] [<CommonPara
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Issuance Policies in Active Directory can be linked to groups via Authentication Mechanism Assurance.
+This cmdlet lists all such links.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-ZPkiAdIssuancePolicyGroupLinks
 ```
 
-{{ Add example description here }}
+Get all AMA Issuance Policy and group links
 
 ## PARAMETERS
 
 ### -IssuancePolicyName
-{{ Fill IssuancePolicyName Description }}
+Filter by Issuance Policy name
 
 ```yaml
 Type: String

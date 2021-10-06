@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-ZPkiAdDomain
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+TODO: This cmdlet is not usable yet.
 
 ## SYNTAX
 

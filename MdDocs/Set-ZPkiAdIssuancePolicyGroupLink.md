@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-ZPkiAdIssuancePolicyGroupLink
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Link an AMA group to Issuance Policy
 
 ## SYNTAX
 
@@ -18,21 +18,19 @@ Set-ZPkiAdIssuancePolicyGroupLink [-IssuancePolicyName] <String> [-GroupName] <S
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Link an AMA group to Issuance Policy
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-ZPkiAdIssuancePolicyGroupLink -IssuancePolicyName "High Security" -GroupName "System Admins"
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -GroupName
-{{ Fill GroupName Description }}
+Group name
 
 ```yaml
 Type: String
@@ -47,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -IssuancePolicyName
-{{ Fill IssuancePolicyName Description }}
+Issuance Policy name
 
 ```yaml
 Type: String
