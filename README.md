@@ -19,8 +19,10 @@ toward ADCS as of yet but has some nifty cmdlets for AD querying.
 #### Installing PS module
 Preferably, install the ZPki module from PSGallery instead of downloading it from Github:
 
-Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
-Install-Module -Name ZPki
+```
+PS:> Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+PS:> Install-Module -Name ZPki
+```
 
 To run this Install-Module on Windows Server 2012R2 and older, you need to 
 install .NET 4.5.2 and Windows Management Framework version 5.1 or newer: 
