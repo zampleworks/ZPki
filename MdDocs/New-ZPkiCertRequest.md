@@ -28,8 +28,6 @@ New-ZPkiCertRequest [-Subject <String>] [-CryptoProvider <String>] [-KeyAlg <Str
 PS C:\> New-ZPkiCertRequest
 ```
 
-
-
 ## PARAMETERS
 
 ### -CryptoProvider

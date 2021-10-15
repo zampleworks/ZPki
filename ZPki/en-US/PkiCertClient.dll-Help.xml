@@ -252,7 +252,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -479,7 +479,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -752,7 +752,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1174,7 +1174,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdDomain</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>TODO: This cmdlet is not usable yet.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1691,11 +1691,11 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdMsSchema</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get registered schema and object versions for Microsoft services such as ADDS, Exchange, and SfB.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Get system/object/schema versions for ADDS, Exchange, and SfB.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1873,9 +1873,9 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiAdMsSchema</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2381,7 +2381,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7941.25315, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -2410,7 +2410,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdTemplateRiskScore</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>TODO: Not implemented yet!</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -4043,7 +4043,7 @@ You can query the request table, CRL table, or extensions table.</maml:para>
       <command:verb>New</command:verb>
       <command:noun>ZPkiCertRequest</command:noun>
       <maml:description>
-        <maml:para>Not finished, do not use..</maml:para>
+        <maml:para>This cmdlet is not finished, do not use..</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -4309,9 +4309,9 @@ You can query the request table, CRL table, or extensions table.</maml:para>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; New-ZPkiCertRequest</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -4323,11 +4323,11 @@ You can query the request table, CRL table, or extensions table.</maml:para>
       <command:verb>Test</command:verb>
       <command:noun>ZPkiTlsConnection</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Test TLS connection and return server certificate</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Test TLS connection and return server certificate. Optionally save certificate to file.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4482,9 +4482,9 @@ You can query the request table, CRL table, or extensions table.</maml:para>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Test-ZPkiTlsConnection -Uri "https://www.google.com"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

@@ -6,11 +6,11 @@
       <command:verb>Copy</command:verb>
       <command:noun>ZPkiCertSrvFilesToRepo</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Copy certificate and CRL files from ADCS to online repository directory</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Enumerate all files in ADCS windows directory (C:\Windows\System32\Certsrv) and copies them to web repository. Certificate files with ADCS-style "&lt;hostname&gt;_&lt;caname&gt;.crt" file name will be renamed  to just "&lt;caname&gt;.crt".  All certs will also be exported as PEM files.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -18,7 +18,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>LocalRepositoryPath</maml:name>
           <maml:description>
-            <maml:para>{{ Fill LocalRepositoryPath Description }}</maml:para>
+            <maml:para>Path to repository directory</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -30,7 +30,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>FileType</maml:name>
           <maml:description>
-            <maml:para>{{ Fill FileType Description }}</maml:para>
+            <maml:para>Valid values: "crl", "crt", or "all"</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">crl</command:parameterValue>
@@ -50,7 +50,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>FileType</maml:name>
         <maml:description>
-          <maml:para>{{ Fill FileType Description }}</maml:para>
+          <maml:para>Valid values: "crl", "crt", or "all"</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -62,7 +62,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>LocalRepositoryPath</maml:name>
         <maml:description>
-          <maml:para>{{ Fill LocalRepositoryPath Description }}</maml:para>
+          <maml:para>Path to repository directory</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -100,9 +100,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Copy-ZPkiCertSrvFilesToRepo -LocalRepositoryPath C:\ADCS\Web</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Processes both certificate and CRL files in C:\Windows\System32\Certsrv</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -114,11 +114,11 @@
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdIssuancePolicy</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Lists all Issuance policy OIDs registered in Active Directory</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Issuance Policy OIDs are registered in Active Directory's Configuration partition.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -126,7 +126,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuancePolicyName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+            <maml:para>Try to find Issuance Policy by name</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -141,7 +141,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+          <maml:para>Try to find Issuance Policy by name</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -179,9 +179,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiAdIssuancePolicy</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Get all Issuance Policy OIDs</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -193,11 +193,11 @@
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdIssuancePolicyGroupLinks</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get linked Issuance Policies linked to Authentication Mechanism Assurance (AMA) groups</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Issuance Policies in Active Directory can be linked to groups via Authentication Mechanism Assurance. This cmdlet lists all such links.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -205,7 +205,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuancePolicyName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+            <maml:para>Filter by Issuance Policy name</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -220,7 +220,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+          <maml:para>Filter by Issuance Policy name</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -258,9 +258,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiAdIssuancePolicyGroupLinks</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Get all AMA Issuance Policy and group links</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -272,11 +272,11 @@
       <command:verb>Get</command:verb>
       <command:noun>ZPkiLocalCaConfigString</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get config string for local instance of ADCS</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Get config string for local instance of ADCS</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -312,9 +312,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-ZPkiLocalCaConfigString</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -326,11 +326,11 @@
       <command:verb>Install</command:verb>
       <command:noun>ZPkiCa</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Install and configure ADCS on the local machine.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Install and configure ADCS on the local machine. Most parameters have sane default values, but you definitely want to change CaCommonName.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -338,7 +338,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>CaCommonName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CaCommonName Description }}</maml:para>
+            <maml:para>Common Name for CA</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -350,7 +350,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>CaDnSuffix</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CaDnSuffix Description }}</maml:para>
+            <maml:para>Distinguished Name suffix for ADCS. Used when publishing CA in ADDS.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -362,7 +362,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
           <maml:name>CpsUrl</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CpsUrl Description }}</maml:para>
+            <maml:para>URL for CPS</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -374,7 +374,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
           <maml:name>AssurancePolicyName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AssurancePolicyName Description }}</maml:para>
+            <maml:para>Used together with -AutoDetectAssurancePolicy. Find the given Assurance Policy OID in Active Directory by matching AssurancePolicyName.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -386,7 +386,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
           <maml:name>AssurancePolicyOid</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AssurancePolicyOid Description }}</maml:para>
+            <maml:para>Assurance Policy OID for CA certificate.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -398,7 +398,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
           <maml:name>AssurancePolicyNotice</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AssurancePolicyNotice Description }}</maml:para>
+            <maml:para>Text Notice for Assurance Policy</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -410,7 +410,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
           <maml:name>AssurancePolicyUrl</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AssurancePolicyUrl Description }}</maml:para>
+            <maml:para>URL for Assurance Policy</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -422,7 +422,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
           <maml:name>CaCertValidityPeriod</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CaCertValidityPeriod Description }}</maml:para>
+            <maml:para>Validity for CA certificate</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
@@ -441,7 +441,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
           <maml:name>CaCertValidityPeriodUnits</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CaCertValidityPeriodUnits Description }}</maml:para>
+            <maml:para>Validity for CA certificate</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -453,7 +453,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="17" aliases="none">
           <maml:name>CrlPeriod</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CrlPeriod Description }}</maml:para>
+            <maml:para>Validity period for CRL</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
@@ -472,7 +472,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="18" aliases="none">
           <maml:name>CrlPeriodUnits</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CrlPeriodUnits Description }}</maml:para>
+            <maml:para>Validity period for CRL</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -484,7 +484,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="19" aliases="none">
           <maml:name>CrlDeltaPeriod</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CrlDeltaPeriod Description }}</maml:para>
+            <maml:para>Delta period for CRL</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Hours</command:parameterValue>
@@ -503,7 +503,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>CaType</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CaType Description }}</maml:para>
+            <maml:para>CA installation type. Valid values: EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, StandaloneSubordinateCA</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">EnterpriseRootCA</command:parameterValue>
@@ -521,7 +521,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="20" aliases="none">
           <maml:name>CrlDeltaPeriodUnits</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CrlDeltaPeriodUnits Description }}</maml:para>
+            <maml:para>Delta period for CRL</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -533,7 +533,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="21" aliases="none">
           <maml:name>ADCSPath</maml:name>
           <maml:description>
-            <maml:para>{{ Fill ADCSPath Description }}</maml:para>
+            <maml:para>Root path of ADCS directory. This will contain (by default) subdirectories for ADCS database,  log file, requests, web repository, etc.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -545,7 +545,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="22" aliases="none">
           <maml:name>DbPath</maml:name>
           <maml:description>
-            <maml:para>{{ Fill DbPath Description }}</maml:para>
+            <maml:para>Path to ADCS database directory</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -557,7 +557,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="23" aliases="none">
           <maml:name>DbLogPath</maml:name>
           <maml:description>
-            <maml:para>{{ Fill DbLogPath Description }}</maml:para>
+            <maml:para>Path to ADCS database log directory</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -569,7 +569,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>KeyLength</maml:name>
           <maml:description>
-            <maml:para>{{ Fill KeyLength Description }}</maml:para>
+            <maml:para>Key length for CA private key</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -581,7 +581,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>CryptoProvider</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CryptoProvider Description }}</maml:para>
+            <maml:para>Specify which cryptographic provider to use. Can also be used to specify key algorithm.  For example to use ECC keys, set -CryptoProvider to "ECDSA_P256#Microsoft Software Key Storage Provider" and -KeyLength 256</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -593,7 +593,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>Hash</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Hash Description }}</maml:para>
+            <maml:para>Choose hash algorithm</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -605,7 +605,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>PathLength</maml:name>
           <maml:description>
-            <maml:para>{{ Fill PathLength Description }}</maml:para>
+            <maml:para>Number to use for Path Length Constraint extension. 0 means this CA can only issue End Entity certificates.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -617,7 +617,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>EkuOids</maml:name>
           <maml:description>
-            <maml:para>{{ Fill EkuOids Description }}</maml:para>
+            <maml:para>Add these OIDs to Extended Key Usage extension</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -629,7 +629,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
           <maml:name>CpsNotice</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CpsNotice Description }}</maml:para>
+            <maml:para>Text notice for CPS</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -641,7 +641,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
           <maml:name>CpsOid</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CpsOid Description }}</maml:para>
+            <maml:para>Oid for CPS</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -653,7 +653,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>AllowAdminInteraction</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AllowAdminInteraction Description }}</maml:para>
+            <maml:para>This switch is required if you want to store CA keys on HSM</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -664,7 +664,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>AutoDetectAssurancePolicy</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AutoDetectAssurancePolicy Description }}</maml:para>
+            <maml:para>Use this together with AssurancePolicyName to find Assurance Policy OID in Active Directory.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -675,7 +675,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>BasicConstraintsIsCritical</maml:name>
           <maml:description>
-            <maml:para>{{ Fill BasicConstraintsIsCritical Description }}</maml:para>
+            <maml:para>Mark Basic Constraints extension as critical</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -686,7 +686,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EkuSectionIsCritical</maml:name>
           <maml:description>
-            <maml:para>{{ Fill EkuSectionIsCritical Description }}</maml:para>
+            <maml:para>Mark Extended Key Usage extension as critical</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -697,7 +697,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableBasicConstraints</maml:name>
           <maml:description>
-            <maml:para>{{ Fill EnableBasicConstraints Description }}</maml:para>
+            <maml:para>Include Basic Constraints</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -708,7 +708,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>IncludeAllIssuancePolicy</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IncludeAllIssuancePolicy Description }}</maml:para>
+            <maml:para>Include All Issuance Policy OID in certificate</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -719,7 +719,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>IncludeAssurancePolicy</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IncludeAssurancePolicy Description }}</maml:para>
+            <maml:para>Include Assurance Policy in certificate</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -730,7 +730,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>OverwriteDb</maml:name>
           <maml:description>
-            <maml:para>{{ Fill OverwriteDb Description }}</maml:para>
+            <maml:para>You may need to use this if you are reinstalling ADCS, for example after a failed install.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -741,7 +741,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>OverwriteInAd</maml:name>
           <maml:description>
-            <maml:para>{{ Fill OverwriteInAd Description }}</maml:para>
+            <maml:para>You may need to use this if you are reinstalling an ADCS instance from backup, for example after upgrading Operating System.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -752,7 +752,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>OverwriteKey</maml:name>
           <maml:description>
-            <maml:para>{{ Fill OverwriteKey Description }}</maml:para>
+            <maml:para>You may need to use this if you are reinstalling ADCS, for example after a failed install.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -763,7 +763,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>RootCaForcePolicy</maml:name>
           <maml:description>
-            <maml:para>{{ Fill RootCaForcePolicy Description }}</maml:para>
+            <maml:para>Normally you should not include any policies in a root CA certificate. Use this switch to force inclusion of policies.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -777,7 +777,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="21" aliases="none">
         <maml:name>ADCSPath</maml:name>
         <maml:description>
-          <maml:para>{{ Fill ADCSPath Description }}</maml:para>
+          <maml:para>Root path of ADCS directory. This will contain (by default) subdirectories for ADCS database,  log file, requests, web repository, etc.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -789,7 +789,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>AllowAdminInteraction</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AllowAdminInteraction Description }}</maml:para>
+          <maml:para>This switch is required if you want to store CA keys on HSM</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -801,7 +801,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
         <maml:name>AssurancePolicyName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AssurancePolicyName Description }}</maml:para>
+          <maml:para>Used together with -AutoDetectAssurancePolicy. Find the given Assurance Policy OID in Active Directory by matching AssurancePolicyName.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -813,7 +813,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
         <maml:name>AssurancePolicyNotice</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AssurancePolicyNotice Description }}</maml:para>
+          <maml:para>Text Notice for Assurance Policy</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -825,7 +825,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
         <maml:name>AssurancePolicyOid</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AssurancePolicyOid Description }}</maml:para>
+          <maml:para>Assurance Policy OID for CA certificate.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -837,7 +837,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
         <maml:name>AssurancePolicyUrl</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AssurancePolicyUrl Description }}</maml:para>
+          <maml:para>URL for Assurance Policy</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -849,7 +849,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>AutoDetectAssurancePolicy</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AutoDetectAssurancePolicy Description }}</maml:para>
+          <maml:para>Use this together with AssurancePolicyName to find Assurance Policy OID in Active Directory.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -861,7 +861,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>BasicConstraintsIsCritical</maml:name>
         <maml:description>
-          <maml:para>{{ Fill BasicConstraintsIsCritical Description }}</maml:para>
+          <maml:para>Mark Basic Constraints extension as critical</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -873,7 +873,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
         <maml:name>CaCertValidityPeriod</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CaCertValidityPeriod Description }}</maml:para>
+          <maml:para>Validity for CA certificate</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -885,7 +885,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
         <maml:name>CaCertValidityPeriodUnits</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CaCertValidityPeriodUnits Description }}</maml:para>
+          <maml:para>Validity for CA certificate</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -897,7 +897,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>CaCommonName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CaCommonName Description }}</maml:para>
+          <maml:para>Common Name for CA</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -909,7 +909,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>CaDnSuffix</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CaDnSuffix Description }}</maml:para>
+          <maml:para>Distinguished Name suffix for ADCS. Used when publishing CA in ADDS.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -921,7 +921,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>CaType</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CaType Description }}</maml:para>
+          <maml:para>CA installation type. Valid values: EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, StandaloneSubordinateCA</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -933,7 +933,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
         <maml:name>CpsNotice</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CpsNotice Description }}</maml:para>
+          <maml:para>Text notice for CPS</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -945,7 +945,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>CpsOid</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CpsOid Description }}</maml:para>
+          <maml:para>Oid for CPS</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -957,7 +957,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
         <maml:name>CpsUrl</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CpsUrl Description }}</maml:para>
+          <maml:para>URL for CPS</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -969,7 +969,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="19" aliases="none">
         <maml:name>CrlDeltaPeriod</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CrlDeltaPeriod Description }}</maml:para>
+          <maml:para>Delta period for CRL</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -981,7 +981,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="20" aliases="none">
         <maml:name>CrlDeltaPeriodUnits</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CrlDeltaPeriodUnits Description }}</maml:para>
+          <maml:para>Delta period for CRL</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -993,7 +993,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="17" aliases="none">
         <maml:name>CrlPeriod</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CrlPeriod Description }}</maml:para>
+          <maml:para>Validity period for CRL</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1005,7 +1005,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="18" aliases="none">
         <maml:name>CrlPeriodUnits</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CrlPeriodUnits Description }}</maml:para>
+          <maml:para>Validity period for CRL</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1017,7 +1017,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>CryptoProvider</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CryptoProvider Description }}</maml:para>
+          <maml:para>Specify which cryptographic provider to use. Can also be used to specify key algorithm.  For example to use ECC keys, set -CryptoProvider to "ECDSA_P256#Microsoft Software Key Storage Provider" and -KeyLength 256</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1029,7 +1029,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="23" aliases="none">
         <maml:name>DbLogPath</maml:name>
         <maml:description>
-          <maml:para>{{ Fill DbLogPath Description }}</maml:para>
+          <maml:para>Path to ADCS database log directory</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1041,7 +1041,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="22" aliases="none">
         <maml:name>DbPath</maml:name>
         <maml:description>
-          <maml:para>{{ Fill DbPath Description }}</maml:para>
+          <maml:para>Path to ADCS database directory</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1053,7 +1053,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>EkuOids</maml:name>
         <maml:description>
-          <maml:para>{{ Fill EkuOids Description }}</maml:para>
+          <maml:para>Add these OIDs to Extended Key Usage extension</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -1065,7 +1065,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EkuSectionIsCritical</maml:name>
         <maml:description>
-          <maml:para>{{ Fill EkuSectionIsCritical Description }}</maml:para>
+          <maml:para>Mark Extended Key Usage extension as critical</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1077,7 +1077,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableBasicConstraints</maml:name>
         <maml:description>
-          <maml:para>{{ Fill EnableBasicConstraints Description }}</maml:para>
+          <maml:para>Include Basic Constraints</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1089,7 +1089,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>Hash</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Hash Description }}</maml:para>
+          <maml:para>Choose hash algorithm</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1101,7 +1101,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>IncludeAllIssuancePolicy</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IncludeAllIssuancePolicy Description }}</maml:para>
+          <maml:para>Include All Issuance Policy OID in certificate</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1113,7 +1113,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>IncludeAssurancePolicy</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IncludeAssurancePolicy Description }}</maml:para>
+          <maml:para>Include Assurance Policy in certificate</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1125,7 +1125,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>KeyLength</maml:name>
         <maml:description>
-          <maml:para>{{ Fill KeyLength Description }}</maml:para>
+          <maml:para>Key length for CA private key</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1137,7 +1137,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>OverwriteDb</maml:name>
         <maml:description>
-          <maml:para>{{ Fill OverwriteDb Description }}</maml:para>
+          <maml:para>You may need to use this if you are reinstalling ADCS, for example after a failed install.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1149,7 +1149,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>OverwriteInAd</maml:name>
         <maml:description>
-          <maml:para>{{ Fill OverwriteInAd Description }}</maml:para>
+          <maml:para>You may need to use this if you are reinstalling an ADCS instance from backup, for example after upgrading Operating System.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1161,7 +1161,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>OverwriteKey</maml:name>
         <maml:description>
-          <maml:para>{{ Fill OverwriteKey Description }}</maml:para>
+          <maml:para>You may need to use this if you are reinstalling ADCS, for example after a failed install.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1173,7 +1173,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>PathLength</maml:name>
         <maml:description>
-          <maml:para>{{ Fill PathLength Description }}</maml:para>
+          <maml:para>Number to use for Path Length Constraint extension. 0 means this CA can only issue End Entity certificates.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1185,7 +1185,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>RootCaForcePolicy</maml:name>
         <maml:description>
-          <maml:para>{{ Fill RootCaForcePolicy Description }}</maml:para>
+          <maml:para>Normally you should not include any policies in a root CA certificate. Use this switch to force inclusion of policies.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1223,9 +1223,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Install-ZPkiCa</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1237,11 +1237,11 @@
       <command:verb>Install</command:verb>
       <command:noun>ZPkiCaCertificate</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Install a signed CA certificate for intermediate CA</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>When deploying an intermediate CA you will receive a CSR file that needs to be signed by the superior CA. After this is done, this cmdlet installs and configures the CA certificate.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1249,7 +1249,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>CertFile</maml:name>
           <maml:description>
-            <maml:para>{{ Fill CertFile Description }}</maml:para>
+            <maml:para>Certificate file</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1261,7 +1261,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>AdcsRepositoryPath</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AdcsRepositoryPath Description }}</maml:para>
+            <maml:para>Path to ADCS web repository</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1273,7 +1273,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>SkipCopyToRepository</maml:name>
           <maml:description>
-            <maml:para>{{ Fill SkipCopyToRepository Description }}</maml:para>
+            <maml:para>Don't copy files to web repository</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1287,7 +1287,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>AdcsRepositoryPath</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AdcsRepositoryPath Description }}</maml:para>
+          <maml:para>Path to ADCS web repository</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1299,7 +1299,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>CertFile</maml:name>
         <maml:description>
-          <maml:para>{{ Fill CertFile Description }}</maml:para>
+          <maml:para>Certificate file</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1311,7 +1311,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>SkipCopyToRepository</maml:name>
         <maml:description>
-          <maml:para>{{ Fill SkipCopyToRepository Description }}</maml:para>
+          <maml:para>Don't copy files to web repository</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1349,9 +1349,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Install-ZPkiCaCertificate -CertFile "C:\ADCS\cacert.cer"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1363,11 +1363,11 @@
       <command:verb>Install</command:verb>
       <command:noun>ZPkiRsatComponents</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Install ADCS RSAT tools.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Install ADCS RSAT tools. On older Operating Systems you need to download them from Microsoft and run the installer first.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1375,7 +1375,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>IncludeAdTools</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IncludeAdTools Description }}</maml:para>
+            <maml:para>Install ADDS admin tools as well as ADCS.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1389,7 +1389,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>IncludeAdTools</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IncludeAdTools Description }}</maml:para>
+          <maml:para>Install ADDS admin tools as well as ADCS.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1427,9 +1427,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Install-ZPkiRsatComponents</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2175,7 +2175,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IisSiteName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IisSiteName Description }}</maml:para>
+            <maml:para>IIS web site name</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2187,7 +2187,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>HttpFqdn</maml:name>
           <maml:description>
-            <maml:para>{{ Fill HttpFqdn Description }}</maml:para>
+            <maml:para>FQDN</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2247,7 +2247,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>HttpFqdn</maml:name>
         <maml:description>
-          <maml:para>{{ Fill HttpFqdn Description }}</maml:para>
+          <maml:para>FQDN</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2259,7 +2259,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IisSiteName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IisSiteName Description }}</maml:para>
+          <maml:para>IIS web site name</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2345,9 +2345,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; New-ZPkiWebsite -IisSiteName "ZampleWorks PKI web site" -HttpFqdn "pki.zampleworks.com" -LocalPath "C:\ADCS\Web"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Installs IIS (if not installed) and creates a web site to host HTTP CDP and AIA.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2534,11 +2534,11 @@
       <command:verb>Remove</command:verb>
       <command:noun>ZPkiAdIssuancePolicyGroupLink</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Removes AMA group link from Issuance Policy OID</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Removes AMA group link from Issuance Policy OID</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2645,9 +2645,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Remove-ZPkiAdIssuancePolicyGroupLink</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2659,11 +2659,11 @@
       <command:verb>Set</command:verb>
       <command:noun>ZPkiAdIssuancePolicyGroupLink</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Link an AMA group to Issuance Policy</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>Link an AMA group to Issuance Policy</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2671,7 +2671,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>IssuancePolicyName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+            <maml:para>Issuance Policy name</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2683,7 +2683,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>GroupName</maml:name>
           <maml:description>
-            <maml:para>{{ Fill GroupName Description }}</maml:para>
+            <maml:para>Group name</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2720,7 +2720,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>GroupName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill GroupName Description }}</maml:para>
+          <maml:para>Group name</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2732,7 +2732,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>IssuancePolicyName</maml:name>
         <maml:description>
-          <maml:para>{{ Fill IssuancePolicyName Description }}</maml:para>
+          <maml:para>Issuance Policy name</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2794,9 +2794,9 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Set-ZPkiAdIssuancePolicyGroupLink -IssuancePolicyName "High Security" -GroupName "System Admins"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
