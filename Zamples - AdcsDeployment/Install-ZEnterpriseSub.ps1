@@ -1,12 +1,27 @@
 ﻿<#
   .SYNOPSIS
   This script uses the ZPki module to install and configure an Enterprise subordinate CA.
-  You must already have installed a root CA, and you need the CA certificate and CRL file
-  available.
+
+  .DESCRIPTION
+  This script shows you how to install a subordinate AD-integrated CA.
+  This is an 'extra everything' script. It will (try to) register DNS
+  records for a HTTP CDP, install a web site on the local machine to
+  host CDP/AIA and generate the web site contents.
+
+  Procedure
+  1. Check access - you must have local admin and Enterprise Admin permissions
+  2. Install AD and DNS tools
+  This script will try to publish the Root CA certificate in AD
+  before configuring the local CA service. 
+
+  Prerequisites:
+  1. You must already have installed a root CA
+  2. You need the root CA certificate and CRL file available.
 
   .NOTES
   Author anders !Ä!T! runesson D"Ö"T info
 #>
+
 [CmdletBinding()]
 Param()
 
@@ -17,6 +32,9 @@ $ErrorActionPreference = "Stop"
 #Requires -Modules ZPki
 
 Import-Module ZPki 
+
+# FQDN for AIA & CDP Web site 
+$HttpFqdn = "pki.zampleworks.com"
 
 $AdcsRootDir = "C:\ADCS"
 $DbDir = "C:\ADCS\Db"
@@ -39,17 +57,15 @@ Install-WindowsFeature RSAT-DNS-Server | Out-Null
 
 Write-Progress -Activity "Gathering AD Forest info"
 
-$AdForestDns = Get-ADForest -Current LocalComputer | Select -ExpandProperty RootDomain
+$AdForestDns = Get-ADForest -Current LocalComputer | Select-Object -ExpandProperty RootDomain
 $RootDomain = Get-ADDomain $AdForestDns -Server $AdForestDns
 $RootDomainNbName = $RootDomain.NetBIOSName
 $EaGroup = "$RootDomainNbName\Enterprise Admins"
-$EnterpriseAdmin = (whoami -groups | Where-Object { $_ -like "*$EaGroup*" } | Measure-Object | Select -ExpandProperty Count) -eq $True
+$EnterpriseAdmin = (whoami -groups | Where-Object { $_ -like "*$EaGroup*" } | Measure-Object | Select-Object -ExpandProperty Count) -eq $True
 
 If(-Not $EnterpriseAdmin) {
     Write-Error "You must be a member of $EaGroup to install an Enterprise Root CA."
 }
-
-$HttpFqdn = "pki.$AdForestDns"
 
 <###########################################################################
  #   Required section - install CA certificate for our directly superior CA.
@@ -58,18 +74,24 @@ $HttpFqdn = "pki.$AdForestDns"
  ###########################################################################>
 
 $SigningCaCertFile = Get-childItem | Where-Object { $_.Name -match ".*\.(crt|cer)$" -and $_.Name -notlike "*.pem.*" } | Select-Object -ExpandProperty FullName
-If(($SigningCaCertFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
-    Write-Error "Please copy the signing CA certificate file to this directory. It will be published to ADDS stores. Please don't put multiple cert files in this directory. cwd: [$(Get-Location)]"
+
+While(($SigningCaCertFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
+    Write-Warning "Please copy the signing CA certificate file to the current directory: $(Get-Location)"
+    Read-Host "Press play on tape"
+    $SigningCaCertFile = Get-childItem | Where-Object { $_.Name -match ".*\.(crt|cer)$" -and $_.Name -notlike "*.pem.*" } | Select-Object -ExpandProperty FullName
 }
+
 $SigningCaCertFile = $SigningCaCertFile | Select-Object -First 1
 
 $SigningCaCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 $SigningCaCertFile
 
-Write-Verbose "Found cert for superior CA $($SigningCaCert.Subject)"
+Write-Verbose "Found cert for signing CA $($SigningCaCert.Subject)"
 
 $SigningCaCrlFile = Get-childItem | Where-Object { $_ -match ".*\.crl$" } | Select-Object -expand FullName
-If(($SigningCaCrlFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
-    Write-Error "Please copy the superior CA CRL file to this directory. It will be published to ADDS stores. Please don't put multiple CRL files in this directory. cwd: [$(Get-Location)]"
+While(($SigningCaCrlFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
+    Write-Warning "Please copy the superior CA CRL file to this directory. It will be published to ADDS stores. Please don't put multiple CRL files in this directory. cwd: [$(Get-Location)]"
+    Read-Host "Press play on tape"
+    $SigningCaCrlFile = Get-childItem | Where-Object { $_ -match ".*\.crl$" } | Select-Object -expand FullName
 }
 $SigningCaCrlFile = $SigningCaCrlFile | Select-Object -First 1
 
@@ -105,11 +127,12 @@ If($Null -eq $DnsRec) {
     }
 }
 
-Write-Progress -Activity "Running CA installation script"
-Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -Verbose
-
 # Website must be installed and configured now so CDP checking works, otherwise installing the signed CA certificate will fail.
+Write-Progress -Activity "Installing AIA/CDP web site"
 New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
+
+Write-Progress -Activity "Installing CA service"
+Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -IncludeAllIssuancePolicy -Verbose
 
 # Copy CA certs and CRLs to repo directory
 Copy-Item *.crt $RepoDir
@@ -137,10 +160,23 @@ If($SignedCertFile.Name -ne "$CaCommonName.crt") {
     $SignedCertFile = Get-Item $n
 }
 
+$SignedCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 $SignedCertFile
+
+$CertValidates = $False
+Do {
+    $Chain = New-Object System.Security.Cryptography.X509Certificates.X509Chain
+    $CertValidates = $Chain.Build($SignedCert)
+    If(-not $CertValidates) {
+        Write-Warning "CA certificate failed validation. Ensure you copied the correct file, and that the revocation service is working and responding."
+        Write-Warning "To check status of the revocation service, run 'certutil -verify -urlfetch $($SignedCertFile.FullName)' in a cmd window."
+        Read-Host "Press play on tape"
+    }
+} While (-Not $CertValidates)
+
 Install-ZPkiCaCertificate -CertFile $SignedCertFile.FullName -Verbose
 
 Write-Progress -Activity "Running CA post config"
-Set-ZPkiCaPostInstallConfig 
+Set-ZPkiCaPostInstallConfig -CrlPeriod "Days" -CrlPeriodUnits 8 -CrlOverlap "Days" -CrlOverlapUnits 4
 
 Write-Progress -Activity "Updating CA CDP/AIA information"
 Set-ZPkiCaUrlConfig -ClearCDPs -ClearAIAs

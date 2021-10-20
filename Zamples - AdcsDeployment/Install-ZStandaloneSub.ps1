@@ -1,15 +1,31 @@
-﻿[CmdletBinding()]
+﻿<#
+  .SYNOPSIS
+  This script uses the ZPki module to install and configure
+  a standalone subordinate CA.
+
+  .NOTES
+  Author anders !A!T! runesson D"O"T info
+#>
+
+[CmdletBinding()]
 Param()
 
 $ErrorActionPreference = "Stop"
 
-Import-Module .\ZPki.psm1
+#Requires -RunAsAdministrator
+#Requires -Version 4
+#Requires -Modules ZPki
+
+Import-Module ZPki
+
+# FQDN for AIA & CDP Web site 
+$HttpFqdn = "pki.zampleworks.com"
 
 # We expect a root CA certificate file in the current directory which will be published to ADDS. Check for the file and
 # verify that it is a valid root CA cert. Also try to find a CRL file to publish.
 
 $RootCertFile = Get-childItem | Where-Object { $_ -match ".*\.(crt|cer)$" }
-If(($RootCertFile | Measure-Object | Select -ExpandProperty Count) -ne 1) {
+If(($RootCertFile | Measure-Object | Select-Object -ExpandProperty Count) -ne 1) {
     Write-Error "Please copy the root CA certificate file to this directory. It will be published to ADDS stores. Please don't put multiple cert files in this directory. cwd: [$(Get-Location)]"
 }
 $RootCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 $RootCertFile
@@ -27,11 +43,11 @@ Install-WindowsFeature RSAT-DNS-Server | Out-Null
 
 Write-Progress -Activity "Gathering AD Forest info"
 
-$AdForestDns = Get-ADForest -Current LocalComputer | Select -ExpandProperty RootDomain
+$AdForestDns = Get-ADForest -Current LocalComputer | Select-Object -ExpandProperty RootDomain
 $RootDomain = Get-ADDomain $AdForestDns -Server $AdForestDns
 $RootDomainNbName = $RootDomain.NetBIOSName
 $EaGroup = "$RootDomainNbName\Enterprise Admins"
-$EnterpriseAdmin = (whoami -groups | Where-Object { $_ -like "*$EaGroup*" } | Measure-Object | Select -ExpandProperty Count) -eq $True
+$EnterpriseAdmin = (whoami -groups | Where-Object { $_ -like "*$EaGroup*" } | Measure-Object | Select-Object -ExpandProperty Count) -eq $True
 
 If(-Not $EnterpriseAdmin) {
     Write-Error "You must be a member of $EaGroup to install an Enterprise Root CA."
@@ -41,13 +57,12 @@ If(-Not $EnterpriseAdmin) {
 
 Write-Verbose "Checking for DNS record.."
 
-$HttpFqdn = "pki.$AdForestDns"
 $DnsRec = Resolve-DnsName $HttpFqdn -ErrorAction SilentlyContinue
-If($DnsRec -eq $Null) {
+If($Null -eq $DnsRec) {
     Write-Progress -Activity "Creating DNS record for HTTP"
     Try {
-        $RoutableIpv4 = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $Null } | Select -First 1
-        $RoutableIpv6 = Get-NetIPConfiguration | Where-Object { $_.IPv6DefaultGateway -ne $Null } | Select -First 1
+        $RoutableIpv4 = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $Null } | Select-Object -First 1
+        $RoutableIpv6 = Get-NetIPConfiguration | Where-Object { $_.IPv6DefaultGateway -ne $Null } | Select-Object -First 1
         
         Write-Verbose "Adding DNS record for $HttpFqdn.."
         If($RoutableIpv4) {

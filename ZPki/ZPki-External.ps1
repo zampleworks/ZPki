@@ -128,7 +128,7 @@ Function Install-ZPkiCa {
 
         # Include All Issuance Policy in CA certificate
         [switch]
-        $IncludeAllIssuancePolicy = $True,
+        $IncludeAllIssuancePolicy,
 
         # Include an Assurance policy in CA certificate. Requires Autodetect or policy definition using appropriate parameters.
         [switch]
@@ -1014,7 +1014,12 @@ Function Set-ZPkiCaPostInstallConfig {
 
     Write-Progress -Activity "Updating registry values"
 
-    $Domain = Get-WmiObject -Class Win32_ComputerSystem | Select-Object -expand Domain
+    If($PSVersionTable.PSVersion.Major -gt 5) {
+        $Domain = Get-CimInstance -Class Win32_ComputerSystem | Select-Object -expand Domain    
+    } Else {
+        $Domain = Get-WmiObject -Class Win32_ComputerSystem | Select-Object -expand Domain
+    }
+
     If(-Not [string]::IsNullOrWhiteSpace($Domain) -and $Domain -ne 'WORKGROUP' -and $LdapConfigDn -eq "default") {
         $LdapConfigDn = Get-ADRootDSE -Server $Domain | Select-Object -ExpandProperty configurationNamingContext
     }
@@ -1032,7 +1037,7 @@ Function Set-ZPkiCaPostInstallConfig {
     certutil -setreg CA\CRLPeriod $CRLPeriod | Out-Null
     certutil -setreg CA\CRLPeriodUnits $CRLPeriodUnits | Out-Null
     certutil -setreg CA\CRLOverlapPeriod $CRLOverlap | Out-Null
-    certutil -setreg CA\CRLOverlapPeriodUnits $CRLOverlapUnits | Out-Null
+    certutil -setreg CA\CRLOverlapUnits $CRLOverlapUnits | Out-Null
 
     certutil -setreg CA\CRLDeltaPeriod $CrlDeltaPeriod | Out-Null
     certutil -setreg CA\CRLDeltaPeriodUnits $CrlDeltaPeriodUnits | Out-Null
@@ -1866,8 +1871,8 @@ Function Install-ZPkiRsatComponents {
 # SIG # Begin signature block
 # MIIT5AYJKoZIhvcNAQcCoIIT1TCCE9ECAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUCTgpmki3z1CmrOH23lJJW3eo
-# qi6ggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUI1O4+Ud418KzXR3GXuzuTk1K
+# XCWggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
 # 9w0BAQsFADBIMQswCQYDVQQGEwJTRTEUMBIGA1UEChMLWmFtcGxlV29ya3MxIzAh
 # BgNVBAMTGlphbXBsZVdvcmtzIEludGVybmFsIENBIHYyMB4XDTIxMDkyOTA2Mjcw
 # OFoXDTIyMDkyOTA2MjcwOFowGjEYMBYGA1UEAxMPQW5kZXJzIFJ1bmVzc29uMIIB
@@ -1952,23 +1957,23 @@ Function Install-ZPkiRsatComponents {
 # cGxlV29ya3MgSW50ZXJuYWwgQ0EgdjICE3wAAAJo8gILSNspSq0AAAAAAmgwCQYF
 # Kw4DAhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkD
 # MQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJ
-# KoZIhvcNAQkEMRYEFPunT9S0eBw69b50SZzge5IvWSb0MA0GCSqGSIb3DQEBAQUA
-# BIIBAClRJhHL9vNDZEh73FCCGK1xEpbP7jzOs22snt1MpZXCE3MgTBHPQp74xJR8
-# 2vOHShTmo4RT/i7GJaYbMwghfBeJE9id5xX7mMUnsuHo+msYmzGenfS1ChbLXNxC
-# bldtLRjUiNWPReXr58gyJAiOENU134JtTvG4pNBgIx7Wr4+terHpJO7reJrQELMw
-# 1abQRfb7BtjkrLA0QcPXsGOSKPM1sxpYwnX5IfVgkNba2bGznpWEQnV4ysRmVxNp
-# 86u51xzOWm/U1jk3vFhmkauShGn/23f38fcb0PchU1IvjovrMeanM2b6McuXVRWq
-# ur0EamP02zmv++rgqlaW9nRJOjahggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
+# KoZIhvcNAQkEMRYEFKAoV8qMU0k+O3v/D0uDzLsSNblZMA0GCSqGSIb3DQEBAQUA
+# BIIBAIj6U2GtUnu5IoFgU1SF+12aaZ9DvhsVO3ZTNq6mn2GhlGkaUxm4UmPjKpxf
+# u/7G2J9sjg2c0zwqNEvJtZ17MpyRDh0MsXNknqPNX4eOmuMxoC7jcn2ISjQVkt1P
+# xgrKpjulHA1yp/xxUW3+7oc36Qz+07gGFIMgAxIl7oNG+o97UmRGb2IlkM3xI0JG
+# Fs55RgmEz2qVwYC2qOGGV30Ik50x/2rSEb5aZyEbYbgi4mK552niHRamtSxN/+d/
+# TkyMOL6IlfWRTiDsh+U0ksiYKfy9o77ciz80L3TBMvBP5PNe2jdyk9nyQrmtNWU3
+# h/uFIaFB5N4eIDgwzKGCQ7ftzWWhggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
 # AQEwgYYwcjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcG
 # A1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBB
 # c3N1cmVkIElEIFRpbWVzdGFtcGluZyBDQQIQDUJK4L46iP9gQCHOFADw3TANBglg
 # hkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
-# AQkFMQ8XDTIxMTAxNTA2MzYwOVowLwYJKoZIhvcNAQkEMSIEICuPCeSmMeXhHRHA
-# ffpEHAevDbl6pWOkVG4SCH/1HIjvMA0GCSqGSIb3DQEBAQUABIIBAAl8E4JMJccp
-# Y7jyjN5SJl5OaHxG1MpvG3VsAyG4exf66zCZLZA6OUL8fO5trAclN+za6s/UreFb
-# cKr5PJrcWxUFIe8+72zRHN7mPh+/4UboHTUKYuPRYqISUYp084bnPj9w6Ti4gp1C
-# 7WJJWivLpbMEqIa48A0AwchsSWU9WKs8f+4VenX1sJKL9iENSZWvwFY7hY5eBXZf
-# TWhl07UBSfUtWk924nV4OjXXxDqS44bI89nFeyMGdyN+FetFdpghuvQqohHE3obc
-# lfrhNm3XcpocuRLDkUOA9JdeP8CKTcRUM8jFVfDieNVi7vOaEuuiPmEJeXaqzHga
-# bH3+wNJJtwI=
+# AQkFMQ8XDTIxMTAyMDA1MzkwOVowLwYJKoZIhvcNAQkEMSIEIEmfw7ExYZlIm6dO
+# vVApkDzbMYP7Cp/TD1yAf+OrJKhEMA0GCSqGSIb3DQEBAQUABIIBAClfFonoJ3JR
+# vMEdwVhq3D9adsB6cQzQcaJTJ1LJetUtOwqKySg08Cs+iyTmEHSNEvix+7TKasP6
+# pR0wJ7AOx4CeUwxE8m8xM1NMxfTWGZqOsm+7BCvEWhFGZegY04wlgFm2MEJRa+xf
+# y+/hZwldG8gDS30AR1BbSDtfmScjsp3WBUKG04rTMP2timd/TL9HOZ53aaT7fywB
+# Z0YF6k5G7JtRPO5hbc0GHUSjM70yKjj0jEWC68g3OneLWaLklACVeyi3pFS5xKZg
+# igcHjQbeCi44TTRtgH5TcZpsatDkG1zqXWbnCqIU7qtCHaU6MRKV58i/gcbQT/PK
+# h1krpwEFWkA=
 # SIG # End signature block

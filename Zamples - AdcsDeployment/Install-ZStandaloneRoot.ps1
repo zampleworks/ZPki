@@ -5,6 +5,7 @@
   .NOTES
   Author anders !A!T! runesson D"O"T info
 #>
+
 [CmdletBinding()]
 Param()
 
@@ -16,8 +17,8 @@ $ErrorActionPreference = "Stop"
 
 Import-Module ZPki
 
-# Define host name for CDP/AIA Url. This script will only register HTTP URIs to be written in issued certificates.
-$HttpFqdn = "pki.ad.zampleworks.com"
+# FQDN for AIA & CDP Web site 
+$HttpFqdn = "pki.zampleworks.com"
 
 <#
  Run the CA installation procedure. This Cmdlet will:
@@ -29,7 +30,7 @@ $HttpFqdn = "pki.ad.zampleworks.com"
  The Cmdlet defaults to settings for an Enterprise Root CA, so we give some parameters appropriate for a standalone root CA.
 #> 
 Write-Progress -Activity "Running CA installation script"
-Install-ZPkiCa -CaCommonName "ZampleWorks Root CA v1" -CaType StandaloneRootCA -EnableBasicConstraints -BasicConstraintsIsCritical -PathLength 1 -IncludeAllIssuancePolicy:$False
+Install-ZPkiCa -CaCommonName "ZampleWorks Root CA v1" -CaType StandaloneRootCA -EnableBasicConstraints -BasicConstraintsIsCritical -PathLength 1
 
 <#
  Run CA postconfiguration procedure. This Cmdlet will:
