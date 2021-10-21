@@ -14,20 +14,20 @@ Read CRL file from local file, URI or raw bytes. HTTP or LDAP Uris only.
 
 ### Path
 ```
-Get-ZPkiCrl [-Path] <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
- [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Path] <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
+ [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### Uri
 ```
-Get-ZPkiCrl [-Uri] <Uri> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose]
- [<CommonParameters>]
+Get-ZPkiCrl [-Uri] <Uri> [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
+ [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### Bytes
 ```
-Get-ZPkiCrl [-Bytes] <Byte[]> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
- [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Bytes] <Byte[]> [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
+ [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -56,6 +56,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -DnsOnly
+Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -126,6 +141,21 @@ If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SiteName
+Force use of the specified Active Directory site.
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 

@@ -14,7 +14,8 @@ Search AD for user objects.
 
 ```
 Find-ZPkiAdUser [-Name <String>] [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>] [-Rpc]
- [-Domain <String>] [-DomainController <String>] [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+ [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,6 +31,21 @@ PS C:\> Find-ZPkiAdUser -Name "Tommy Teapot"
 Search for AD users in the default naming context (Get-ZPkiAdRootDse | Select defaultnamingcontext)
 
 ## PARAMETERS
+
+### -DnsOnly
+Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Domain
 Connect to specified domain instead of current user/local computer's domain.
@@ -156,6 +172,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SiteName
+Force use of the specified Active Directory site.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -UserDomain
 If not set/false, connect to computer's domain.
 If true, connect to current user's domain.
@@ -181,7 +212,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7964.21670, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

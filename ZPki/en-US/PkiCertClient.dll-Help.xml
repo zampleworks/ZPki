@@ -18,6 +18,17 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdObject</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -117,6 +128,18 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -130,6 +153,18 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -227,6 +262,18 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
         <maml:description>
           <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -252,7 +299,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7964.21670, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -292,6 +339,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdOid</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
@@ -351,6 +409,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Type</maml:name>
           <maml:description>
             <maml:para>Search by name. Will match attribute displayName</maml:para>
@@ -381,6 +451,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -442,6 +524,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Type</maml:name>
         <maml:description>
           <maml:para>Search by name. Will match attribute displayName</maml:para>
@@ -479,7 +573,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7964.21670, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -517,6 +611,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
@@ -617,6 +722,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -630,6 +747,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -727,6 +856,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
         <maml:description>
           <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -752,7 +893,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7964.21670, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1012,6 +1153,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdCasConfigString</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -1058,6 +1210,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -1071,6 +1235,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -1118,6 +1294,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
@@ -1184,6 +1372,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdDomain</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -1230,6 +1429,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -1243,6 +1454,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -1290,6 +1513,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
@@ -1357,6 +1592,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdForest</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -1403,6 +1649,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -1416,6 +1674,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -1463,6 +1733,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
@@ -1529,6 +1811,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdForestOid</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -1575,6 +1868,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -1588,6 +1893,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -1635,6 +1952,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
@@ -1701,6 +2030,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdMsSchema</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -1759,6 +2099,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -1772,6 +2124,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -1831,6 +2195,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
@@ -1898,6 +2274,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdRootDse</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -1944,6 +2331,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -1957,6 +2356,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -2004,6 +2415,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
@@ -2069,6 +2492,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdTemplate</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
@@ -2151,6 +2585,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -2164,6 +2610,17 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdTemplate</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
@@ -2246,6 +2703,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -2259,6 +2728,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
         <maml:description>
@@ -2356,6 +2837,18 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UserDomain</maml:name>
         <maml:description>
           <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -2381,7 +2874,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7964.21670, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3036,6 +3529,17 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -3080,6 +3584,18 @@ This parser does not currently interpret any context specific tags. Only Univers
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
@@ -3108,6 +3624,17 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -3152,6 +3679,18 @@ This parser does not currently interpret any context specific tags. Only Univers
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
@@ -3180,6 +3719,17 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Domain</maml:name>
           <maml:description>
             <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
@@ -3226,6 +3776,18 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>UserDomain</maml:name>
           <maml:description>
             <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
@@ -3250,6 +3812,18 @@ This parser does not currently interpret any context specific tags. Only Univers
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Domain</maml:name>
@@ -3310,6 +3884,18 @@ This parser does not currently interpret any context specific tags. Only Univers
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Uri</maml:name>
@@ -3851,35 +4437,11 @@ You can query the request table, CRL table, or extensions table.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>OID objects in the config partition in AD have their cn attribute set to a specific format. This cmdlet will generate that format.</maml:para>
+      <maml:para>OID objects in the config partition in AD have their cn attribute set to a specific format based on the OID registered in the object's msPKI-Cert-Template-OID attribute. This cmdlet will generate the CN string from a given OID.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ZPkiOidCnFromOid</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Domain</maml:name>
-          <maml:description>
-            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DomainController</maml:name>
-          <maml:description>
-            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ExtraVerbose</maml:name>
           <maml:description>
@@ -3903,55 +4465,9 @@ You can query the request table, CRL table, or extensions table.</maml:para>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Rpc</maml:name>
-          <maml:description>
-            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>UserDomain</maml:name>
-          <maml:description>
-            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Domain</maml:name>
-        <maml:description>
-          <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DomainController</maml:name>
-        <maml:description>
-          <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ExtraVerbose</maml:name>
         <maml:description>
@@ -3975,30 +4491,6 @@ You can query the request table, CRL table, or extensions table.</maml:para>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Rpc</maml:name>
-        <maml:description>
-          <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>UserDomain</maml:name>
-        <maml:description>
-          <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>

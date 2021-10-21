@@ -13,12 +13,11 @@ Generate cn for an OID object
 ## SYNTAX
 
 ```
-Get-ZPkiOidCnFromOid -Oid <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-UserDomain]
- [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiOidCnFromOid -Oid <String> [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-OID objects in the config partition in AD have their cn attribute set to a specific format. This cmdlet will generate that format.
+OID objects in the config partition in AD have their cn attribute set to a specific format based on the OID registered in the object's msPKI-Cert-Template-OID attribute. This cmdlet will generate the CN string from a given OID.
 
 ## EXAMPLES
 
@@ -30,37 +29,6 @@ PS C:\> {{ Add example code here }}
 {{ Add example description here }}
 
 ## PARAMETERS
-
-### -Domain
-Connect to specified domain instead of current user/local computer's domain.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DomainController
-Connect to specific domain controller.
-This takes precedence over both Domain and UserDomain parameter settings.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -ExtraVerbose
 Debug output
@@ -86,38 +54,6 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Rpc
-Use RPC interface for querying.
-If false/not set, use ADWS (default)
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -UserDomain
-If not set/false, connect to computer's domain.
-If true, connect to current user's domain.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

@@ -14,7 +14,7 @@ Get registered schema and object versions for Microsoft services such as ADDS, E
 
 ```
 Get-ZPkiAdMsSchema [-ExchDomainDN <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,6 +28,21 @@ PS C:\> Get-ZPkiAdMsSchema
 ```
 
 ## PARAMETERS
+
+### -DnsOnly
+Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Domain
 Connect to specified domain instead of current user/local computer's domain.
@@ -96,6 +111,21 @@ If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SiteName
+Force use of the specified Active Directory site.
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 

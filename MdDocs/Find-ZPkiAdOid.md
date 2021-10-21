@@ -14,7 +14,7 @@ Find OID registrations in AD. Retrieve all OIDs, or filter by type and/or name.
 
 ```
 Find-ZPkiAdOid [-Name <String>] [-Type <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-UserDomain] [-ExtraVerbose] [<CommonParameters>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,6 +31,21 @@ PS C:\> Find-ZPkiAdOid
 List all OID objects in configuration partition
 
 ## PARAMETERS
+
+### -DnsOnly
+Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Domain
 Connect to specified domain instead of current user/local computer's domain.
@@ -110,6 +125,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SiteName
+Force use of the specified Active Directory site.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Type
 Search by name.
 Will match attribute displayName
@@ -152,7 +182,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7958.14350, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7964.21670, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 
