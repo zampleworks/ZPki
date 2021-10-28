@@ -12,8 +12,19 @@ Generate cn for an OID object
 
 ## SYNTAX
 
+### string
 ```
-Get-ZPkiOidCnFromOid -Oid <String> [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiOidCnFromOid [-OidString] <String> [-ExtraVerbose] [<CommonParameters>]
+```
+
+### oid
+```
+Get-ZPkiOidCnFromOid [-Oid] <Oid> [-ExtraVerbose] [<CommonParameters>]
+```
+
+### oidw
+```
+Get-ZPkiOidCnFromOid [-OidW] <OidW> [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,14 +60,44 @@ Accept wildcard characters: False
 This OID will be converted to form used for OID object names in forest OID Container.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
+Type: Oid
+Parameter Sets: oid
 Aliases:
 
 Required: True
-Position: Named
+Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -OidString
+This OID will be converted to form used for OID object names in forest OID Container.
+
+```yaml
+Type: String
+Parameter Sets: string
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -OidW
+This OID will be converted to form used for OID object names in forest OID Container.
+
+```yaml
+Type: OidW
+Parameter Sets: oidw
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -65,7 +106,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### System.String
+
+### System.Security.Cryptography.Oid
+
+### xyz.zwks.pkilib.cert.OidW
 
 ## OUTPUTS
 
