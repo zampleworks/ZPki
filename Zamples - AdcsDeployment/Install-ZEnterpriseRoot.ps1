@@ -50,14 +50,14 @@ If($RoutableIpv4) {
     Add-DnsServerResourceRecordA -Name "$HttpFqdn." -IPv4Address $RoutableIpv4.IPv4Address.IPAddress -ZoneName $AdForestDns -ComputerName $AdForestDns
 }
 
-Write-Progress -Activity "Installing AIA/CDP web site"
-New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
-
 Write-Progress -Activity "Installing CA service"
 Install-ZPkiCa -CaType EnterpriseRootCA -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256
 
 Write-Progress -Activity "Running CA post config"
 Set-ZPkiCaPostInstallConfig
+
+Write-Progress -Activity "Installing AIA/CDP web site"
+New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
 
 Write-Progress -Activity "Updating CA CDP/AIA information"
 Set-ZPkiCaUrlConfig -ClearCDPs -ClearAIAs
