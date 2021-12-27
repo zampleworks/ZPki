@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.1.7978.18230
+.VERSION 0.1.8031.20668
 
 .GUID d974d680-897c-4998-b628-df6b889a9f98
 
@@ -30,21 +30,6 @@
 .PRIVATEDATA
 
 #> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -93,7 +78,7 @@ Function Install-ZPkiCa {
 
         # CSP or KSP provider to use for key storage.
         [string]
-        $CryptoProvider = "Microsoft Software Key Storage Provider",
+        $CryptoProvider = "RSA#Microsoft Software Key Storage Provider",
 
         # Require admin interaction on each key use.
         [switch]
@@ -529,7 +514,6 @@ Function Install-ZPkiCaCertificate {
     }
 
     Restart-Service certsvc
-
 }
 
 <#
@@ -834,6 +818,10 @@ Function New-ZPkiWebsite {
 
         If($PSCmdlet.ShouldProcess("Create new IIS Web site $SiteName")) {
             Write-Verbose "Creating web site named $SiteName with root directory $LocalPath"
+            If(-Not (Test-Path $LocalPath)) {
+                mkdir -Path $LocalPath -Force
+            }
+
             New-IISSite -Name $HttpFqdn -PhysicalPath $LocalPath -BindingInformation "*:80:$HttpFqdn"
         }
     }
@@ -851,7 +839,6 @@ Function New-ZPkiWebsite {
     .ExternalHelp PsZPki-help.xml
 #>
 Function Copy-ZPkiCertSrvFilesToRepo {
-
     [CmdletBinding()]
     Param(
         # Local repository path to copy files to
@@ -873,12 +860,12 @@ Function Copy-ZPkiCertSrvFilesToRepo {
         $Types = "crl","crt"
     }
 
-    $Types | ForEach-Object {
-        Get-ChildItem -Path $CertSrvDir -Filter "*.$_" | ForEach-Object {
+    Foreach($Type in $Types) {
+        Get-ChildItem -Path $CertSrvDir -Filter "*.$Type" | ForEach-Object {
             $hostname = & hostname
             $base = $_.BaseName
             $Fullname = $_.FullName
-            If($Fullname -match "$($hostname).*_$CASubjectName.*\.crt") {
+            If($Type -eq "crt" -And $Fullname -match "$($hostname).*_$CASubjectName.*\.crt") {
                 $NewName = "$LocalRepositoryPath\$($base.Substring($Base.IndexOf("_") + 1)).crt"
                 Write-Verbose "Copying crt [$Fullname] to [$Newname]"
                 Copy-Item $_.FullName $NewName -Force
@@ -886,6 +873,8 @@ Function Copy-ZPkiCertSrvFilesToRepo {
                 $PemName = $NewName.Replace(".crt", ".pem.crt")
                 $Cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 $NewName
                 Export-CertAsPem -Cert $Cert -FullName $PemName
+            } Elseif($Type -eq "crl") {
+                Copy-Item $_.FullName $LocalRepositoryPath -Force
             }
         }
     }
@@ -1883,8 +1872,8 @@ Function Install-ZPkiRsatComponents {
 # SIG # Begin signature block
 # MIIT5AYJKoZIhvcNAQcCoIIT1TCCE9ECAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUgVMP5aQSJVaXr9DQ/rm711jN
-# p0aggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUXOvi5M3s5dW0mPl8hcmR2sS6
+# +2yggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
 # 9w0BAQsFADBIMQswCQYDVQQGEwJTRTEUMBIGA1UEChMLWmFtcGxlV29ya3MxIzAh
 # BgNVBAMTGlphbXBsZVdvcmtzIEludGVybmFsIENBIHYyMB4XDTIxMDkyOTA2Mjcw
 # OFoXDTIyMDkyOTA2MjcwOFowGjEYMBYGA1UEAxMPQW5kZXJzIFJ1bmVzc29uMIIB
@@ -1969,23 +1958,23 @@ Function Install-ZPkiRsatComponents {
 # cGxlV29ya3MgSW50ZXJuYWwgQ0EgdjICE3wAAAJo8gILSNspSq0AAAAAAmgwCQYF
 # Kw4DAhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkD
 # MQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJ
-# KoZIhvcNAQkEMRYEFM8wuyHqT/U5MMwMUaEAgWJr+mXlMA0GCSqGSIb3DQEBAQUA
-# BIIBAFBCVOghwCKW/X0wWRZeSwgHCVHAFlrEHuXOOeTXBsnJk7K+S3tRu9Gv8U0o
-# XRrRUE05vY5TXCQPjKI6aJtNhcISALy0Bo1EJzQP5N9zwzR2bXJliTzqFtgouixF
-# ngBw7DBNXneSRvQtJZUGi0cHgZeO54/5gYFP08VTEKdyv1vzQRElrYYgnZQSOWUI
-# XTYqs8pk7q416ZXL9d/6mTsnf4FCaUPM/Y6LYnS2dsPJRTX7uj0PGCAuQ0wdpurb
-# v9r0L5I05oOt1te7XyviZ04UFjr14uRxrxYxjhOMC3ql4TKhCTSS4B1ysPiThEgv
-# AINeFJlMR0ePqFkf3v60usYzAvOhggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
+# KoZIhvcNAQkEMRYEFPFJLDSlNXlsx4o+IaoCk59eb4//MA0GCSqGSIb3DQEBAQUA
+# BIIBAMfpVm/0NQzJSYbfl6HB3nB5TleF9jgpoUri340KtQHMoHTPoDKTG4esO10Y
+# 956kj1i9qhnnCsVXiErCHHIXixloqGy9QXkasoIK6HAkf8qRFcO3AbnPvu1VlD7R
+# eoUaxI/cfvW5vzi1URM1+sxoqAZ2Pefs1iwgtJIdYgorKjjk97qg3zyh3JUkTY5B
+# yJN/UpRqkwcEuIQWMVkZFx2ApXsvz2YMRWAS1Ny1yatG4HoaNvUBL8Cag1mqAe1i
+# K1McK1+ZamNncAwhBCoJ7OfyS8K1/8ghLkCPh1xn+M72SiyHVnyKewZ9YC+XaUoy
+# OGuEnmH0OUJ9s3ZSK74BZttl14ahggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
 # AQEwgYYwcjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcG
 # A1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBB
 # c3N1cmVkIElEIFRpbWVzdGFtcGluZyBDQQIQDUJK4L46iP9gQCHOFADw3TANBglg
 # hkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
-# AQkFMQ8XDTIxMTEwNDA5MjAxN1owLwYJKoZIhvcNAQkEMSIEINE/w8+QOlTZ6w4m
-# f2qAq2sO3JJ529Cn/i8ckDJRPf6XMA0GCSqGSIb3DQEBAQUABIIBAEwm6OmZ6tul
-# ST9JZwHZX+6cUFPWOPtz6CLmSwMsbHdIIRxRa8flEYxNSvsYFQxeviFQs9H4vX8p
-# 65bVO6dcpUmZpfTUEOQr84hSKbEgbQDxT0V3dnRtdiVFidRtZkQgxixb+mjCD5IH
-# +nKQGNfJvukRfS+/a3pOjCLVuukvZQZR5UoayJMS6TFxCjwQaY+LUiPP4wiKrVY6
-# YoVnIzeueFq3zxuJL0mrxXjSFWQTeL0pRO4CqNueeFCLI2gvStcmEtxiWbuM54IE
-# f1DW/fO6sal2azUpHiPf1lK2XQUykjL5sHx38nPKx6zLTEXoBW59qRymwjnN0SfM
-# K5sfU8ZAGbY=
+# AQkFMQ8XDTIxMTIyNzEwMjk0OFowLwYJKoZIhvcNAQkEMSIEIBoGbbOFIoiLurAs
+# f/fa1xbpABngGlO9wjegk8gx5MusMA0GCSqGSIb3DQEBAQUABIIBAH7BLVu5+rl7
+# tq9oujK7Yxq3OqRxGijN7HPvBtot2qRmykLILk52D42n3f9MBjwlC12fKeMo/Dv3
+# sdX59R0ndbN5NIag8VSU8chxc6aV4UwGGibQthwO5pvSOgAxXf+fnGb7J/GpafPJ
+# 9eKoi5P9FLdLHRUEooW9WJLeq31Jy1N3nDXwAWNmHmJJVaOesZBxsnV3AGwhYXcp
+# MPX97mv+vBNQr/dTaJr7hhrcg/4OA+JDO+wHbxNSqGPDhNIw/pOwx8yUKNdZeUUb
+# ylxjNKB0hZSrb0VVhXTn3ClB8cII+91+lPE4wOnpQ1sFQhQVLtAHeSefwf7QluKW
+# KPA4qc9DrAw=
 # SIG # End signature block

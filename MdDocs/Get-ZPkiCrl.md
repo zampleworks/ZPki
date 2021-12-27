@@ -8,26 +8,35 @@ schema: 2.0.0
 # Get-ZPkiCrl
 
 ## SYNOPSIS
-Read CRL file from local file, URI or raw bytes. HTTP or LDAP Uris only.
+Read CRL file from local file, URI, ASN.1 object, or raw bytes. HTTP or LDAP Uris only.
 
 ## SYNTAX
 
 ### Path
 ```
-Get-ZPkiCrl [-Path] <String> [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Path] <String> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ### Uri
 ```
-Get-ZPkiCrl [-Uri] <Uri> [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Uri] <Uri> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>] [-DomainController <String>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### Bytes
 ```
-Get-ZPkiCrl [-Bytes] <Byte[]> [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCrl [-Bytes] <Byte[]> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
+ [<CommonParameters>]
+```
+
+### Asn
+```
+Get-ZPkiCrl [-Asn] <AsnObject> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +51,43 @@ PS C:\> Get-ZPkiCrl -Uri "http://crl4.digicert.com/sha2-ev-server-g3.crl"
 
 Download and parse CRL file from a public CA.
 
+### Example 2
+```powershell
+PS C:\> ls *.cer | Get-ZPkiCertCdpUris | Get-ZPkiCrl
+```
+
+Extract CDP URIs from all certificate files in the current directory and fetch the CRLs
+
+### Example 3
+```powershell
+PS C:\> ls *.crl | Get-ZPkiCrl
+```
+
+Get a CRL object from all local CRL files
+
+### Example 4
+```powershell
+PS C:\> ls *.crl | Get-ZPkiAsn | Get-ZPkiCrl
+```
+
+Get an ASN.1 object from all local CRL files, and build a CRL object from each one
+
 ## PARAMETERS
+
+### -Asn
+ASN.1 object
+
+```yaml
+Type: AsnObject
+Parameter Sets: Asn
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
 
 ### -Bytes
 Byte array of ASN.1 encoded data
@@ -120,6 +165,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Force
+Overwrite CRL file if it already exists
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Path
 Path to CRL file
 
@@ -141,6 +201,21 @@ If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SaveToFile
+Save CRL to file
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -207,6 +282,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Uri
 
 ### System.Byte[]
+
+### xyz.zwks.pkilib.cert.AsnObject
 
 ## OUTPUTS
 

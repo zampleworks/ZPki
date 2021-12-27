@@ -17,8 +17,11 @@ $ErrorActionPreference = "Stop"
 
 Import-Module ZPki
 
-# FQDN for AIA & CDP Web site 
+# FQDN for HTTP AIA & CDP
 $HttpFqdn = "pki.zampleworks.com"
+
+$CaCommonName = "ZampleWorks PKI v1 Root CA"
+$CaDnSuffix = "O=ZampleWorks,C=SE"
 
 <#
  Run the CA installation procedure. This Cmdlet will:
@@ -30,7 +33,7 @@ $HttpFqdn = "pki.zampleworks.com"
  The Cmdlet defaults to settings for an Enterprise Root CA, so we give some parameters appropriate for a standalone root CA.
 #> 
 Write-Progress -Activity "Running CA installation script"
-Install-ZPkiCa -CaCommonName "ZampleWorks Root CA v1" -CaType StandaloneRootCA -EnableBasicConstraints -BasicConstraintsIsCritical -PathLength 1
+Install-ZPkiCa -CaCommonName $CaCommonName -CaDnSuffix $CaDnSuffix -KeyLength 4096 -Hash "SHA256" -CaType StandaloneRootCA -EnableBasicConstraints -BasicConstraintsIsCritical -PathLength 1
 
 <#
  Run CA postconfiguration procedure. This Cmdlet will:
@@ -44,7 +47,7 @@ Install-ZPkiCa -CaCommonName "ZampleWorks Root CA v1" -CaType StandaloneRootCA -
 
 #>
 Write-Progress -Activity "Running CA post config"
-Set-ZPkiCaPostInstallConfig -LdapConfigDn "dc=ad,dc=zampleworks,dc=com" -RestartCertSvc
+Set-ZPkiCaPostInstallConfig -CrlOverlap Weeks -CrlOverlapUnits 8 -CrlPeriod Weeks -CrlPeriodUnits 52 -IssuedCertValidityPeriod Years -IssuedCertValidityPeriodUnits 10
 
 <#
  Set CDP and AIA URIs for issued certificates. Remove any default ones and add HTTP only.
@@ -55,3 +58,7 @@ Write-Progress -Activity "Updating CA CDP/AIA information"
 Set-ZPkiCaUrlConfig -ClearCDPs -ClearAIAs
 Set-ZPkiCaUrlConfig -HttpCdpFqdn $HttpFqdn -AddFileCdp
 Set-ZPkiCaUrlConfig -HttpAiaFqdn $HttpFqdn
+
+Restart-Service CertSvc
+
+certutil -crl | Out-Null

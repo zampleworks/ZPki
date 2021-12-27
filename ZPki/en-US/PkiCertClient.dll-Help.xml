@@ -299,7 +299,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7978.18229, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.8030.42700, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -573,7 +573,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7978.18229, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.8030.42700, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -893,7 +893,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.7978.18229, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.8030.42700, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -2874,7 +2874,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.7978.18229, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.cert.ICertTemplate, xyz.zwks.PkiLib, Version=0.1.8030.42700, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3110,7 +3110,7 @@ This parser does not currently interpret any context specific tags. Only Univers
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAsn</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Bytes</maml:name>
           <maml:description>
             <maml:para>Byte array of ASN.1 encoded data</maml:para>
@@ -3123,7 +3123,7 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Dump</maml:name>
+          <maml:name>AsText</maml:name>
           <maml:description>
             <maml:para>Return text representation of ASN.1 data instead of an object</maml:para>
           </maml:description>
@@ -3147,8 +3147,20 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAsn</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>File</maml:name>
+          <maml:description>
+            <maml:para>ASN.1 file to parse</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Dump</maml:name>
+          <maml:name>AsText</maml:name>
           <maml:description>
             <maml:para>Return text representation of ASN.1 data instead of an object</maml:para>
           </maml:description>
@@ -3169,7 +3181,10 @@ This parser does not currently interpret any context specific tags. Only Univers
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAsn</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
             <maml:para>Path to ASN.1 file to parse</maml:para>
@@ -3181,10 +3196,44 @@ This parser does not currently interpret any context specific tags. Only Univers
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsText</maml:name>
+          <maml:description>
+            <maml:para>Return text representation of ASN.1 data instead of an object</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsText</maml:name>
+        <maml:description>
+          <maml:para>Return text representation of ASN.1 data instead of an object</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Bytes</maml:name>
         <maml:description>
           <maml:para>Byte array of ASN.1 encoded data</maml:para>
@@ -3195,18 +3244,6 @@ This parser does not currently interpret any context specific tags. Only Univers
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Dump</maml:name>
-        <maml:description>
-          <maml:para>Return text representation of ASN.1 data instead of an object</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ExtraVerbose</maml:name>
@@ -3220,7 +3257,19 @@ This parser does not currently interpret any context specific tags. Only Univers
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>File</maml:name>
+        <maml:description>
+          <maml:para>ASN.1 file to parse</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
           <maml:para>Path to ASN.1 file to parse</maml:para>
@@ -3236,7 +3285,23 @@ This parser does not currently interpret any context specific tags. Only Univers
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>None</maml:name>
+          <maml:name>System.IO.FileInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Byte[]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3282,6 +3347,32 @@ This parser does not currently interpret any context specific tags. Only Univers
       <maml:para>Get CRL information from certificate and returns a URI object for each entry</maml:para>
     </maml:description>
     <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiCertCdpUris</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Asn</maml:name>
+          <maml:description>
+            <maml:para>ASN.1 object representing an x509 certificate</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">AsnObject</command:parameterValue>
+          <dev:type>
+            <maml:name>AsnObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiCertCdpUris</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
@@ -3388,6 +3479,18 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Asn</maml:name>
+        <maml:description>
+          <maml:para>ASN.1 object representing an x509 certificate</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">AsnObject</command:parameterValue>
+        <dev:type>
+          <maml:name>AsnObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Bytes</maml:name>
         <maml:description>
@@ -3468,6 +3571,14 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:inputType>
       <command:inputType>
         <dev:type>
+          <maml:name>xyz.zwks.pkilib.cert.AsnObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
           <maml:name>xyz.zwks.pkilib.cert.ICertificate</maml:name>
         </dev:type>
         <maml:description>
@@ -3507,13 +3618,131 @@ This parser does not currently interpret any context specific tags. Only Univers
       <command:verb>Get</command:verb>
       <command:noun>ZPkiCrl</command:noun>
       <maml:description>
-        <maml:para>Read CRL file from local file, URI or raw bytes. HTTP or LDAP Uris only.</maml:para>
+        <maml:para>Read CRL file from local file, URI, ASN.1 object, or raw bytes. HTTP or LDAP Uris only.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>Returns a .NET object representing a CRL file.</maml:para>
     </maml:description>
     <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiCrl</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Asn</maml:name>
+          <maml:description>
+            <maml:para>ASN.1 object</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">AsnObject</command:parameterValue>
+          <dev:type>
+            <maml:name>AsnObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Overwrite CRL file if it already exists</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SaveToFile</maml:name>
+          <maml:description>
+            <maml:para>Save CRL to file</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiCrl</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
@@ -3575,6 +3804,17 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Overwrite CRL file if it already exists</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Rpc</maml:name>
           <maml:description>
             <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
@@ -3584,6 +3824,18 @@ This parser does not currently interpret any context specific tags. Only Univers
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SaveToFile</maml:name>
+          <maml:description>
+            <maml:para>Save CRL to file</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>SiteName</maml:name>
@@ -3670,6 +3922,17 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Overwrite CRL file if it already exists</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Rpc</maml:name>
           <maml:description>
             <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
@@ -3679,6 +3942,18 @@ This parser does not currently interpret any context specific tags. Only Univers
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SaveToFile</maml:name>
+          <maml:description>
+            <maml:para>Save CRL to file</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>SiteName</maml:name>
@@ -3765,6 +4040,17 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Overwrite CRL file if it already exists</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Rpc</maml:name>
           <maml:description>
             <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
@@ -3774,6 +4060,18 @@ This parser does not currently interpret any context specific tags. Only Univers
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SaveToFile</maml:name>
+          <maml:description>
+            <maml:para>Save CRL to file</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>SiteName</maml:name>
@@ -3801,6 +4099,18 @@ This parser does not currently interpret any context specific tags. Only Univers
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Asn</maml:name>
+        <maml:description>
+          <maml:para>ASN.1 object</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">AsnObject</command:parameterValue>
+        <dev:type>
+          <maml:name>AsnObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Bytes</maml:name>
         <maml:description>
@@ -3861,6 +4171,18 @@ This parser does not currently interpret any context specific tags. Only Univers
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Force</maml:name>
+        <maml:description>
+          <maml:para>Overwrite CRL file if it already exists</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
@@ -3884,6 +4206,18 @@ This parser does not currently interpret any context specific tags. Only Univers
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SaveToFile</maml:name>
+        <maml:description>
+          <maml:para>Save CRL to file</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>SiteName</maml:name>
@@ -3947,6 +4281,14 @@ This parser does not currently interpret any context specific tags. Only Univers
           <maml:para></maml:para>
         </maml:description>
       </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>xyz.zwks.pkilib.cert.AsnObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
     </command:inputTypes>
     <command:returnValues>
       <command:returnValue>
@@ -3969,6 +4311,27 @@ This parser does not currently interpret any context specific tags. Only Univers
         <dev:code>PS C:\&gt; Get-ZPkiCrl -Uri "http://crl4.digicert.com/sha2-ev-server-g3.crl"</dev:code>
         <dev:remarks>
           <maml:para>Download and parse CRL file from a public CA.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ls *.cer | Get-ZPkiCertCdpUris | Get-ZPkiCrl</dev:code>
+        <dev:remarks>
+          <maml:para>Extract CDP URIs from all certificate files in the current directory and fetch the CRLs</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ls *.crl | Get-ZPkiCrl</dev:code>
+        <dev:remarks>
+          <maml:para>Get a CRL object from all local CRL files</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ls *.crl | Get-ZPkiAsn | Get-ZPkiCrl</dev:code>
+        <dev:remarks>
+          <maml:para>Get an ASN.1 object from all local CRL files, and build a CRL object from each one</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -4623,6 +4986,235 @@ You can query the request table, CRL table, or extensions table.</maml:para>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ZPkiServiceBindings</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ZPkiServiceBindings</command:noun>
+      <maml:description>
+        <maml:para>List network ports/pipe addresses for well known services. Can query RPC Endpoint mapper for runtime ports for services that dynamically allocates ports for RPC/DCOM access. Currently only Active Directory is defined.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The intention of this cmdlet is to generate input to the Test-ZPkiServiceBinding cmdlet to test network connectivity to given services. UDP ports are excluded since there is no simple way to test UPD ports without knowing the specific application listening. RPC ports are excluded by default since it requires a round-trip to the server in question.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiServiceBindings</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>IncludeRpcPorts</maml:name>
+          <maml:description>
+            <maml:para>Query Endpoint mapper for ports used by RPC-based AD services</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>IncludeUdpPorts</maml:name>
+          <maml:description>
+            <maml:para>Include UDP ports</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NoTcpPorts</maml:name>
+          <maml:description>
+            <maml:para>Do not include TCP ports</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>QueryRpcServer</maml:name>
+          <maml:description>
+            <maml:para>Domain Controller to query for RPC ports</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ServiceName</maml:name>
+          <maml:description>
+            <maml:para>Return port set for given service</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">ActiveDirectory</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:description>
+            <maml:para>Maximum time to wait for connection (milliseconds)</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">UInt32</command:parameterValue>
+          <dev:type>
+            <maml:name>UInt32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExtraVerbose</maml:name>
+        <maml:description>
+          <maml:para>Debug output</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>IncludeRpcPorts</maml:name>
+        <maml:description>
+          <maml:para>Query Endpoint mapper for ports used by RPC-based AD services</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>IncludeUdpPorts</maml:name>
+        <maml:description>
+          <maml:para>Include UDP ports</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NoTcpPorts</maml:name>
+        <maml:description>
+          <maml:para>Do not include TCP ports</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>QueryRpcServer</maml:name>
+        <maml:description>
+          <maml:para>Domain Controller to query for RPC ports</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ServiceName</maml:name>
+        <maml:description>
+          <maml:para>Return port set for given service</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Timeout</maml:name>
+        <maml:description>
+          <maml:para>Maximum time to wait for connection (milliseconds)</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">UInt32</command:parameterValue>
+        <dev:type>
+          <maml:name>UInt32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>xyz.zwks.pkilib.connectivity.Binding</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiServiceBindings -Service ActiveDirectory</dev:code>
+        <dev:remarks>
+          <maml:para>Get a list of all TCP static port services used by Active Directory. UDP and RPC ports are not included.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>--------------------------- Example ---------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiServiceBindings -Service ActiveDirectory -IncludeRpcPorts -QueryRpcServer server1</dev:code>
+        <dev:remarks>
+          <maml:para>Get a list of all TCP static port services used by Active Directory. UDP ports are not included. Also queries the RPC Endpoint Mapper on the server and retrieves dynamic ports allocated to AD services.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>New-ZPkiCertRequest</command:name>
       <command:verb>New</command:verb>
       <command:noun>ZPkiCertRequest</command:noun>
@@ -4896,6 +5488,190 @@ You can query the request table, CRL table, or extensions table.</maml:para>
         <dev:code>PS C:\&gt; New-ZPkiCertRequest</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-ZPkiServiceBinding</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>ZPkiServiceBinding</command:noun>
+      <maml:description>
+        <maml:para>Test connectivity to a service bound to a TCP port.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use to test connectivity to services bound to TCP ports. Use this by specifying bindings manually, or by using the output from Get-ZPkiServiceBinding cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-ZPkiServiceBinding</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>Binding</maml:name>
+          <maml:description>
+            <maml:para>Test single binding</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Binding</command:parameterValue>
+          <dev:type>
+            <maml:name>Binding</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Computer</maml:name>
+          <maml:description>
+            <maml:para>Computer to try connecting to. Required if Bindings do not have a hostname set. Overrides value from Binding.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Test-ZPkiServiceBinding</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>Bindings</maml:name>
+          <maml:description>
+            <maml:para>Test multiple bindings</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Binding[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Binding[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Computer</maml:name>
+          <maml:description>
+            <maml:para>Computer to try connecting to. Required if Bindings do not have a hostname set. Overrides value from Binding.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>Binding</maml:name>
+        <maml:description>
+          <maml:para>Test single binding</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Binding</command:parameterValue>
+        <dev:type>
+          <maml:name>Binding</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>Bindings</maml:name>
+        <maml:description>
+          <maml:para>Test multiple bindings</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Binding[]</command:parameterValue>
+        <dev:type>
+          <maml:name>Binding[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Computer</maml:name>
+        <maml:description>
+          <maml:para>Computer to try connecting to. Required if Bindings do not have a hostname set. Overrides value from Binding.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExtraVerbose</maml:name>
+        <maml:description>
+          <maml:para>Debug output</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>xyz.zwks.pkilib.connectivity.Binding</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>xyz.zwks.pkilib.connectivity.Binding[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>xyz.zwks.pkilib.connectivity.ConnectTestResult</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiServiceBindings -Service ActiveDirectory -IncludeRpcPorts -QueryRpcServer server1 | Test-ZPkiServiceBinding -Computer server1</dev:code>
+        <dev:remarks>
+          <maml:para>Get a list of static and dynamic port bindings for AD running on server1 and test if a simple TCP connection can be established. (The comma and parenthesis are included to force powershell to send the bindings to the pipeline as an array, instead of unrolling and piping each binding individually. This allows Test-ZPkiServiceBinding to parallelize the connection attempts)</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

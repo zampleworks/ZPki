@@ -36,13 +36,13 @@ Import-Module ZPki
 # FQDN for AIA & CDP Web site 
 $HttpFqdn = "pki.zampleworks.com"
 
+$CaCommonName = "ZampleWorks PKI v1 Issuing CA 1"
+
 $AdcsRootDir = "C:\ADCS"
 $DbDir = "C:\ADCS\Db"
 $DbLogDir = "C:\ADCS\DbLog"
 $WebrootDir = "C:\ADCS\Web"
 $RepoDir = "C:\ADCS\Web\Repository"
-
-$CaCommonName = "ZampleWorks Sub CA v1"
 
 <###########################################################################
  #   Required section - install ADDS tools for AD info lookup
@@ -52,18 +52,27 @@ $CaCommonName = "ZampleWorks Sub CA v1"
 
 Write-Progress -Activity "Installing ADDS tools and DNS Server tools.."
 
-Install-WindowsFeature RSAT-Ad-Tools | Out-Null
 Install-WindowsFeature RSAT-DNS-Server | Out-Null
 
 Write-Progress -Activity "Gathering AD Forest info"
 
-$AdForestDns = Get-ADForest -Current LocalComputer | Select-Object -ExpandProperty RootDomain
-$RootDomain = Get-ADDomain $AdForestDns -Server $AdForestDns
-$RootDomainNbName = $RootDomain.NetBIOSName
-$EaGroup = "$RootDomainNbName\Enterprise Admins"
-$EnterpriseAdmin = (whoami -groups | Where-Object { $_ -like "*$EaGroup*" } | Measure-Object | Select-Object -ExpandProperty Count) -eq $True
+$AdForestDns = Get-ZPkiAdForest | Select-Object -ExpandProperty RootDomain
+$AdDomainDn = Get-ZPkiAdDomain | Select -ExpandProperty DistinguishedName
+$CaDnSuffix = $AdDomainDn
 
-If(-Not $EnterpriseAdmin) {
+$RootDomain = Get-ZPkiAdDomain -Domain $AdForestDns
+$RootDomainSid = $RootDomain.domainsid
+$RootDomainNbName = $RootDomain.NetBIOSName
+
+$CurrentUserUpn = whoami /upn
+$EaGroupObject = Find-ZPkiAdObject -SearchBase $RootDomain.distinguishedName -LdapFilter "(objectSid=$RootDomainSid-519)" -Properties member
+$CurrentUserObject = Find-ZPkiAdObject -SearchBase $RootDomain.distinguishedName -LdapFilter "(userPrincipalName=$CurrentUserUpn)"
+$EaMembers = $EaGroupObject.member
+$CurrentUserDn = $CurrentUserObject.distinguishedName
+
+$IsEnterpriseAdmin = $EaMembers -contains $CurrentUserDn
+
+If(-Not $IsEnterpriseAdmin) {
     Write-Error "You must be a member of $EaGroup to install an Enterprise Root CA."
 }
 
@@ -132,7 +141,7 @@ Write-Progress -Activity "Installing AIA/CDP web site"
 New-ZPkiWebsite -HttpFqdn $HttpFqdn -Verbose
 
 Write-Progress -Activity "Installing CA service"
-Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -IncludeAllIssuancePolicy -Verbose
+Install-ZPkiCa -CaType EnterpriseSubordinateCA -CaCommonName $CaCommonName -CaDnSuffix $CaDnSuffix -CpsOid "1.3.6.1.4.1.53997.509.1.1" -CpsUrl "http://$HttpFqdn/Docs/cps.txt" -CaCertValidityPeriodUnits 10 -CryptoProvider "RSA#Microsoft Software Key Storage Provider" -KeyLength 2048 -IncludeAllIssuancePolicy -Verbose
 
 # Copy CA certs and CRLs to repo directory
 Copy-Item *.crt $RepoDir

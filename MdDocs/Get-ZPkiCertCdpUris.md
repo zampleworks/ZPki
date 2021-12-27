@@ -27,6 +27,11 @@ Get-ZPkiCertCdpUris -Bytes <Byte[]> [-ExtraVerbose] [<CommonParameters>]
 Get-ZPkiCertCdpUris [-Cert] <X509Certificate2> [-ExtraVerbose] [<CommonParameters>]
 ```
 
+### Asn
+```
+Get-ZPkiCertCdpUris [-Asn] <AsnObject> [-ExtraVerbose] [<CommonParameters>]
+```
+
 ### ICertificate
 ```
 Get-ZPkiCertCdpUris [-ICert] <ICertificate> [-ExtraVerbose] [<CommonParameters>]
@@ -45,6 +50,21 @@ PS C:\> Get-ZPkiCertCdpUris -Path c:\Path\to\certfile.cer
 Returns CRL entries from certfile.cer
 
 ## PARAMETERS
+
+### -Asn
+ASN.1 object representing an x509 certificate
+
+```yaml
+Type: AsnObject
+Parameter Sets: Asn
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
 
 ### -Bytes
 Certificate byte array
@@ -129,6 +149,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ### System.Security.Cryptography.X509Certificates.X509Certificate2
+
+### xyz.zwks.pkilib.cert.AsnObject
 
 ### xyz.zwks.pkilib.cert.ICertificate
 
