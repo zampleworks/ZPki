@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.1.8031.20668
+.VERSION 0.1.8070.20762
 
 .GUID d974d680-897c-4998-b628-df6b889a9f98
 
@@ -30,6 +30,10 @@
 .PRIVATEDATA
 
 #> 
+
+
+
+
 
 
 
@@ -398,59 +402,85 @@ Function Install-ZPkiCa {
 
     Write-Verbose "Installing $($CAType)"
     $Result = 0
-    Switch($CAType) {
-        "EnterpriseRootCA" {
-            If($AllowAdminInteraction) {
-                $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
-            } Else {
-                $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -CryptoProviderName $CryptoProvider `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
+    Try {
+        Switch($CAType) {
+            "EnterpriseRootCA" {
+                If($AllowAdminInteraction) {
+                    $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
+                    -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
+                    -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
+                    -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
+                } Else {
+                    $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
+                    -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseRootCA -HashAlgorithmName $Hash -KeyLength $Keylength `
+                    -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -CryptoProviderName $CryptoProvider `
+                    -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
+                }
+            }
+
+            "EnterpriseSubordinateCA" {
+                Write-Verbose "This installation step may produce a message that looks like an error"
+                If($AllowAdminInteraction) {
+                    $Result = Install-AdcsCertificationAuthority  `
+                    -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
+                    -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
+                    -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd `
+                    -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false
+                } Else {
+                    $Result = Install-AdcsCertificationAuthority  `
+                    -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
+                    -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false `
+                    -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -CryptoProviderName $CryptoProvider
+                }
+            }
+
+            "StandaloneRootCA" {
+                If($AllowAdminInteraction) {
+                    $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
+                    -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
+                    -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
+                    -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
+                } Else {
+                    $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
+                    -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
+                    -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix `
+                    -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
+                }
+            }
+
+            "StandaloneSubordinateCA" {
+                Write-Warning "This installation step may produce a message that looks like an error"
+                Write-Error "Not implemented: StandaloneSubordinateCA"
+            }
+
+            Default {
+                Write-Error "No CA type selected: [$CAType]"
             }
         }
-
-        "EnterpriseSubordinateCA" {
-            Write-Verbose "This installation step may produce a message that looks like an error"
-            If($AllowAdminInteraction) {
-                $Result = Install-AdcsCertificationAuthority  `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd `
-                -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false
-            } Else {
-                $Result = Install-AdcsCertificationAuthority  `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType EnterpriseSubordinateCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -OutputCertRequestFile "$AdcsPath\CACert.req" -Confirm:$false `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -CryptoProviderName $CryptoProvider
-            }
+    } Catch {
+        Write-Warning "Error running ADCS install command: $($_.Exception.Message)"
+        $Prms = @{
+            'CaType' = $CAType
+            'AdcsPath' = $AdcsPath
+            'AdcsRepoPath' = $AdcsRepositoryPath
+            'IncludeAllIssuance' = $IncludeAllIssuancePolicy
+            'IncludeAssurance' = $IncludeAssurancePolicy
+            'CaCommonName' = $CaCommonName
+            'CaDnSuffix' = $CaDnSuffix
+            'DbPath' = $DbPath
+            'DbLogPath' = $DbLogPath
+            'CACertValidityPeriod' = $CACertValidityPeriod
+            'CACertValidityPeriodUnits' = $CACertValidityPeriodUnits
+            'Hash' = $Hash
+            'KeyLength' = $KeyLength
+            'CryptoProvider' = $CryptoProvider
+            'AllowAdminInteraction' = $AllowAdminInteraction
+            'OverwriteKey' = $OverwriteKey
+            'OverwriteDb' = $OverwriteDb
+            'OverwriteInAd' = $OverwriteInAd
         }
-
-        "StandaloneRootCA" {
-            If($AllowAdminInteraction) {
-                $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix -AllowAdministratorInteraction $AllowAdminInteraction -CryptoProviderName $CryptoProvider `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
-            } Else {
-                $Result = Install-AdcsCertificationAuthority -ValidityPeriod $CACertValidityPeriod -ValidityPeriodUnits $CACertValidityPeriodUnits `
-                -DatabaseDirectory $DbPath -LogDirectory $DbLogPath -CAType StandaloneRootCA -HashAlgorithmName $Hash -KeyLength $KeyLength `
-                -CACommonName $CaCommonName -CADistinguishedNameSuffix $CaDnSuffix `
-                -OverwriteExistingKey:$OverwriteKey -OverwriteExistingDatabase:$OverwriteDb -OverwriteExistingCAinDS:$OverwriteInAd -Confirm:$false
-            }
-        }
-
-        "StandaloneSubordinateCA" {
-            Write-Warning "This installation step may produce a message that looks like an error"
-            Write-Error "Not implemented: StandaloneSubordinateCA"
-        }
-
-        Default {
-            Write-Error "No CA type selected: [$CAType]"
-        }
+        Write-Warning "Installation parameters:"
+        $Prms
     }
 
     If($Result.ErrorId -eq 398) {
@@ -1872,8 +1902,8 @@ Function Install-ZPkiRsatComponents {
 # SIG # Begin signature block
 # MIIT5AYJKoZIhvcNAQcCoIIT1TCCE9ECAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUXOvi5M3s5dW0mPl8hcmR2sS6
-# +2yggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/9SHiXhZ7bz3cRdOew1620pN
+# gf2ggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
 # 9w0BAQsFADBIMQswCQYDVQQGEwJTRTEUMBIGA1UEChMLWmFtcGxlV29ya3MxIzAh
 # BgNVBAMTGlphbXBsZVdvcmtzIEludGVybmFsIENBIHYyMB4XDTIxMDkyOTA2Mjcw
 # OFoXDTIyMDkyOTA2MjcwOFowGjEYMBYGA1UEAxMPQW5kZXJzIFJ1bmVzc29uMIIB
@@ -1958,23 +1988,23 @@ Function Install-ZPkiRsatComponents {
 # cGxlV29ya3MgSW50ZXJuYWwgQ0EgdjICE3wAAAJo8gILSNspSq0AAAAAAmgwCQYF
 # Kw4DAhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkD
 # MQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJ
-# KoZIhvcNAQkEMRYEFPFJLDSlNXlsx4o+IaoCk59eb4//MA0GCSqGSIb3DQEBAQUA
-# BIIBAMfpVm/0NQzJSYbfl6HB3nB5TleF9jgpoUri340KtQHMoHTPoDKTG4esO10Y
-# 956kj1i9qhnnCsVXiErCHHIXixloqGy9QXkasoIK6HAkf8qRFcO3AbnPvu1VlD7R
-# eoUaxI/cfvW5vzi1URM1+sxoqAZ2Pefs1iwgtJIdYgorKjjk97qg3zyh3JUkTY5B
-# yJN/UpRqkwcEuIQWMVkZFx2ApXsvz2YMRWAS1Ny1yatG4HoaNvUBL8Cag1mqAe1i
-# K1McK1+ZamNncAwhBCoJ7OfyS8K1/8ghLkCPh1xn+M72SiyHVnyKewZ9YC+XaUoy
-# OGuEnmH0OUJ9s3ZSK74BZttl14ahggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
+# KoZIhvcNAQkEMRYEFD9BR6PFK6hDTZszMcySiGrkfFVaMA0GCSqGSIb3DQEBAQUA
+# BIIBAAaK6gr87/zFsJqNjS5OCQTmvP5g3g/tJHv5ls1HjLdFLGH692FyEzOiJPDn
+# /a47PLpRMvijFMjHn7Ms0DY69vgE+2VAmUEJRGF/H6qrHvNDjGhlePVgaKsfDFH5
+# L9SJQ2AFt9Lm3yvowJyVVpQlmEdRSiB+SRRJWT9DgTWg0cXQbJ1ysJ4yekAYWBDU
+# ZObTmk3bzjE8j3OsJf4LJtCaQ4S0VDIbWc5NaPDdhdOEaelk+AGJetFWTKVfUFye
+# x8f7+tIh2JK50e7blv+bcNgUdfx8Nsbf2T+f0nKRxikxDaRPquq/cjxA7wsKAabS
+# NMY3A2NlUYju4ZIvE19d0VDvmdWhggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
 # AQEwgYYwcjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcG
 # A1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBB
 # c3N1cmVkIElEIFRpbWVzdGFtcGluZyBDQQIQDUJK4L46iP9gQCHOFADw3TANBglg
 # hkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
-# AQkFMQ8XDTIxMTIyNzEwMjk0OFowLwYJKoZIhvcNAQkEMSIEIBoGbbOFIoiLurAs
-# f/fa1xbpABngGlO9wjegk8gx5MusMA0GCSqGSIb3DQEBAQUABIIBAH7BLVu5+rl7
-# tq9oujK7Yxq3OqRxGijN7HPvBtot2qRmykLILk52D42n3f9MBjwlC12fKeMo/Dv3
-# sdX59R0ndbN5NIag8VSU8chxc6aV4UwGGibQthwO5pvSOgAxXf+fnGb7J/GpafPJ
-# 9eKoi5P9FLdLHRUEooW9WJLeq31Jy1N3nDXwAWNmHmJJVaOesZBxsnV3AGwhYXcp
-# MPX97mv+vBNQr/dTaJr7hhrcg/4OA+JDO+wHbxNSqGPDhNIw/pOwx8yUKNdZeUUb
-# ylxjNKB0hZSrb0VVhXTn3ClB8cII+91+lPE4wOnpQ1sFQhQVLtAHeSefwf7QluKW
-# KPA4qc9DrAw=
+# AQkFMQ8XDTIyMDIwNDEwMzUwOVowLwYJKoZIhvcNAQkEMSIEIDHhNple/yHMtgJW
+# fH3AFiLKd1x8pS+1+nxAduNVPXI9MA0GCSqGSIb3DQEBAQUABIIBAIfuLjiT2Zh4
+# CwaFMTJx7tZxPMSJ/AVA51vb39ZSjoTP093paEiQbGcEI+qCkyPkAVGFZxfm/uNy
+# Vwacqh0d6YVGA9OL2gpYzsruN+0U5+ipoDqqr4ZuHp3eohOt+pbtSo76OCgE3hG2
+# W053ZSj9TZ3JpaxEtuSbO7S979PoB0h5QciTyTg2bPyyMj7EVRbosgUDRtYkLJ+1
+# iCvvUtdpAmkA1rAyX2CHAZwH1qus+MVHBRFuZczkuzzviuNeZsS2HYU42zMqrXZ8
+# WFahYb5+jXPabs571H9lUUWeMG3IfWlfLbc//nDJ9P7KOBcX8791OQqDBNqcVcNR
+# D1s5Ot0XNzo=
 # SIG # End signature block
