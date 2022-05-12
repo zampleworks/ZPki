@@ -13,7 +13,7 @@ Query ADCS Db
 ## SYNTAX
 
 ```
-Get-ZPkiDbRow [-ConfigString <String>] [-Filters <String[]>] [-Properties <String[]>] [-Table <String>]
+Get-ZPkiDbRow [-ConfigString <String>] [-Filters <String[]>] [-Properties <String[]>] [-Table <Table>]
  [-PageSize <Int32>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
@@ -40,7 +40,7 @@ This will return the row with ID 2 in Db on ADCS instance $c
 ## PARAMETERS
 
 ### -ConfigString
-{{ Fill ConfigString Description }}
+ADCS instance config string. Find CAs with Get-ZPkiAdCasConfigString
 
 ```yaml
 Type: String
@@ -73,7 +73,9 @@ Accept wildcard characters: False
 Limit results to requests matching the given filters.
 Valid syntax: \<DbColumnName\>\<operator\>\<value\>.
 Operators: \[==, \>, \>=, \<, \<=\].
-Valid DbColumnNames are any in 'certutil -c \<configstring\> -schema'.
+Valid DbColumnNames are any returned by 'Get-ZPkiDbSchema'.
+You can also sort on the selected column by prepending the filter with '+' (ascending sort) or '-' (descending).
+
 
 ```yaml
 Type: String[]
@@ -104,7 +106,7 @@ Accept wildcard characters: False
 ```
 
 ### -Properties
-Properties to include in output.
+Properties to include in output. Use "*" to include all columns.
 If you specify columns, the default columns are omitted.
 Default columns: RequestID, Request.Disposition, Request.RequesterName, CommonName, NotBefore, NotAfter, SerialNumber.
 
@@ -125,10 +127,10 @@ Database table to query.
 'Cert', 'Ext', 'Attr', and 'Crl' are valid values.
 
 ```yaml
-Type: String
+Type: Table
 Parameter Sets: (All)
 Aliases:
-Accepted values: Cert, Ext, Attr, Crl
+Accepted values: ReqCert, Extensions, Attr, Crl
 
 Required: False
 Position: Named

@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.1.8070.20762
+.VERSION 0.1.8166.39690
 
 .GUID d974d680-897c-4998-b628-df6b889a9f98
 
@@ -31,13 +31,7 @@
 
 #> 
 
-
-
-
-
-
-
-
+#Requires -Module ActiveDirectory
 
 
 <#
@@ -1812,6 +1806,148 @@ Function Get-ZPkiAdIssuancePolicy {
     }
 }
 
+<#
+    .SYNOPSIS
+    Update altSecIdentities on Active Directory user object based on certificate in ADCS db
+
+    .DESCRIPTION
+    Find an AD account by AdSamaccountname and search given CA db for a cert with matching CN and RequesterName.
+    If multiple certs match, the last one will be used. You can supply a template name to limit cert search.
+    Extract serialnumber and Issuer name from cert and set altSecIdentities accordingly.
+
+    .PARAMETER AdSamaccountName 
+    AD Account name
+
+    .PARAMETER CertTemplateName
+    Short name of certificate template
+
+    .PARAMETER CaNameFilter
+    If you have multiple CAs use this parameter to filter on CA name.
+
+    .PARAMETER ClearAltSecurityIdentities
+    Removes all preexisting entries from altSecurityIdentities attribute before setting.
+#>
+
+Function Set-ZPkiAdAltSecurityIdentities {
+    [CmdletBinding(SupportsShouldProcess=$True)]
+    Param(
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $AdSamaccountName,
+
+        [Parameter(Mandatory=$false)]
+        [string]
+        $CertTemplateName,
+
+        [Parameter(Mandatory=$false)]
+        [string]
+        $CaNameFilter,
+
+        [Switch]
+        $ClearAltSecurityIdentities
+    )
+
+
+    $ErrorActionPreference = "Stop"
+
+    $Domain = Get-ADDomain -Current LoggedOnUser
+    $Nb = $Domain.NetBiosName
+    $AdObject = Get-AdUser $AdSamaccountname -Properties "cn","altSecurityIdentities"
+
+    # For user objects stored in AD containers ADCS will write CommonName in DB as newline separated list of all container CN's and last the objects' own CN. 
+    # For example, CN=Administrator will have 'Users\nAdministrator' in ADCS DB (but not in cert...) 8-( eeeeeefml
+
+    $Dn = $AdObject.DistinguishedName
+    $DnCmp = $Dn.Split(',')
+    $Cns = ($DnCmp | Where-Object { $_.StartsWith("CN=") } | ForEach-Object { $_.Replace("CN=", "") } | Sort-Object -Descending) -join "`n"
+
+    $CertFilters = "Request.RequesterName==$Nb\$($AdObject.Samaccountname)","CommonName==$Cns"
+
+    If(-Not [string]::IsNullOrWhiteSpace($CertTemplateName)) {
+        $Tpl = Get-ZPkiAdTemplate -Name $CertTemplateName
+        $Count = $Tpl | Measure-Object | Select-Object -ExpandProperty Count
+        If($Count -lt 1) {
+            Write-Warning "No template named $CertTemplateName found."
+            Return
+        }
+        If($Count -gt 1) {
+            Write-Warning "Multiple templates matching $CertTemplateName found."
+            Return
+        }
+
+        $CertFilters += "CertificateTemplate==$($Tpl.TemplateOid.Value)"
+    }
+
+    $cas = Get-ZPkiAdCasConfigString
+    If($Cas.Count -gt 1) {
+        If(-Not [string]::IsNullOrWhiteSpace($CaNameFilter)) {
+            $Cfg = $Cas | Where-Object { $_ -like "*$CaNameFilter*" } | Select-Object -First 1
+        } Else {
+            $Cfg = $Cas | Select-Object -First 1
+        }
+    } else {
+        $Cfg = $Cas
+    }
+
+    Write-Verbose "Checking CA DB on $Cfg for $CertFilters"
+
+    $CertRow = Get-ZPkiDbRow -ConfigString $Cfg -Filters ($CertFilters + ,"Request.Disposition==20") -Properties "RawCertificate","CertificateTemplate","RequestID","NotBefore","NotAfter","Request.RequesterName" | Select-Object -Last 1
+    $RowCount = $CertRow | Measure-Object | Select-Object -ExpandProperty Count
+
+    If($RowCount -lt 1) {
+        Write-Verbose "Found no matching rows!"
+        $CertRow
+        Return
+    }
+
+    $CertString = $CertRow | Select-Object -expand RawCertificate
+    [byte[]] $CertBytes = [Convert]::FromBase64String($CertString)
+
+    $Cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 (,$CertBytes)
+
+    $Serial = $Cert.SerialNumber.ToLower()
+
+    Write-Verbose "Found cert $Serial issued to $($Cert.Subject) ($($CertRow.Request_RequesterName))"
+
+    $SerialRev = ""
+    for($i = 0; $i -lt $Serial.length; $i += 2) { 
+        $byteStr = $Serial.Substring($i, 2)
+        $SerialRev = "$byteStr$SerialRev"
+    }
+
+    $Dn = New-Object System.Security.Cryptography.X509Certificates.X500DistinguishedName($Cert.Issuer)
+    $I = $Dn.Format($True).Replace("`n", ",").Replace("`r", "").Trim(',')
+
+    $altSecString = "X509:<I>$($I)<SR>$SerialRev"
+
+    If($AdObject.altSecurityIdentities) {
+        $AlreadySet = $AdObject.altSecurityIdentities | ForEach-Object { 
+            If($_ -eq $altSecString) {
+                return $True
+            }
+        }
+
+        If($AlreadySet) {
+            If($ClearAltSecurityIdentities) {
+                $ClearText = "altSecurityIdentities will NOT be cleared!"
+            }
+            Write-Verbose "altSecurityIdentities attribute already contains value $($altSecString). No changes will be made. $ClearText"
+            Return
+        }
+    }
+
+    If($AdObject.altSecurityIdentities -And $ClearAltSecurityIdentities) {
+        Write-Verbose "Removing previous altSecurityIdentities values"
+        $AdObject.altSecurityIdentities | ForEach-Object { Write-Warning "Removing [$_] from altSecurityIdentities" }
+
+        Set-AdObject $AdObject -Clear "altSecurityIdentities"
+    }
+
+    Write-Verbose "Adding '$($altSecString)' to altSecurityIdentitites on account $($AdObject.Samaccountname)"
+
+    Set-AdObject $AdObject -Add @{ 'altSecurityIdentities' = $altSecString } 
+}
 
 <#
     .ExternalHelp PsZPki-help.xml
@@ -1900,10 +2036,10 @@ Function Install-ZPkiRsatComponents {
     }
 }
 # SIG # Begin signature block
-# MIIT5AYJKoZIhvcNAQcCoIIT1TCCE9ECAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
+# MIIYGQYJKoZIhvcNAQcCoIIYCjCCGAYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/9SHiXhZ7bz3cRdOew1620pN
-# gf2ggg8aMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUHU63Zxus+ieuTpK67gP9t4jN
+# RM2gghJfMIIE3zCCA8egAwIBAgITfAAAAmjyAgtI2ylKrQAAAAACaDANBgkqhkiG
 # 9w0BAQsFADBIMQswCQYDVQQGEwJTRTEUMBIGA1UEChMLWmFtcGxlV29ya3MxIzAh
 # BgNVBAMTGlphbXBsZVdvcmtzIEludGVybmFsIENBIHYyMB4XDTIxMDkyOTA2Mjcw
 # OFoXDTIyMDkyOTA2MjcwOFowGjEYMBYGA1UEAxMPQW5kZXJzIFJ1bmVzc29uMIIB
@@ -1929,82 +2065,104 @@ Function Install-ZPkiRsatComponents {
 # m6D+WbqoofINMuX4Vaqxo1Yg6sDxZqs3fnReOf5rLAumDIZpvezHnrHHUb6kl91h
 # xUvG7yM0wt0sG3ZDxWY5giuUQxNO3sY6OjB+Cv7Ty7aNmIoelUgHsJ+Z5reWNG2o
 # 5Y22BqBGZYSNzRySduHEL8/GCaKFfosE8NFSu6guZvVji/Y7tTAwYlbn42EFrtZq
-# 8FVopb7RpF3RMIIE/jCCA+agAwIBAgIQDUJK4L46iP9gQCHOFADw3TANBgkqhkiG
-# 9w0BAQsFADByMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkw
-# FwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMTEwLwYDVQQDEyhEaWdpQ2VydCBTSEEy
-# IEFzc3VyZWQgSUQgVGltZXN0YW1waW5nIENBMB4XDTIxMDEwMTAwMDAwMFoXDTMx
-# MDEwNjAwMDAwMFowSDELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJ
-# bmMuMSAwHgYDVQQDExdEaWdpQ2VydCBUaW1lc3RhbXAgMjAyMTCCASIwDQYJKoZI
-# hvcNAQEBBQADggEPADCCAQoCggEBAMLmYYRnxYr1DQikRcpja1HXOhFCvQp1dU2U
-# tAxQtSYQ/h3Ib5FrDJbnGlxI70Tlv5thzRWRYlq4/2cLnGP9NmqB+in43Stwhd4C
-# GPN4bbx9+cdtCT2+anaH6Yq9+IRdHnbJ5MZ2djpT0dHTWjaPxqPhLxs6t2HWc+xO
-# bTOKfF1FLUuxUOZBOjdWhtyTI433UCXoZObd048vV7WHIOsOjizVI9r0TXhG4wOD
-# MSlKXAwxikqMiMX3MFr5FK8VX2xDSQn9JiNT9o1j6BqrW7EdMMKbaYK02/xWVLwf
-# oYervnpbCiAvSwnJlaeNsvrWY4tOpXIc7p96AXP4Gdb+DUmEvQECAwEAAaOCAbgw
-# ggG0MA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMBYGA1UdJQEB/wQMMAoG
-# CCsGAQUFBwMIMEEGA1UdIAQ6MDgwNgYJYIZIAYb9bAcBMCkwJwYIKwYBBQUHAgEW
-# G2h0dHA6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzAfBgNVHSMEGDAWgBT0tuEgHf4p
-# rtLkYaWyoiWyyBc1bjAdBgNVHQ4EFgQUNkSGjqS6sGa+vCgtHUQ23eNqerwwcQYD
-# VR0fBGowaDAyoDCgLoYsaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL3NoYTItYXNz
-# dXJlZC10cy5jcmwwMqAwoC6GLGh0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNvbS9zaGEy
-# LWFzc3VyZWQtdHMuY3JsMIGFBggrBgEFBQcBAQR5MHcwJAYIKwYBBQUHMAGGGGh0
-# dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBPBggrBgEFBQcwAoZDaHR0cDovL2NhY2Vy
-# dHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0U0hBMkFzc3VyZWRJRFRpbWVzdGFtcGlu
-# Z0NBLmNydDANBgkqhkiG9w0BAQsFAAOCAQEASBzctemaI7znGucgDo5nRv1CclF0
-# CiNHo6uS0iXEcFm+FKDlJ4GlTRQVGQd58NEEw4bZO73+RAJmTe1ppA/2uHDPYuj1
-# UUp4eTZ6J7fz51Kfk6ftQ55757TdQSKJ+4eiRgNO/PT+t2R3Y18jUmmDgvoaU+2Q
-# zI2hF3MN9PNlOXBL85zWenvaDLw9MtAby/Vh/HUIAHa8gQ74wOFcz8QRcucbZEnY
-# Ipp1FUL1LTI4gdr0YKK6tFL7XOBhJCVPst/JKahzQ1HavWPWH1ub9y4bTxMd90oN
-# cX6Xt/Q/hOvB46NJofrOp79Wz7pZdmGJX36ntI5nePk2mOHLKNpbh6aKLzCCBTEw
-# ggQZoAMCAQICEAqhJdbWMht+QeQF2jaXwhUwDQYJKoZIhvcNAQELBQAwZTELMAkG
-# A1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRp
-# Z2ljZXJ0LmNvbTEkMCIGA1UEAxMbRGlnaUNlcnQgQXNzdXJlZCBJRCBSb290IENB
-# MB4XDTE2MDEwNzEyMDAwMFoXDTMxMDEwNzEyMDAwMFowcjELMAkGA1UEBhMCVVMx
-# FTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNv
-# bTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBBc3N1cmVkIElEIFRpbWVzdGFtcGlu
-# ZyBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL3QMu5LzY9/3am6
-# gpnFOVQoV7YjSsQOB0UzURB90Pl9TWh+57ag9I2ziOSXv2MhkJi/E7xX08PhfgjW
-# ahQAOPcuHjvuzKb2Mln+X2U/4Jvr40ZHBhpVfgsnfsCi9aDg3iI/Dv9+lfvzo7oi
-# PhisEeTwmQNtO4V8CdPuXciaC1TjqAlxa+DPIhAPdc9xck4Krd9AOly3UeGheRTG
-# TSQjMF287DxgaqwvB8z98OpH2YhQXv1mblZhJymJhFHmgudGUP2UKiyn5HU+upgP
-# hH+fMRTWrdXyZMt7HgXQhBlyF/EXBu89zdZN7wZC/aJTKk+FHcQdPK/P2qwQ9d2s
-# rOlW/5MCAwEAAaOCAc4wggHKMB0GA1UdDgQWBBT0tuEgHf4prtLkYaWyoiWyyBc1
-# bjAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYunpyGd823IDzASBgNVHRMBAf8ECDAG
-# AQH/AgEAMA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAKBggrBgEFBQcDCDB5Bggr
-# BgEFBQcBAQRtMGswJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNv
-# bTBDBggrBgEFBQcwAoY3aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lD
-# ZXJ0QXNzdXJlZElEUm9vdENBLmNydDCBgQYDVR0fBHoweDA6oDigNoY0aHR0cDov
-# L2NybDQuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElEUm9vdENBLmNybDA6
-# oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElE
-# Um9vdENBLmNybDBQBgNVHSAESTBHMDgGCmCGSAGG/WwAAgQwKjAoBggrBgEFBQcC
-# ARYcaHR0cHM6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzALBglghkgBhv1sBwEwDQYJ
-# KoZIhvcNAQELBQADggEBAHGVEulRh1Zpze/d2nyqY3qzeM8GN0CE70uEv8rPAwL9
-# xafDDiBCLK938ysfDCFaKrcFNB1qrpn4J6JmvwmqYN92pDqTD/iy0dh8GWLoXoIl
-# HsS6HHssIeLWWywUNUMEaLLbdQLgcseY1jxk5R9IEBhfiThhTWJGJIdjjJFSLK8p
-# ieV4H9YLFKWA1xJHcLN11ZOFk362kmf7U2GJqPVrlsD0WGkNfMgBsbkodbeZY4Ui
-# jGHKeZR+WfyMD+NvtQEmtmyl7odRIeRYYJu6DC0rbaLEfrvEJStHAgh8Sa4TtuF8
-# QkIoxhhWz0E0tmZdtnR79VYzIi8iNrJLokqV2PWmjlIxggQ0MIIEMAIBATBfMEgx
-# CzAJBgNVBAYTAlNFMRQwEgYDVQQKEwtaYW1wbGVXb3JrczEjMCEGA1UEAxMaWmFt
-# cGxlV29ya3MgSW50ZXJuYWwgQ0EgdjICE3wAAAJo8gILSNspSq0AAAAAAmgwCQYF
-# Kw4DAhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkD
-# MQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJ
-# KoZIhvcNAQkEMRYEFD9BR6PFK6hDTZszMcySiGrkfFVaMA0GCSqGSIb3DQEBAQUA
-# BIIBAAaK6gr87/zFsJqNjS5OCQTmvP5g3g/tJHv5ls1HjLdFLGH692FyEzOiJPDn
-# /a47PLpRMvijFMjHn7Ms0DY69vgE+2VAmUEJRGF/H6qrHvNDjGhlePVgaKsfDFH5
-# L9SJQ2AFt9Lm3yvowJyVVpQlmEdRSiB+SRRJWT9DgTWg0cXQbJ1ysJ4yekAYWBDU
-# ZObTmk3bzjE8j3OsJf4LJtCaQ4S0VDIbWc5NaPDdhdOEaelk+AGJetFWTKVfUFye
-# x8f7+tIh2JK50e7blv+bcNgUdfx8Nsbf2T+f0nKRxikxDaRPquq/cjxA7wsKAabS
-# NMY3A2NlUYju4ZIvE19d0VDvmdWhggIwMIICLAYJKoZIhvcNAQkGMYICHTCCAhkC
-# AQEwgYYwcjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcG
-# A1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBB
-# c3N1cmVkIElEIFRpbWVzdGFtcGluZyBDQQIQDUJK4L46iP9gQCHOFADw3TANBglg
-# hkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
-# AQkFMQ8XDTIyMDIwNDEwMzUwOVowLwYJKoZIhvcNAQkEMSIEIDHhNple/yHMtgJW
-# fH3AFiLKd1x8pS+1+nxAduNVPXI9MA0GCSqGSIb3DQEBAQUABIIBAIfuLjiT2Zh4
-# CwaFMTJx7tZxPMSJ/AVA51vb39ZSjoTP093paEiQbGcEI+qCkyPkAVGFZxfm/uNy
-# Vwacqh0d6YVGA9OL2gpYzsruN+0U5+ipoDqqr4ZuHp3eohOt+pbtSo76OCgE3hG2
-# W053ZSj9TZ3JpaxEtuSbO7S979PoB0h5QciTyTg2bPyyMj7EVRbosgUDRtYkLJ+1
-# iCvvUtdpAmkA1rAyX2CHAZwH1qus+MVHBRFuZczkuzzviuNeZsS2HYU42zMqrXZ8
-# WFahYb5+jXPabs571H9lUUWeMG3IfWlfLbc//nDJ9P7KOBcX8791OQqDBNqcVcNR
-# D1s5Ot0XNzo=
+# 8FVopb7RpF3RMIIGrjCCBJagAwIBAgIQBzY3tyRUfNhHrP0oZipeWzANBgkqhkiG
+# 9w0BAQsFADBiMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkw
+# FwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMSEwHwYDVQQDExhEaWdpQ2VydCBUcnVz
+# dGVkIFJvb3QgRzQwHhcNMjIwMzIzMDAwMDAwWhcNMzcwMzIyMjM1OTU5WjBjMQsw
+# CQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xOzA5BgNVBAMTMkRp
+# Z2lDZXJ0IFRydXN0ZWQgRzQgUlNBNDA5NiBTSEEyNTYgVGltZVN0YW1waW5nIENB
+# MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxoY1BkmzwT1ySVFVxyUD
+# xPKRN6mXUaHW0oPRnkyibaCwzIP5WvYRoUQVQl+kiPNo+n3znIkLf50fng8zH1AT
+# CyZzlm34V6gCff1DtITaEfFzsbPuK4CEiiIY3+vaPcQXf6sZKz5C3GeO6lE98NZW
+# 1OcoLevTsbV15x8GZY2UKdPZ7Gnf2ZCHRgB720RBidx8ald68Dd5n12sy+iEZLRS
+# 8nZH92GDGd1ftFQLIWhuNyG7QKxfst5Kfc71ORJn7w6lY2zkpsUdzTYNXNXmG6jB
+# ZHRAp8ByxbpOH7G1WE15/tePc5OsLDnipUjW8LAxE6lXKZYnLvWHpo9OdhVVJnCY
+# Jn+gGkcgQ+NDY4B7dW4nJZCYOjgRs/b2nuY7W+yB3iIU2YIqx5K/oN7jPqJz+ucf
+# WmyU8lKVEStYdEAoq3NDzt9KoRxrOMUp88qqlnNCaJ+2RrOdOqPVA+C/8KI8ykLc
+# GEh/FDTP0kyr75s9/g64ZCr6dSgkQe1CvwWcZklSUPRR8zZJTYsg0ixXNXkrqPNF
+# YLwjjVj33GHek/45wPmyMKVM1+mYSlg+0wOI/rOP015LdhJRk8mMDDtbiiKowSYI
+# +RQQEgN9XyO7ZONj4KbhPvbCdLI/Hgl27KtdRnXiYKNYCQEoAA6EVO7O6V3IXjAS
+# vUaetdN2udIOa5kM0jO0zbECAwEAAaOCAV0wggFZMBIGA1UdEwEB/wQIMAYBAf8C
+# AQAwHQYDVR0OBBYEFLoW2W1NhS9zKXaaL3WMaiCPnshvMB8GA1UdIwQYMBaAFOzX
+# 44LScV1kTN8uZz/nupiuHA9PMA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAKBggr
+# BgEFBQcDCDB3BggrBgEFBQcBAQRrMGkwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3Nw
+# LmRpZ2ljZXJ0LmNvbTBBBggrBgEFBQcwAoY1aHR0cDovL2NhY2VydHMuZGlnaWNl
+# cnQuY29tL0RpZ2lDZXJ0VHJ1c3RlZFJvb3RHNC5jcnQwQwYDVR0fBDwwOjA4oDag
+# NIYyaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1c3RlZFJvb3RH
+# NC5jcmwwIAYDVR0gBBkwFzAIBgZngQwBBAIwCwYJYIZIAYb9bAcBMA0GCSqGSIb3
+# DQEBCwUAA4ICAQB9WY7Ak7ZvmKlEIgF+ZtbYIULhsBguEE0TzzBTzr8Y+8dQXeJL
+# Kftwig2qKWn8acHPHQfpPmDI2AvlXFvXbYf6hCAlNDFnzbYSlm/EUExiHQwIgqgW
+# valWzxVzjQEiJc6VaT9Hd/tydBTX/6tPiix6q4XNQ1/tYLaqT5Fmniye4Iqs5f2M
+# vGQmh2ySvZ180HAKfO+ovHVPulr3qRCyXen/KFSJ8NWKcXZl2szwcqMj+sAngkSu
+# mScbqyQeJsG33irr9p6xeZmBo1aGqwpFyd/EjaDnmPv7pp1yr8THwcFqcdnGE4AJ
+# xLafzYeHJLtPo0m5d2aR8XKc6UsCUqc3fpNTrDsdCEkPlM05et3/JWOZJyw9P2un
+# 8WbDQc1PtkCbISFA0LcTJM3cHXg65J6t5TRxktcma+Q4c6umAU+9Pzt4rUyt+8SV
+# e+0KXzM5h0F4ejjpnOHdI/0dKNPH+ejxmF/7K9h+8kaddSweJywm228Vex4Ziza4
+# k9Tm8heZWcpw8De/mADfIBZPJ/tgZxahZrrdVcA6KYawmKAr7ZVBtzrVFZgxtGIJ
+# Dwq9gdkT/r+k0fNX2bwE+oLeMt8EifAAzV3C+dAjfwAL5HYCJtnwZXZCpimHCUcr
+# 5n8apIUP/JiW9lVUKx+A+sDyDivl1vupL0QVSucTDh3bNzgaoSv27dZ8/DCCBsYw
+# ggSuoAMCAQICEAp6SoieyZlCkAZjOE2Gl50wDQYJKoZIhvcNAQELBQAwYzELMAkG
+# A1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMTswOQYDVQQDEzJEaWdp
+# Q2VydCBUcnVzdGVkIEc0IFJTQTQwOTYgU0hBMjU2IFRpbWVTdGFtcGluZyBDQTAe
+# Fw0yMjAzMjkwMDAwMDBaFw0zMzAzMTQyMzU5NTlaMEwxCzAJBgNVBAYTAlVTMRcw
+# FQYDVQQKEw5EaWdpQ2VydCwgSW5jLjEkMCIGA1UEAxMbRGlnaUNlcnQgVGltZXN0
+# YW1wIDIwMjIgLSAyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAuSqW
+# I6ZcvF/WSfAVghj0M+7MXGzj4CUu0jHkPECu+6vE43hdflw26vUljUOjges4Y/k8
+# iGnePNIwUQ0xB7pGbumjS0joiUF/DbLW+YTxmD4LvwqEEnFsoWImAdPOw2z9rDt+
+# 3Cocqb0wxhbY2rzrsvGD0Z/NCcW5QWpFQiNBWvhg02UsPn5evZan8Pyx9PQoz0J5
+# HzvHkwdoaOVENFJfD1De1FksRHTAMkcZW+KYLo/Qyj//xmfPPJOVToTpdhiYmREU
+# xSsMoDPbTSSF6IKU4S8D7n+FAsmG4dUYFLcERfPgOL2ivXpxmOwV5/0u7NKbAIqs
+# HY07gGj+0FmYJs7g7a5/KC7CnuALS8gI0TK7g/ojPNn/0oy790Mj3+fDWgVifnAs
+# 5SuyPWPqyK6BIGtDich+X7Aa3Rm9n3RBCq+5jgnTdKEvsFR2wZBPlOyGYf/bES+S
+# AzDOMLeLD11Es0MdI1DNkdcvnfv8zbHBp8QOxO9APhk6AtQxqWmgSfl14ZvoaORq
+# DI/r5LEhe4ZnWH5/H+gr5BSyFtaBocraMJBr7m91wLA2JrIIO/+9vn9sExjfxm2k
+# eUmti39hhwVo99Rw40KV6J67m0uy4rZBPeevpxooya1hsKBBGBlO7UebYZXtPgth
+# Wuo+epiSUc0/yUTngIspQnL3ebLdhOon7v59emsCAwEAAaOCAYswggGHMA4GA1Ud
+# DwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMI
+# MCAGA1UdIAQZMBcwCAYGZ4EMAQQCMAsGCWCGSAGG/WwHATAfBgNVHSMEGDAWgBS6
+# FtltTYUvcyl2mi91jGogj57IbzAdBgNVHQ4EFgQUjWS3iSH+VlhEhGGn6m8cNo/d
+# rw0wWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0Rp
+# Z2lDZXJ0VHJ1c3RlZEc0UlNBNDA5NlNIQTI1NlRpbWVTdGFtcGluZ0NBLmNybDCB
+# kAYIKwYBBQUHAQEEgYMwgYAwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2lj
+# ZXJ0LmNvbTBYBggrBgEFBQcwAoZMaHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29t
+# L0RpZ2lDZXJ0VHJ1c3RlZEc0UlNBNDA5NlNIQTI1NlRpbWVTdGFtcGluZ0NBLmNy
+# dDANBgkqhkiG9w0BAQsFAAOCAgEADS0jdKbR9fjqS5k/AeT2DOSvFp3Zs4yXgimc
+# Q28BLas4tXARv4QZiz9d5YZPvpM63io5WjlO2IRZpbwbmKrobO/RSGkZOFvPiTkd
+# cHDZTt8jImzV3/ZZy6HC6kx2yqHcoSuWuJtVqRprfdH1AglPgtalc4jEmIDf7kmV
+# t7PMxafuDuHvHjiKn+8RyTFKWLbfOHzL+lz35FO/bgp8ftfemNUpZYkPopzAZfQB
+# ImXH6l50pls1klB89Bemh2RPPkaJFmMga8vye9A140pwSKm25x1gvQQiFSVwBnKp
+# RDtpRxHT7unHoD5PELkwNuTzqmkJqIt+ZKJllBH7bjLx9bs4rc3AkxHVMnhKSzcq
+# TPNc3LaFwLtwMFV41pj+VG1/calIGnjdRncuG3rAM4r4SiiMEqhzzy350yPynhng
+# DZQooOvbGlGglYKOKGukzp123qlzqkhqWUOuX+r4DwZCnd8GaJb+KqB0W2Nm3mss
+# uHiqTXBt8CzxBxV+NbTmtQyimaXXFWs1DoXW4CzM4AwkuHxSCx6ZfO/IyMWMWGmv
+# qz3hz8x9Fa4Uv4px38qXsdhH6hyF4EVOEhwUKVjMb9N/y77BDkpvIJyu2XMyWQjn
+# LZKhGhH+MpimXSuX4IvTnMxttQ2uR2M4RxdbbxPaahBuH0m3RFu0CAqHWlkEdhGh
+# p3cCExwxggUkMIIFIAIBATBfMEgxCzAJBgNVBAYTAlNFMRQwEgYDVQQKEwtaYW1w
+# bGVXb3JrczEjMCEGA1UEAxMaWmFtcGxlV29ya3MgSW50ZXJuYWwgQ0EgdjICE3wA
+# AAJo8gILSNspSq0AAAAAAmgwCQYFKw4DAhoFAKB4MBgGCisGAQQBgjcCAQwxCjAI
+# oAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIB
+# CzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFAZI214hdT/a0yHVnWyJ
+# XLn0h2dtMA0GCSqGSIb3DQEBAQUABIIBAHeW+bzM+WwWO42AHZR3wVzzJgOi11ly
+# zU8+JF8Dw7RO3Qxu/pVrLXYEDnIKBGm+D+cwNHMkEmh2GMMGE4jvdF+3ZujpSoC+
+# TCR3HvB2uNxu6QEhhRbYr5QV9vBpKKGN/BSvj3QaOGYs3HDtEFYWeyUNrCq1S6fW
+# ULZh6ErDtR3Rn4ThUqluZJ4DehXblVnqkJKKGySg+uEysNEVuhIWkNHGnl+IRoFj
+# UkIKEngo+8m7Yp/WNktyTkjGw/jP6Q1aWlc5uNG7f0pOJUv93RF0UfsM6GcGpUx1
+# 54slghES/EHGL4qaQ/6qGhBUpYrPPDdM94/dBm6ZeSFjDbaon9XB/LqhggMgMIID
+# HAYJKoZIhvcNAQkGMYIDDTCCAwkCAQEwdzBjMQswCQYDVQQGEwJVUzEXMBUGA1UE
+# ChMORGlnaUNlcnQsIEluYy4xOzA5BgNVBAMTMkRpZ2lDZXJ0IFRydXN0ZWQgRzQg
+# UlNBNDA5NiBTSEEyNTYgVGltZVN0YW1waW5nIENBAhAKekqInsmZQpAGYzhNhped
+# MA0GCWCGSAFlAwQCAQUAoGkwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkq
+# hkiG9w0BCQUxDxcNMjIwNTEyMDY1MTM4WjAvBgkqhkiG9w0BCQQxIgQgbMrLE4vU
+# 3dQ9Q4/BdzZxn3DjHsRKDOd8Ipo9efNBkykwDQYJKoZIhvcNAQEBBQAEggIAeNoo
+# WtMt6CivO2V4Re2cI7hLMaAwv/L8XBwf0D2BwlfsLE2QnKW+OZh5hTKh2UHCtDDC
+# 1+TJ7j6eoMzdlS8n5JPd0Q1Enyym6ydqC4rRULdKP+CG8BoMr53TLSvJm8mw2hsV
+# izMmEnrklm4RCR060pqPMOUsqL3eCLQgfbW6M9OJjzN4vnC63sLl4uaIz6xPrzQA
+# Kat6C7yPpNCxpsrLlnUKh8B0aebjGubfI8YwKXY0xKm+7iF7SHFwzvJoDORjgDIK
+# 6qweyLbLER8YI/j6Viow8lCNWhrn2q/pe6fsAkdZb3C35jEVAJbi0CjK0tkHxyo0
+# Q3e17CZT8IHEQyv3UDr8/PelNJvplD8k+3884ONbkbMLI9Fb7nQG+QtwDtasOOTf
+# EJd1shMX145LpPPGqc3ls+/HMD3H5sJvPwV3IC2RBWrxfng6yOAmi+EH5nBqs+4D
+# MoS4EoL1h5sbPntBUsCQEAzq9KwS4pnFvRkcXpe/VgUWQomUdNWUiGqhvYyp6ST6
+# c6I9IdzF1jAFStykKr+hItYpqGg2SGbLTQq7HSxVz1dl8g6bjEeyUgQTW5l6N4Bb
+# ZCym+Y2psN43bJrrqbunRYU0HRpN33ngtTMft1t2pP2QpuRK15lj4UPfWww9t/yQ
+# /a6Ore4sRn8J6loFXtyWondMWJPPAqonBLzWD4k=
 # SIG # End signature block

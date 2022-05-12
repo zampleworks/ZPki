@@ -1,38 +1,57 @@
-﻿---
-external help file: PkiCertClient.dll-Help.xml
+---
+external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdTemplateRiskScore
+# Set-ZPkiAdAltSecurityIdentities
 
 ## SYNOPSIS
-TODO: Not implemented yet!
+Update altSecIdentities on Active Directory user object based on certificate in ADCS db
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdTemplateRiskScore [-Name <String>] [-Domain <String>] [-DomainController <String>] [-UserDomain]
- [-Rpc] [-ExtraVerbose] [<CommonParameters>]
+Set-ZPkiAdAltSecurityIdentities [-AdSamaccountName] <String> [[-CertTemplateName] <String>]
+ [[-CaNameFilter] <String>] [-ClearAltSecurityIdentities] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Find an AD account by AdSamaccountname and search given CA db for a cert with matching CN and RequesterName.
+If multiple certs match, the last one will be used.
+You can supply a template name to limit cert search.
+Extract serialnumber and Issuer name from cert and set altSecIdentities accordingly.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Set-ZPkiAltSecurityIdentities -AdSamaccountName anders -CertTemplateName ZUserAE
 ```
 
-{{ Add example description here }}
+Get user anders from AD, find the latest cert based on ZUserAE template on default ADCS instance,
+and update altSecurityIdentities based on cert Issuer and Serial number
 
 ## PARAMETERS
 
-### -Domain
-Connect to specified domain instead of current user/local computer's domain.
+### -AdSamaccountName
+AD Account name
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CaNameFilter
+If you have multiple CAs use this parameter to filter on CA name.
 
 ```yaml
 Type: String
@@ -40,15 +59,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DomainController
-Connect to specific domain controller.
-This takes precedence over both Domain and UserDomain parameter settings.
+### -CertTemplateName
+Short name of certificate template
 
 ```yaml
 Type: String
@@ -56,14 +74,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ExtraVerbose
-Debug output
+### -ClearAltSecurityIdentities
+Removes all preexisting entries from altSecurityIdentities attribute before setting.
 
 ```yaml
 Type: SwitchParameter
@@ -72,18 +90,18 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-Find template by Name
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
 Position: Named
@@ -92,30 +110,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Rpc
-Use RPC interface for querying.
-If false/not set, use ADWS (default)
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -UserDomain
-If not set/false, connect to computer's domain.
-If true, connect to current user's domain.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Aliases: wi
 
 Required: False
 Position: Named
@@ -129,11 +131,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
-
-### xyz.zwks.pkilib.adcs.ICertTemplate[]
 
 ## NOTES
 
