@@ -27,7 +27,7 @@ Extract serialnumber and Issuer name from cert and set altSecIdentities accordin
 
 ### Example 1
 ```powershell
-PS C:\> Set-ZPkiAltSecurityIdentities -AdSamaccountName anders -CertTemplateName ZUserAE
+PS C:\> Set-ZPkiAdAltSecurityIdentities -AdSamaccountName anders -CertTemplateName ZUserAE
 ```
 
 Get user anders from AD, find the latest cert based on ZUserAE template on default ADCS instance,

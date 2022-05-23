@@ -2823,7 +2823,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Set-ZPkiAltSecurityIdentities -AdSamaccountName anders -CertTemplateName ZUserAE</dev:code>
+        <dev:code>PS C:\&gt; Set-ZPkiAdAltSecurityIdentities -AdSamaccountName anders -CertTemplateName ZUserAE</dev:code>
         <dev:remarks>
           <maml:para>Get user anders from AD, find the latest cert based on ZUserAE template on default ADCS instance, and update altSecurityIdentities based on cert Issuer and Serial number</maml:para>
         </dev:remarks>
