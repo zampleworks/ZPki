@@ -1,11 +1,11 @@
 ---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Test-ZPkiAdcsOnline
+# Test-ZPkiAdcsIsOnline
 
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Test-ZPkiAdcsOnline [-ConfigString <String>] [-ExtraVerbose] [<CommonParameters>]
+Test-ZPkiAdcsIsOnline [-ConfigString <String>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

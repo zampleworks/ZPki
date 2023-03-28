@@ -1,11 +1,11 @@
-﻿---
+---
 external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Test-ZPkiIsAdmin
+# Convert-ZPkiHexToBytes
 
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Test-ZPkiIsAdmin [-ExtraVerbose] [<CommonParameters>]
+Convert-ZPkiHexToBytes [-HexString] <String> [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,16 +45,31 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -HexString
+String of hexadecimal characters
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
+### System.String
 
 ## OUTPUTS
 
-### System.Boolean
+### xyz.zwks.pkilib.cert.AsnReader
 
 ## NOTES
 

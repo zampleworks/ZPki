@@ -1,11 +1,11 @@
 ﻿---
-external help file: ZPkiPsCore.dll-Help.xml
+external help file: PsZPki-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Test-ZPkiIsAdmin
+# Export-ZPkiCertAsPem
 
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Test-ZPkiIsAdmin [-ExtraVerbose] [<CommonParameters>]
+Export-ZPkiCertAsPem [[-Cert] <X509Certificate2>] [[-FullName] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,16 +30,31 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -ExtraVerbose
-Debug output
+### -Cert
+{{ Fill Cert Description }}
 
 ```yaml
-Type: SwitchParameter
+Type: X509Certificate2
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FullName
+{{ Fill FullName Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -54,8 +69,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Boolean
-
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

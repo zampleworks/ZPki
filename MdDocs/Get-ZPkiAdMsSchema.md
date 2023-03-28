@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -14,7 +14,8 @@ Get registered schema and object versions for Microsoft services such as ADDS, E
 
 ```
 Get-ZPkiAdMsSchema [-ExchDomainDN <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,6 +29,21 @@ PS C:\> Get-ZPkiAdMsSchema
 ```
 
 ## PARAMETERS
+
+### -Credential
+Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -DnsOnly
 Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.

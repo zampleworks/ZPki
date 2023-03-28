@@ -11,7 +11,7 @@
 Param()
 
 #Requires -RunAsAdministrator
-#Requires -Version 4
+#Requires -Version 5
 #Requires -Modules ZPki
 
 $ErrorActionPreference = "Stop"

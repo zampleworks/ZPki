@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -29,7 +29,7 @@ Get-ZPkiCertCdpUris [-Cert] <X509Certificate2> [-ExtraVerbose] [<CommonParameter
 
 ### Asn
 ```
-Get-ZPkiCertCdpUris [-Asn] <AsnObject> [-ExtraVerbose] [<CommonParameters>]
+Get-ZPkiCertCdpUris [-Asn] <AsnReader> [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### ICertificate
@@ -55,7 +55,7 @@ Returns CRL entries from certfile.cer
 ASN.1 object representing an x509 certificate
 
 ```yaml
-Type: AsnObject
+Type: AsnReader
 Parameter Sets: Asn
 Aliases:
 
@@ -150,7 +150,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Security.Cryptography.X509Certificates.X509Certificate2
 
-### xyz.zwks.pkilib.cert.AsnObject
+### xyz.zwks.pkilib.cert.AsnReader
 
 ### xyz.zwks.pkilib.cert.ICertificate
 

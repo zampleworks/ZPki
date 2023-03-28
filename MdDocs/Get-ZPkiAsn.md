@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -133,7 +133,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.cert.AsnObject
+### xyz.zwks.pkilib.cert.AsnReader
 
 ## NOTES
 

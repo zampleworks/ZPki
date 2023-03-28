@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -15,28 +15,29 @@ Read CRL file from local file, URI, ASN.1 object, or raw bytes. HTTP or LDAP Uri
 ### Path
 ```
 Get-ZPkiCrl [-Path] <String> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
- [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
- [<CommonParameters>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### Uri
 ```
 Get-ZPkiCrl [-Uri] <Uri> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose]
+ [<CommonParameters>]
 ```
 
 ### Bytes
 ```
 Get-ZPkiCrl [-Bytes] <Byte[]> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
- [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
- [<CommonParameters>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### Asn
 ```
-Get-ZPkiCrl [-Asn] <AsnObject> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
- [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
- [<CommonParameters>]
+Get-ZPkiCrl [-Asn] <AsnReader> [-SaveToFile <String>] [-Force] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -78,7 +79,7 @@ Get an ASN.1 object from all local CRL files, and build a CRL object from each o
 ASN.1 object
 
 ```yaml
-Type: AsnObject
+Type: AsnReader
 Parameter Sets: Asn
 Aliases:
 
@@ -101,6 +102,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Credential
+Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -135,8 +151,7 @@ Accept wildcard characters: False
 ```
 
 ### -DomainController
-Connect to specific domain controller.
-This takes precedence over both Domain and UserDomain parameter settings.
+Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.
 
 ```yaml
 Type: String
@@ -196,8 +211,7 @@ Accept wildcard characters: False
 ```
 
 ### -Rpc
-Use RPC interface for querying.
-If false/not set, use ADWS (default)
+Use RPC interface for querying. If false/not set, use ADWS (default)
 
 ```yaml
 Type: SwitchParameter
@@ -257,8 +271,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserDomain
-If not set/false, connect to computer's domain.
-If true, connect to current user's domain.
+If not set/false, connect to computer's domain. If true, connect to current user's domain.
 
 ```yaml
 Type: SwitchParameter
@@ -283,7 +296,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Byte[]
 
-### xyz.zwks.pkilib.cert.AsnObject
+### xyz.zwks.pkilib.cert.AsnReader
 
 ## OUTPUTS
 

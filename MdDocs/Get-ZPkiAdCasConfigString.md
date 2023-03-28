@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -14,7 +14,7 @@ List configuration strings for all Enterprise CAs in the forest
 
 ```
 Get-ZPkiAdCasConfigString [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-ExtraVerbose] [<CommonParameters>]
+ [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,6 +30,21 @@ PS C:\> Get-ZPkiAdCasConfigString
 {{ Add example description here }}
 
 ## PARAMETERS
+
+### -Credential
+Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -DnsOnly
 Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.

@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -14,8 +14,8 @@ Search AD for user objects.
 
 ```
 Find-ZPkiAdUser [-Name <String>] [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>] [-Rpc]
- [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-ExtraVerbose]
- [<CommonParameters>]
+ [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
+ [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,6 +31,21 @@ PS C:\> Find-ZPkiAdUser -Name "Tommy Teapot"
 Search for AD users in the default naming context (Get-ZPkiAdRootDse | Select defaultnamingcontext)
 
 ## PARAMETERS
+
+### -Credential
+Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -DnsOnly
 Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
@@ -212,7 +227,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.8178.1006, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.1.9.3, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

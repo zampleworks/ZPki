@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -15,7 +15,7 @@ Search AD for objects.
 ```
 Find-ZPkiAdObject [-SearchBase <String>] -LdapFilter <String> [-SearchScope <String>] [-Properties <String[]>]
  [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
- [-ExtraVerbose] [<CommonParameters>]
+ [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,6 +34,21 @@ PS C:\> Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchScope
 First, get the RootDSE and use the information to search in the default domain partition for all user objects.
 
 ## PARAMETERS
+
+### -Credential
+Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -DnsOnly
 Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
@@ -214,7 +229,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.PkiLib, Version=0.1.8178.1006, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.1.9.3, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

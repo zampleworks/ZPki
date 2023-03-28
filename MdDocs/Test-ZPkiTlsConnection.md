@@ -1,5 +1,5 @@
 ﻿---
-external help file: PkiCertClient.dll-Help.xml
+external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -13,8 +13,8 @@ Test TLS connection and return server certificate
 ## SYNTAX
 
 ```
-Test-ZPkiTlsConnection [-Uri] <String> -Port <UInt32> [-IgnoreValidation] [-CertFilePath <String>]
- [-ExtraVerbose] [<CommonParameters>]
+Test-ZPkiTlsConnection [-Uri] <String> -Port <UInt32> [-Protocol <SslProtocols>] [-IgnoreValidation]
+ [-CertFilePath <String>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -89,6 +89,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Protocol
+TLS version to use. By default 1.3 is attempted first, then 1.2. If none works, and error is returned. Additional/other versions can be specified with this parameter
+
+```yaml
+Type: SslProtocols
+Parameter Sets: (All)
+Aliases:
+Accepted values: None, Ssl2, Ssl3, Tls, Default, Tls11, Tls12, Tls13
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Uri
 URI to connect to
 
@@ -113,7 +129,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.common.NetClient+SecurityOptions
+### xyz.zwks.pkilib.common.NetClient+TlsSecuritySettings
 
 ## NOTES
 
