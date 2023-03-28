@@ -1,7 +1,7 @@
 # ZPki
 A collection of utilities for managing PKI and certificates. 
 Currently included is a powershell module and work is ongoing 
-on a GUI client for windows to make cert management less painful. 
+on a GUI client to make cert management less painful. 
 
 The project also contains sample scripts for ADCS deployment and 
 configuration.
@@ -25,9 +25,7 @@ PS:> Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 PS:> Install-Module -Name ZPki
 ```
 
-To run Install-Module on Windows Server 2012R2 and older, you need to 
-install .NET 4.5.2 and Windows Management Framework version 5.1 or newer: 
-https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/wmf/setup/install-configure?view=powershell-7.1
+To install this module you need PowerShell 7.2 or newer: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
 
 When installing from PSGallery you only get the PS module. Sample scripts
 and non-PS tools are not included and need to be downloaded from Github.
@@ -44,3 +42,6 @@ You will get a COM error from any cmdlet that calls the CA directly
 if it is missing. 
 On newer OSes you can use Install-ZPkiRsatComponents to install 
 the necessary components easily.
+
+Only some parts work on non-windows OSes. AD, ADCS, and Win32 cmdlets and lib calls do not work. Sorry.
+ 
