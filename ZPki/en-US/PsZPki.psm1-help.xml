@@ -765,6 +765,17 @@
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AltSignatureAlgorithm</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill AltSignatureAlgorithm Description }}</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>AutoDetectAssurancePolicy</maml:name>
           <maml:description>
             <maml:para>Use this together with AssurancePolicyName to find Assurance Policy OID in Active Directory.</maml:para>
@@ -809,6 +820,17 @@
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ForceUTF8</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill ForceUTF8 Description }}</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>IncludeAllIssuancePolicy</maml:name>
           <maml:description>
             <maml:para>Include All Issuance Policy OID in certificate</maml:para>
@@ -823,6 +845,17 @@
           <maml:name>IncludeAssurancePolicy</maml:name>
           <maml:description>
             <maml:para>Include Assurance Policy in certificate</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NotReally</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill NotReally Description }}</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -893,6 +926,18 @@
         <maml:name>AllowAdminInteraction</maml:name>
         <maml:description>
           <maml:para>This switch is required if you want to store CA keys on HSM</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AltSignatureAlgorithm</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill AltSignatureAlgorithm Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1189,6 +1234,18 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ForceUTF8</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill ForceUTF8 Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>Hash</maml:name>
         <maml:description>
@@ -1236,6 +1293,18 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NotReally</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill NotReally Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>OverwriteDb</maml:name>
@@ -3247,6 +3316,17 @@
           <dev:defaultValue>C:\ADCS\Web\Repository</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>LoadDefaultTemplates</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill LoadDefaultTemplates Description }}</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>RestartCertSvc</maml:name>
           <maml:description>
             <maml:para>Restart ADCS after running</maml:para>
@@ -3389,6 +3469,18 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>Default</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>LoadDefaultTemplates</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill LoadDefaultTemplates Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>RepositoryLocalPath</maml:name>
@@ -3635,9 +3727,9 @@
       <command:syntaxItem>
         <maml:name>Set-ZPkiCaUrlConfig</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>ClearAIAs</maml:name>
+          <maml:name>AddOcsp</maml:name>
           <maml:description>
-            <maml:para>Removes all AIA entries. Will always leave default file publish path C:\Windows\system32\certsrv\CertEnroll</maml:para>
+            <maml:para>{{ Fill AddOcsp Description }}</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3646,15 +3738,16 @@
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>ClearCDPs</maml:name>
+          <maml:name>OcspUri</maml:name>
           <maml:description>
-            <maml:para>Removes all CDP entries. Will always leave default file publish path C:\Windows\system32\certsrv\CertEnroll</maml:para>
+            <maml:para>Include OCSP URI</maml:para>
           </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>SwitchParameter</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
@@ -3682,16 +3775,26 @@
       <command:syntaxItem>
         <maml:name>Set-ZPkiCaUrlConfig</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>OcspUri</maml:name>
+          <maml:name>ClearAIAs</maml:name>
           <maml:description>
-            <maml:para>Include OCSP URI</maml:para>
+            <maml:para>Removes all AIA entries. Will always leave default file publish path C:\Windows\system32\certsrv\CertEnroll</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>SwitchParameter</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ClearCDPs</maml:name>
+          <maml:description>
+            <maml:para>Removes all CDP entries. Will always leave default file publish path C:\Windows\system32\certsrv\CertEnroll</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
@@ -3746,6 +3849,18 @@
         <maml:name>AddLdapCdp</maml:name>
         <maml:description>
           <maml:para>Use LDAP CDP URI</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AddOcsp</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill AddOcsp Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>

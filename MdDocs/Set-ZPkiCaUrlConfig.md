@@ -1,5 +1,5 @@
 ﻿---
-external help file: PsZPki-help.xml
+external help file: PsZPki.psm1-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -26,7 +26,7 @@ Set-ZPkiCaUrlConfig [-HttpAiaFqdn <String>] [-HttpAiaPath <String>] [-AddLdapAia
 
 ### addocsp
 ```
-Set-ZPkiCaUrlConfig [-OcspUri <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-ZPkiCaUrlConfig [-AddOcsp] [-OcspUri <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### clear
@@ -96,6 +96,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AddOcsp
+{{ Fill AddOcsp Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: addocsp
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

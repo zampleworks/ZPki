@@ -1,5 +1,5 @@
 ﻿---
-external help file: PsZPki-help.xml
+external help file: PsZPki.psm1-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -14,15 +14,16 @@ Install and configure ADCS on the local machine.
 
 ```
 Install-ZPkiCa [[-CaCommonName] <String>] [[-CaDnSuffix] <String>] [[-CaType] <String>] [[-KeyLength] <Int32>]
- [[-CryptoProvider] <String>] [-AllowAdminInteraction] [[-Hash] <String>] [-EnableBasicConstraints]
- [-BasicConstraintsIsCritical] [[-PathLength] <String>] [[-EkuOids] <String[]>] [-EkuSectionIsCritical]
- [[-CpsNotice] <String>] [[-CpsOid] <String>] [[-CpsUrl] <String>] [-IncludeAllIssuancePolicy]
- [-IncludeAssurancePolicy] [-AutoDetectAssurancePolicy] [[-AssurancePolicyName] <String>]
- [[-AssurancePolicyOid] <String>] [[-AssurancePolicyNotice] <String>] [[-AssurancePolicyUrl] <String>]
- [-RootCaForcePolicy] [[-CaCertValidityPeriod] <String>] [[-CaCertValidityPeriodUnits] <Int32>]
- [[-CrlPeriod] <String>] [[-CrlPeriodUnits] <Int32>] [[-CrlDeltaPeriod] <String>]
- [[-CrlDeltaPeriodUnits] <Int32>] [-OverwriteKey] [-OverwriteDb] [-OverwriteInAd] [[-ADCSPath] <String>]
- [[-DbPath] <String>] [[-DbLogPath] <String>] [<CommonParameters>]
+ [[-CryptoProvider] <String>] [-AllowAdminInteraction] [[-Hash] <String>] [-AltSignatureAlgorithm]
+ [-EnableBasicConstraints] [-BasicConstraintsIsCritical] [[-PathLength] <String>] [[-EkuOids] <String[]>]
+ [-EkuSectionIsCritical] [[-CpsNotice] <String>] [[-CpsOid] <String>] [[-CpsUrl] <String>]
+ [-IncludeAllIssuancePolicy] [-IncludeAssurancePolicy] [-AutoDetectAssurancePolicy]
+ [[-AssurancePolicyName] <String>] [[-AssurancePolicyOid] <String>] [[-AssurancePolicyNotice] <String>]
+ [[-AssurancePolicyUrl] <String>] [-RootCaForcePolicy] [[-CaCertValidityPeriod] <String>]
+ [[-CaCertValidityPeriodUnits] <Int32>] [[-CrlPeriod] <String>] [[-CrlPeriodUnits] <Int32>]
+ [[-CrlDeltaPeriod] <String>] [[-CrlDeltaPeriodUnits] <Int32>] [-OverwriteKey] [-OverwriteDb] [-OverwriteInAd]
+ [-ForceUTF8] [[-ADCSPath] <String>] [[-DbPath] <String>] [[-DbLogPath] <String>] [-NotReally]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -55,6 +56,21 @@ Accept wildcard characters: False
 
 ### -AllowAdminInteraction
 This switch is required if you want to store CA keys on HSM
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AltSignatureAlgorithm
+{{ Fill AltSignatureAlgorithm Description }}
 
 ```yaml
 Type: SwitchParameter
@@ -435,6 +451,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ForceUTF8
+{{ Fill ForceUTF8 Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Hash
 Choose hash algorithm
 
@@ -490,6 +521,21 @@ Aliases:
 
 Required: False
 Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NotReally
+{{ Fill NotReally Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

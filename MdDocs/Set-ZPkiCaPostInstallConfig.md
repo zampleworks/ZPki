@@ -1,5 +1,5 @@
 ﻿---
-external help file: PsZPki-help.xml
+external help file: PsZPki.psm1-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
@@ -18,7 +18,8 @@ validity time for issued certs, and sets LDAP path.
 Set-ZPkiCaPostInstallConfig [[-IssuedCertValidityPeriod] <String>] [[-IssuedCertValidityPeriodUnits] <Int32>]
  [[-CrlPeriod] <String>] [[-CrlPeriodUnits] <Int32>] [[-CrlOverlap] <String>] [[-CrlOverlapUnits] <Int32>]
  [[-CrlDeltaPeriod] <String>] [[-CrlDeltaPeriodUnits] <Int32>] [[-LdapConfigDn] <String>]
- [[-RepositoryLocalPath] <String>] [-RestartCertSvc] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-RepositoryLocalPath] <String>] [-LoadDefaultTemplates] [-RestartCertSvc] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -172,6 +173,21 @@ Aliases:
 Required: False
 Position: 8
 Default value: Default
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LoadDefaultTemplates
+{{ Fill LoadDefaultTemplates Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

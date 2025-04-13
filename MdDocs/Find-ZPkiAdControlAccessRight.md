@@ -5,17 +5,17 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdDomain
+# Find-ZPkiAdControlAccessRight
 
 ## SYNOPSIS
-TODO: This cmdlet is not usable yet.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Get-ZPkiAdDomain [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose]
- [<CommonParameters>]
+Find-ZPkiAdControlAccessRight [[-Name] <String>] [-Type <ControlAccessRightsType>] [-RightsGuid <Guid>] [-Rpc]
+ [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
+ [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -33,7 +33,9 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Credential
-Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+Credential for connecting.
+Default on Windows is logged on user.
+On non-Windows platforms, this is mandatory.
 
 ```yaml
 Type: PSCredential
@@ -48,7 +50,8 @@ Accept wildcard characters: False
 ```
 
 ### -DnsOnly
-Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+Use only DNS for AD infrastructure discovery.
+Do not use Win32/DirectoryServices API.
 
 ```yaml
 Type: SwitchParameter
@@ -108,18 +111,34 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ResolveSecurityIdentifiers
-Resolve SIDs, GUIDs and ExtendedRights when returning object security
+### -Name
+Search by name.
+Will match attributes Common Name, Name, or DisplayName
 
 ```yaml
-Type: SwitchParameter
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RightsGuid
+Filter by rightsGuid
+
+```yaml
+Type: Guid
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -154,6 +173,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Type
+Filter by type
+
+```yaml
+Type: ControlAccessRightsType
+Parameter Sets: (All)
+Aliases:
+Accepted values: Any, ExtendedRight, PropertySet, ValidatedWrite
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -UserDomain
 If not set/false, connect to computer's domain.
 If true, connect to current user's domain.
@@ -175,11 +210,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### System.Guid
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.ad.AdPropertyCollection
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.1.10.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

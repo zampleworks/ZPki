@@ -13,9 +13,9 @@ Search AD for user objects.
 ## SYNTAX
 
 ```
-Find-ZPkiAdUser [-Name <String>] [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>] [-Rpc]
- [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
- [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+Find-ZPkiAdUser [[-Name] <String>] [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>]
+ [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
+ [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -118,7 +118,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -129,6 +129,21 @@ Select properties to return
 
 ```yaml
 Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResolveSecurityIdentifiers
+Resolve SIDs, GUIDs and ExtendedRights when returning object security
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -227,7 +242,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.1.9.3, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdUser, xyz.zwks.pkilib, Version=0.1.10.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

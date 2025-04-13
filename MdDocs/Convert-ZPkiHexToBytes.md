@@ -1,4 +1,4 @@
----
+﻿---
 external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Convert-ZPkiHexToBytes
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Convert string in hex format to byte array
 
 ## SYNTAX
 
@@ -17,16 +17,20 @@ Convert-ZPkiHexToBytes [-HexString] <String> [-ExtraVerbose] [<CommonParameters>
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Convert string in hex format to byte array
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Convert-ZPkiHexToBytes -HexString "cafebabe"
+202
+252
+186
+190
 ```
 
-{{ Add example description here }}
+The hexadecimal string "cafebabe" was converted to a byte array: 0xCA -> 202, 0xFE -> 252, 0xBA -> 186, 0xBE -> 190
 
 ## PARAMETERS
 
@@ -46,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -HexString
-String of hexadecimal characters
+String of hexadecimal characters, without "0x"
 
 ```yaml
 Type: String
@@ -69,7 +73,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.cert.AsnReader
+### System.Byte[]
 
 ## NOTES
 

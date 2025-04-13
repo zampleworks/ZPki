@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.1.9.3
+.VERSION 0.1.10.0
 
 .GUID d974d680-897c-4998-b628-df6b889a9f98
 
@@ -10,24 +10,22 @@
 
 .COPYRIGHT (c) Anders Runesson
 
-.TAGS
+.TAGS 
 
-.LICENSEURI
+.LICENSEURI 
 
 .PROJECTURI https://github.com/zampleworks/ZPki
 
-.ICONURI
+.ICONURI 
 
 .EXTERNALMODULEDEPENDENCIES 
 
-.REQUIREDSCRIPTS
+.REQUIREDSCRIPTS 
 
-.EXTERNALSCRIPTDEPENDENCIES
+.EXTERNALSCRIPTDEPENDENCIES 
 
 .RELEASENOTES
 
-
-.PRIVATEDATA
 
 #> 
 
@@ -40,15 +38,14 @@
 
 
 
-<#
 
+<#
 .DESCRIPTION
 Exported functions for ZPki module
 
-#>
+#> 
 
-
-#Requires -Version 4
+#Requires -Version 5
 
 $ErrorActionPreference = "stop"
 
@@ -91,6 +88,9 @@ Function Install-ZPkiCa {
         # Hash algorithm to use.
         [string]
         $Hash = "SHA256",
+
+        [Switch]
+        $AltSignatureAlgorithm,
 
         # Enableds Basic Constraints extension in CA certificate. Defaults to true.
         [switch]
@@ -202,6 +202,9 @@ Function Install-ZPkiCa {
         [switch]
         $OverwriteInAd,
 
+        [switch]
+        $ForceUTF8,
+
         # Root directory for ADCS files
         [string]
         $ADCSPath = "C:\ADCS",
@@ -212,7 +215,11 @@ Function Install-ZPkiCa {
 
         # Transaction log directory
         [string]
-        $DbLogPath = "C:\ADCS\DbLog"
+        $DbLogPath = "C:\ADCS\DbLog",
+
+        # Only log planned changes, don't make any changes
+        [switch]
+        $NotReally
     )
 
     If(-Not (Test-IsAdmin)) {
@@ -223,6 +230,7 @@ Function Install-ZPkiCa {
     #$IsRoot = $CaType -like "*root*"
     $IsStandalone = $CaType -like "*standalone*"
 
+    Write-Verbose "Enumerating crypto providers.."
     # Command will give more than actual providers, but never mind. Command might not work if matching on "*Name: " if language is not english.
     $InstalledProviders = certutil -csplist | Where-Object { $_ -like "*: *" } | ForEach-Object { $_.Substring($_.IndexOf(":") + 2) }
 
@@ -261,6 +269,7 @@ Function Install-ZPkiCa {
 
     $AllIssuancePolicyOid = "2.5.29.32.0"
 
+    Write-Verbose "Validating Assurance Policy options.."
     If($AutoDetectAssurancePolicy -and -Not $IncludeAssurancePolicy) {
         Write-Error "AutoDetectAssurancePolicy is true, but IncludeAssurancePolicy is false."
         return
@@ -300,6 +309,7 @@ Function Install-ZPkiCa {
         }
     }
 
+    Write-Verbose "Validating CPS options.."
     $EnableCps = (-Not [string]::IsNullOrWhiteSpace($CpsOid)) -and $CpsOid.Length -gt 0
     If($EnableCps) {
         If([string]::IsNullOrWhiteSpace($CpsUrl) -and [string]::IsNullOrWhiteSpace($CpsNotice)) {
@@ -307,10 +317,13 @@ Function Install-ZPkiCa {
         }
     }
 
+    Write-Verbose "Validating CA type.."
+    
     If($CaType -eq "StandaloneRootCA" -and ($EnableCps -Or $IncludeAssurancePolicy -or $IncludeAllIssuancePolicy) -And -not $RootCaForcePolicy) {
         Write-Error "Policy attributes should not be set in root CA certs. Use -RootCaForcePolicy to override."
     }
 
+    Write-Verbose "Validating EKU options.."
     $EnableEkuSection = $Null -ne $EkuOids -And $EkuOids.Count -gt 0
     If($EnableEkuSection) {
         Foreach($eku in $EkuOids) {
@@ -320,12 +333,13 @@ Function Install-ZPkiCa {
         }
     }
 
+    Write-Verbose "Creating CAPolicy.inf CertSrv section"
     $HeaderSection = Get-CaPolicyHeaderSection
 
     $CertSrvSection = Get-CaPolicyCertSrvSection -Keylength $Keylength -CACertValidityPeriod $CACertValidityPeriod -CACertValidityPeriodUnits $CACertValidityPeriodUnits `
                                                 -CRLPeriod $CRLPeriod -CRLPeriodUnits $CRLPeriodUnits -DeltaPeriod $CrlDeltaPeriod -DeltaPeriodUnits $CrlDeltaPeriodUnits `
-                                                -LoadDefaultTemplates $LoadDefaultTemplates -AltSignatureAlgorithm $AltSignatureAlgorithm `
-                                                -ForceUTF8 $ForceUTF8 -ClockSkewMinutes $ClockSkewMinutes -EnableKeyCounting $EnableKeyCounting
+                                                -LoadDefaultTemplates $False -AltSignatureAlgorithm $AltSignatureAlgorithm `
+                                                -ForceUTF8 $ForceUTF8 -EnableKeyCounting $False -ClockSkewMinutes 0
 
 
     $CpsSection = ""
@@ -339,36 +353,47 @@ Function Install-ZPkiCa {
     $SectionNames = ""
 
     If($EnableCps) {
+        Write-Verbose "Creating CAPolicy.inf CPS section"
         $CpsSection = Get-CaPolicyPolicySection -PolicyName "CPS" -PolicyOid $CpsOid -PolicyNotice $CpsNotice -PolicyUrl $CpsURL
         $SectionNames = "CPS"
     }
 
     If($IncludeAssurancePolicy) {
+        Write-Verbose "Creating CAPolicy.inf Assurance Policy section"
         $AssuranceSection = Get-CaPolicyPolicySection -PolicyName "AssurancePolicy" -PolicyOid $AssurancePolicyOid -PolicyNotice $AssurancePolicyNotice -PolicyUrl $AssurancePolicyURL
         $SectionNames = "$SectionNames,AssurancePolicy".Trim(',')
     }
 
     If($IncludeAllIssuancePolicy) {
+        Write-Verbose "Creating CAPolicy.inf All Issuance section"
         $AllIssuanceSection = Get-CaPolicyPolicySection -PolicyName "AllIssuancePolicy" -PolicyOid $AllIssuancePolicyOid
         $SectionNames = "$SectionNames,AllIssuancePolicy".Trim(',')
     }
 
     If($EnableBasicConstraints) {
+        Write-Verbose "Creating CAPolicy.inf Basic Constraints section"
         $BasicConstraintsSection = Get-CaPolicyBasicConstraintsSection -PathLength $PathLength -Critical $BasicConstraintsIsCritical
     }
 
     If($EnableEkuSection) {
+        Write-Verbose "Creating CAPolicy.inf EKU section"
         $EkuSection = Get-CaPolicyEkuSection -Oids $EkuOids -Critical $EkuSectionIsCritical
     }
 
+    Write-Verbose "Creating CAPolicy.inf Policy Extension section"
     $PolicyExtensionsSection = Get-CaPolicyPolicyExtensionsSection -Sections $SectionNames
 
-    $HeaderSection, $PolicyExtensionsSection, $CpsSection, $AssuranceSection, $AllIssuanceSection, $EkuSection, $BasicConstraintsSection, $CertSrvSection | Out-File ".\CAPolicy.inf" -Force
+    $CaPolicyContent = $HeaderSection, $PolicyExtensionsSection, $CpsSection, $AssuranceSection, $AllIssuanceSection, $EkuSection, $BasicConstraintsSection, $CertSrvSection
 
-    Copy-Item .\CAPolicy.inf C:\Windows -Force
-
-    Write-Verbose ""
-    Write-Verbose "Created CAPolicy.inf and copied it to windows directory"
+    If($NotReally) {
+        Write-Verbose "Generated CAPolicy.inf: "
+        $CaPolicyContent | Write-Verbose 
+    } Else {
+        $CaPolicyContent | Out-File ".\CAPolicy.inf" -Force
+        Copy-Item .\CAPolicy.inf C:\Windows -Force
+        Write-Verbose ""
+        Write-Verbose "Created CAPolicy.inf and copied it to C:\Windows"
+    }
 
     # CAPolicy.inf reference document
     # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc737264(v=ws.10)
@@ -392,15 +417,39 @@ Function Install-ZPkiCa {
     New-ADCSPath -PathName "Signed certificates directory" -Path $SignedPath
     New-ADCSPath -PathName "Backup directory" -Path $BackupsPath
 
-    Write-Progress -Activity "Installing ADCS windows role"
-    Write-Verbose "Installing ADCS Windows role"
-    Install-WindowsFeature ADCS-Cert-Authority -IncludeManagementTools | Out-Null
+    If($NotReally) {
+        Write-Verbose "Would have installed ADCS Windows role"
+    } Else {
+        Write-Progress -Activity "Installing ADCS windows role"
+        Write-Verbose "Installing ADCS Windows role"
+    
+        Install-WindowsFeature ADCS-Cert-Authority -IncludeManagementTools | Out-Null
+        Import-Module ADCSDeployment
+        Write-Progress -Activity "Installing ADCS"
+        Write-Verbose "Installing $($CAType)"
+    }
+    
+    If($NotReally) {
+        Write-Verbose ""
+        Write-Verbose "Would have installed a CA with the following settings: "
+        Write-Verbose ""
+        
+        Write-Verbose "CA Type: $CAType"
+        Write-Verbose "CA Subject Name: $CaCommonName,$CaDnSuffix"
+        Write-Verbose "Key length & provider: $KeyLength, $CryptoProvider"
+        Write-Verbose "Admin interaction: $AllowAdminInteraction"
+        Write-Verbose "Hash: $Hash"
+        Write-Verbose "Validity: $CACertValidityPeriodUnits $CACertValidityPeriod"
+        Write-Verbose "DB directory: $DbPath"
+        Write-Verbose "DB Log directory: $DbLogPath"
+        Write-Verbose "Web repository path: $FilePublishPath"
+        Write-Verbose "Overwrite existing key: $OverwriteKey"
+        Write-Verbose "Overwrite existing DB: $OverwriteDB"
+        Write-Verbose "Overwrite existing AD CA: $OverwriteInAd"
 
-    Import-Module ADCSDeployment
+        Return
+    }
 
-    Write-Progress -Activity "Installing ADCS"
-
-    Write-Verbose "Installing $($CAType)"
     $Result = 0
     Try {
         Switch($CAType) {
@@ -462,7 +511,7 @@ Function Install-ZPkiCa {
         $Prms = @{
             'CaType' = $CAType
             'AdcsPath' = $AdcsPath
-            'AdcsRepoPath' = $AdcsRepositoryPath
+            'AdcsRepoPath' = $FilePublishPath
             'IncludeAllIssuance' = $IncludeAllIssuancePolicy
             'IncludeAssurance' = $IncludeAssurancePolicy
             'CaCommonName' = $CaCommonName
@@ -838,6 +887,8 @@ Function New-ZPkiWebsite {
     }
 
     Write-Warning "Adding web sites. Remember to update DNS to point to this server."
+    
+    Import-Module IISAdministration
 
     If((Get-IISSite | Where-Object { $_.Name -eq $HttpFqdn } | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
         If([string]::IsNullOrWhiteSpace($IisSiteName)) {
@@ -1033,6 +1084,9 @@ Function Set-ZPkiCaPostInstallConfig {
         [string]
         $RepositoryLocalPath = "C:\ADCS\Web\Repository",
 
+        [switch]
+        $LoadDefaultTemplates,
+
         # Restart ADCS after running
         [switch]
         $RestartCertSvc
@@ -1154,6 +1208,11 @@ Function Set-ZPkiCaUrlConfig {
         [switch]
         $AddLdapAia,
 
+        # Add OCSP
+        [Parameter(ParameterSetName="addocsp")]
+        [Switch]
+        $AddOcsp,
+        
         # Include OCSP URI
         [Parameter(ParameterSetName="addocsp")]
         [string]
@@ -1223,13 +1282,13 @@ Function Set-ZPkiCaUrlConfig {
         Add-CAAuthorityInformationAccess -Uri $HttpUri -AddToCertificateAia -Confirm:$False | Out-Null
     }
 
-    If($EnableLDAPAIA) {
+    If($AddLdapAia) {
         Write-Verbose "Creating LDAP AIA configuration"
         $LdapUri = Get-LdapUri -IsAIA
         Add-CAAuthorityInformationAccess -Uri $LdapUri -AddToCertificateAia -Confirm:$False | Out-Null
     }
 
-    If($EnableOCSP) {
+    If($AddOcsp) {
         Add-CAAuthorityInformationAccess -Uri $OCSPUri -AddToCertificateOcsp -Confirm:$False | Out-Null
     }
 
@@ -2048,158 +2107,159 @@ Function Install-ZPkiRsatComponents {
     }
 }
 # SIG # Begin signature block
-# MIIczAYJKoZIhvcNAQcCoIIcvTCCHLkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
-# gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU308eC7N75hMh8B/ZvTzxVbH5
-# zuagghcSMIIEBzCCA6ygAwIBAgITMQAAAAaig5eyJWRoJAAAAAAABjAKBggqhkjO
-# PQQDAjBIMQswCQYDVQQGEwJTRTEUMBIGA1UEChMLWmFtcGxlV29ya3MxIzAhBgNV
-# BAMTGlphbXBsZVdvcmtzIEludGVybmFsIENBIHYzMB4XDTIyMDYyMzE3MTgwMloX
-# DTIzMDYyMzE3MTgwMlowGjEYMBYGA1UEAxMPQW5kZXJzIFJ1bmVzc29uMIIBIjAN
-# BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA570cFxi6rW2B1kjF7vdfpfsyUC0g
-# cztkNGOsWdQQWSyyIOQa7Pj/iva9qJOpXgGCKVmI5JVD0h3UHdDBuTrsYZ2qNZiK
-# XQpa3y+oWDjFnxUwuW6mPGv2L98tG3G1reINcPPfJIblHc3UqqrjzgKMpx8wijXC
-# 0+zKaRb8gp8argwqv1dVEZkEGjSoi86YauRALWBI0Z2FplzgLSDcFYMFeEzka20v
-# U42sO3POrdP+BN6Woiv87h04BepcFdkoYtbuzJDCfA2wgwc9A0DnDbHCgjbtmkcR
-# GckJOzXh7SNypex++DHvQTCKgn2GZkmsx5Nudpz09aEYjWRClu45Oj2fOQIDAQAB
-# o4IB1jCCAdIwPgYJKwYBBAGCNxUHBDEwLwYnKwYBBAGCNxUIhb31ToL5uhOGvZce
-# h8eaKYeL30SBZIb4qhWEotFXAgFlAgECMBMGA1UdJQQMMAoGCCsGAQUFBwMDMA4G
-# A1UdDwEB/wQEAwIHgDAbBgkrBgEEAYI3FQoEDjAMMAoGCCsGAQUFBwMDMB0GA1Ud
-# DgQWBBTfjZA5S5YyR9Zc/wnR940dXISNvjAfBgNVHSMEGDAWgBTcnJy/9vjUCSFq
-# nt0GjbrUATwUNjBiBggrBgEFBQcBAQRWMFQwUgYIKwYBBQUHMAKGRmh0dHA6Ly9w
-# a2kub3Auendrcy54eXovUmVwb3NpdG9yeS9aYW1wbGVXb3JrcyUyMEludGVybmFs
-# JTIwQ0ElMjB2My5jcnQwWwYDVR0RBFQwUqAvBgorBgEEAYI3FAIDoCEMH0FuZGVy
-# cy5SdW5lc3NvbkB6YW1wbGV3b3Jrcy5jb22BH0FuZGVycy5SdW5lc3NvbkB6YW1w
-# bGV3b3Jrcy5jb20wTQYJKwYBBAGCNxkCBEAwPqA8BgorBgEEAYI3GQIBoC4ELFMt
-# MS01LTIxLTE2OTAwNzU1NC01NjE1NTU1ODMtMzQ2NTg3MDA2NS0xNTE2MAoGCCqG
-# SM49BAMCA0kAMEYCIQCEN3STU0FB2cY6DaISc5cb5G7YOJ/4wyDBRBfWatnIaQIh
-# AJfalg8eOYZUmEFuN4ZerSzIXP0hOc6kzFjRK35jg0OBMIIFjTCCBHWgAwIBAgIQ
-# DpsYjvnQLefv21DiCEAYWjANBgkqhkiG9w0BAQwFADBlMQswCQYDVQQGEwJVUzEV
-# MBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29t
-# MSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJvb3QgQ0EwHhcNMjIwODAx
-# MDAwMDAwWhcNMzExMTA5MjM1OTU5WjBiMQswCQYDVQQGEwJVUzEVMBMGA1UEChMM
-# RGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMSEwHwYDVQQD
-# ExhEaWdpQ2VydCBUcnVzdGVkIFJvb3QgRzQwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-# DwAwggIKAoICAQC/5pBzaN675F1KPDAiMGkz7MKnJS7JIT3yithZwuEppz1Yq3aa
-# za57G4QNxDAf8xukOBbrVsaXbR2rsnnyyhHS5F/WBTxSD1Ifxp4VpX6+n6lXFllV
-# cq9ok3DCsrp1mWpzMpTREEQQLt+C8weE5nQ7bXHiLQwb7iDVySAdYyktzuxeTsiT
-# +CFhmzTrBcZe7FsavOvJz82sNEBfsXpm7nfISKhmV1efVFiODCu3T6cw2Vbuyntd
-# 463JT17lNecxy9qTXtyOj4DatpGYQJB5w3jHtrHEtWoYOAMQjdjUN6QuBX2I9YI+
-# EJFwq1WCQTLX2wRzKm6RAXwhTNS8rhsDdV14Ztk6MUSaM0C/CNdaSaTC5qmgZ92k
-# J7yhTzm1EVgX9yRcRo9k98FpiHaYdj1ZXUJ2h4mXaXpI8OCiEhtmmnTK3kse5w5j
-# rubU75KSOp493ADkRSWJtppEGSt+wJS00mFt6zPZxd9LBADMfRyVw4/3IbKyEbe7
-# f/LVjHAsQWCqsWMYRJUadmJ+9oCw++hkpjPRiQfhvbfmQ6QYuKZ3AeEPlAwhHbJU
-# KSWJbOUOUlFHdL4mrLZBdd56rF+NP8m800ERElvlEFDrMcXKchYiCd98THU/Y+wh
-# X8QgUWtvsauGi0/C1kVfnSD8oR7FwI+isX4KJpn15GkvmB0t9dmpsh3lGwIDAQAB
-# o4IBOjCCATYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU7NfjgtJxXWRM3y5n
-# P+e6mK4cD08wHwYDVR0jBBgwFoAUReuir/SSy4IxLVGLp6chnfNtyA8wDgYDVR0P
-# AQH/BAQDAgGGMHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29j
-# c3AuZGlnaWNlcnQuY29tMEMGCCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdp
-# Y2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3J0MEUGA1UdHwQ+MDww
-# OqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJ
-# RFJvb3RDQS5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IB
-# AQBwoL9DXFXnOF+go3QbPbYW1/e/Vwe9mqyhhyzshV6pGrsi+IcaaVQi7aSId229
-# GhT0E0p6Ly23OO/0/4C5+KH38nLeJLxSA8hO0Cre+i1Wz/n096wwepqLsl7Uz9FD
-# RJtDIeuWcqFItJnLnU+nBgMTdydE1Od/6Fmo8L8vC6bp8jQ87PcDx4eo0kxAGTVG
-# amlUsLihVo7spNU96LHc/RzY9HdaXFSMb++hUD38dglohJ9vytsgjTVgHAIDyyCw
-# rFigDkBjxZgiwbJZ9VVrzyerbHbObyMt9H5xaiNrIv8SuFQtJ37YOtnwtoeW/VvR
-# XKwYw02fc7cBqZ9Xql4o4rmUMIIGrjCCBJagAwIBAgIQBzY3tyRUfNhHrP0oZipe
-# WzANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNl
-# cnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMSEwHwYDVQQDExhEaWdp
-# Q2VydCBUcnVzdGVkIFJvb3QgRzQwHhcNMjIwMzIzMDAwMDAwWhcNMzcwMzIyMjM1
-# OTU5WjBjMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xOzA5
-# BgNVBAMTMkRpZ2lDZXJ0IFRydXN0ZWQgRzQgUlNBNDA5NiBTSEEyNTYgVGltZVN0
-# YW1waW5nIENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxoY1Bkmz
-# wT1ySVFVxyUDxPKRN6mXUaHW0oPRnkyibaCwzIP5WvYRoUQVQl+kiPNo+n3znIkL
-# f50fng8zH1ATCyZzlm34V6gCff1DtITaEfFzsbPuK4CEiiIY3+vaPcQXf6sZKz5C
-# 3GeO6lE98NZW1OcoLevTsbV15x8GZY2UKdPZ7Gnf2ZCHRgB720RBidx8ald68Dd5
-# n12sy+iEZLRS8nZH92GDGd1ftFQLIWhuNyG7QKxfst5Kfc71ORJn7w6lY2zkpsUd
-# zTYNXNXmG6jBZHRAp8ByxbpOH7G1WE15/tePc5OsLDnipUjW8LAxE6lXKZYnLvWH
-# po9OdhVVJnCYJn+gGkcgQ+NDY4B7dW4nJZCYOjgRs/b2nuY7W+yB3iIU2YIqx5K/
-# oN7jPqJz+ucfWmyU8lKVEStYdEAoq3NDzt9KoRxrOMUp88qqlnNCaJ+2RrOdOqPV
-# A+C/8KI8ykLcGEh/FDTP0kyr75s9/g64ZCr6dSgkQe1CvwWcZklSUPRR8zZJTYsg
-# 0ixXNXkrqPNFYLwjjVj33GHek/45wPmyMKVM1+mYSlg+0wOI/rOP015LdhJRk8mM
-# DDtbiiKowSYI+RQQEgN9XyO7ZONj4KbhPvbCdLI/Hgl27KtdRnXiYKNYCQEoAA6E
-# VO7O6V3IXjASvUaetdN2udIOa5kM0jO0zbECAwEAAaOCAV0wggFZMBIGA1UdEwEB
-# /wQIMAYBAf8CAQAwHQYDVR0OBBYEFLoW2W1NhS9zKXaaL3WMaiCPnshvMB8GA1Ud
-# IwQYMBaAFOzX44LScV1kTN8uZz/nupiuHA9PMA4GA1UdDwEB/wQEAwIBhjATBgNV
-# HSUEDDAKBggrBgEFBQcDCDB3BggrBgEFBQcBAQRrMGkwJAYIKwYBBQUHMAGGGGh0
-# dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBBBggrBgEFBQcwAoY1aHR0cDovL2NhY2Vy
-# dHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1c3RlZFJvb3RHNC5jcnQwQwYDVR0f
-# BDwwOjA4oDagNIYyaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1
-# c3RlZFJvb3RHNC5jcmwwIAYDVR0gBBkwFzAIBgZngQwBBAIwCwYJYIZIAYb9bAcB
-# MA0GCSqGSIb3DQEBCwUAA4ICAQB9WY7Ak7ZvmKlEIgF+ZtbYIULhsBguEE0TzzBT
-# zr8Y+8dQXeJLKftwig2qKWn8acHPHQfpPmDI2AvlXFvXbYf6hCAlNDFnzbYSlm/E
-# UExiHQwIgqgWvalWzxVzjQEiJc6VaT9Hd/tydBTX/6tPiix6q4XNQ1/tYLaqT5Fm
-# niye4Iqs5f2MvGQmh2ySvZ180HAKfO+ovHVPulr3qRCyXen/KFSJ8NWKcXZl2szw
-# cqMj+sAngkSumScbqyQeJsG33irr9p6xeZmBo1aGqwpFyd/EjaDnmPv7pp1yr8TH
-# wcFqcdnGE4AJxLafzYeHJLtPo0m5d2aR8XKc6UsCUqc3fpNTrDsdCEkPlM05et3/
-# JWOZJyw9P2un8WbDQc1PtkCbISFA0LcTJM3cHXg65J6t5TRxktcma+Q4c6umAU+9
-# Pzt4rUyt+8SVe+0KXzM5h0F4ejjpnOHdI/0dKNPH+ejxmF/7K9h+8kaddSweJywm
-# 228Vex4Ziza4k9Tm8heZWcpw8De/mADfIBZPJ/tgZxahZrrdVcA6KYawmKAr7ZVB
-# tzrVFZgxtGIJDwq9gdkT/r+k0fNX2bwE+oLeMt8EifAAzV3C+dAjfwAL5HYCJtnw
-# ZXZCpimHCUcr5n8apIUP/JiW9lVUKx+A+sDyDivl1vupL0QVSucTDh3bNzgaoSv2
-# 7dZ8/DCCBsAwggSooAMCAQICEAxNaXJLlPo8Kko9KQeAPVowDQYJKoZIhvcNAQEL
-# BQAwYzELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMTswOQYD
-# VQQDEzJEaWdpQ2VydCBUcnVzdGVkIEc0IFJTQTQwOTYgU0hBMjU2IFRpbWVTdGFt
-# cGluZyBDQTAeFw0yMjA5MjEwMDAwMDBaFw0zMzExMjEyMzU5NTlaMEYxCzAJBgNV
-# BAYTAlVTMREwDwYDVQQKEwhEaWdpQ2VydDEkMCIGA1UEAxMbRGlnaUNlcnQgVGlt
-# ZXN0YW1wIDIwMjIgLSAyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA
-# z+ylJjrGqfJru43BDZrboegUhXQzGias0BxVHh42bbySVQxh9J0Jdz0Vlggva2Sk
-# /QaDFteRkjgcMQKW+3KxlzpVrzPsYYrppijbkGNcvYlT4DotjIdCriak5Lt4eLl6
-# FuFWxsC6ZFO7KhbnUEi7iGkMiMbxvuAvfTuxylONQIMe58tySSgeTIAehVbnhe3y
-# YbyqOgd99qtu5Wbd4lz1L+2N1E2VhGjjgMtqedHSEJFGKes+JvK0jM1MuWbIu6pQ
-# OA3ljJRdGVq/9XtAbm8WqJqclUeGhXk+DF5mjBoKJL6cqtKctvdPbnjEKD+jHA9Q
-# Bje6CNk1prUe2nhYHTno+EyREJZ+TeHdwq2lfvgtGx/sK0YYoxn2Off1wU9xLokD
-# EaJLu5i/+k/kezbvBkTkVf826uV8MefzwlLE5hZ7Wn6lJXPbwGqZIS1j5Vn1TS+Q
-# Hye30qsU5Thmh1EIa/tTQznQZPpWz+D0CuYUbWR4u5j9lMNzIfMvwi4g14Gs0/EH
-# 1OG92V1LbjGUKYvmQaRllMBY5eUuKZCmt2Fk+tkgbBhRYLqmgQ8JJVPxvzvpqwcO
-# agc5YhnJ1oV/E9mNec9ixezhe7nMZxMHmsF47caIyLBuMnnHC1mDjcbu9Sx8e47L
-# ZInxscS451NeX1XSfRkpWQNO+l3qRXMchH7XzuLUOncCAwEAAaOCAYswggGHMA4G
-# A1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMBYGA1UdJQEB/wQMMAoGCCsGAQUF
-# BwMIMCAGA1UdIAQZMBcwCAYGZ4EMAQQCMAsGCWCGSAGG/WwHATAfBgNVHSMEGDAW
-# gBS6FtltTYUvcyl2mi91jGogj57IbzAdBgNVHQ4EFgQUYore0GH8jzEU7ZcLzT0q
-# lBTfUpwwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2NybDMuZGlnaWNlcnQuY29t
-# L0RpZ2lDZXJ0VHJ1c3RlZEc0UlNBNDA5NlNIQTI1NlRpbWVTdGFtcGluZ0NBLmNy
-# bDCBkAYIKwYBBQUHAQEEgYMwgYAwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRp
-# Z2ljZXJ0LmNvbTBYBggrBgEFBQcwAoZMaHR0cDovL2NhY2VydHMuZGlnaWNlcnQu
-# Y29tL0RpZ2lDZXJ0VHJ1c3RlZEc0UlNBNDA5NlNIQTI1NlRpbWVTdGFtcGluZ0NB
-# LmNydDANBgkqhkiG9w0BAQsFAAOCAgEAVaoqGvNG83hXNzD8deNP1oUj8fz5lTmb
-# Jeb3coqYw3fUZPwV+zbCSVEseIhjVQlGOQD8adTKmyn7oz/AyQCbEx2wmIncePLN
-# fIXNU52vYuJhZqMUKkWHSphCK1D8G7WeCDAJ+uQt1wmJefkJ5ojOfRu4aqKbwVNg
-# CeijuJ3XrR8cuOyYQfD2DoD75P/fnRCn6wC6X0qPGjpStOq/CUkVNTZZmg9U0rIb
-# f35eCa12VIp0bcrSBWcrduv/mLImlTgZiEQU5QpZomvnIj5EIdI/HMCb7XxIstiS
-# DJFPPGaUr10CU+ue4p7k0x+GAWScAMLpWnR1DT3heYi/HAGXyRkjgNc2Wl+WFrFj
-# DMZGQDvOXTXUWT5Dmhiuw8nLw/ubE19qtcfg8wXDWd8nYiveQclTuf80EGf2JjKY
-# e/5cQpSBlIKdrAqLxksVStOYkEVgM4DgI974A6T2RUflzrgDQkfoQTZxd639ouiX
-# dE4u2h4djFrIHprVwvDGIqhPm73YHJpRxC+a9l+nJ5e6li6FV8Bg53hWf2rvwpWa
-# SxECyIKcyRoFfLpxtU56mWz06J7UWpjIn7+NuxhcQ/XQKujiYu54BNu90ftbCqhw
-# fvCXhHjjCANdRyxjqCU4lwHSPzra5eX25pvcfizM/xdMTQCi2NYBDriL7ubgclWJ
-# LCcZYfZ3AYwxggUkMIIFIAIBATBfMEgxCzAJBgNVBAYTAlNFMRQwEgYDVQQKEwta
-# YW1wbGVXb3JrczEjMCEGA1UEAxMaWmFtcGxlV29ya3MgSW50ZXJuYWwgQ0EgdjMC
-# EzEAAAAGooOXsiVkaCQAAAAAAAYwCQYFKw4DAhoFAKB4MBgGCisGAQQBgjcCAQwx
-# CjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYKKwYBBAGC
-# NwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkEMRYEFBoQc20Is4I4zgZQ
-# 1l0zRV4XRYUgMA0GCSqGSIb3DQEBAQUABIIBAJmUm9noJqpEeoIpDYP8KIwrHLyy
-# MfSrLPULY0c1aOzpgs9AwnL4dwhatULSe4az1PfnuottZYMbIH2d3IlL23gcJuLO
-# s7zEzPundG7Hu84pduHruVOVnPrINqxiwuFyfjX7H0vWO6JQYeup6f9Zqp2zuh7N
-# LV0JSCIqdylNeq5OIcT/jEovZyuTcUM1Fr/1gx+XDMv+MFuOiRd/f3FHz2Jonl1o
-# v4dzYS7x+W2Bv631CBIsQ1wlQ6ggXeEKEXRSC0cCEMrgQRkIm2QWeRcdS8CBn+/a
-# ytjNn/rtxKeO4JnJQMS+7lEGXAXhmSK00qy44+M++QkQpNXM21jfMymJ2NmhggMg
-# MIIDHAYJKoZIhvcNAQkGMYIDDTCCAwkCAQEwdzBjMQswCQYDVQQGEwJVUzEXMBUG
-# A1UEChMORGlnaUNlcnQsIEluYy4xOzA5BgNVBAMTMkRpZ2lDZXJ0IFRydXN0ZWQg
-# RzQgUlNBNDA5NiBTSEEyNTYgVGltZVN0YW1waW5nIENBAhAMTWlyS5T6PCpKPSkH
-# gD1aMA0GCWCGSAFlAwQCAQUAoGkwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMjMwMTEzMDkzNjA0WjAvBgkqhkiG9w0BCQQxIgQg8/M2
-# WjFLKwkgwTfkhfk4QobQXk5+MKiolT1yCEZm4QYwDQYJKoZIhvcNAQEBBQAEggIA
-# tjSHUdnpnswTF2EmP8qF9Rv5cqWLAOqU/ov2B77Ywh5addCshAcOZfzExfIjxnnn
-# cM9D8OtIIrfQBXqBlcyK6Ft0KZUgTUrqs/3w6/Ca/0bSVM2EVGotUNImn7aV7AoV
-# TQ7G5bBRFGlNsY8bPiO5BSbOrF/6rPUkBHdGYyQ4mrKB8SJRWtgXHGI/7Af7Zaph
-# xxeB+yms9dPR0b3aKsLQkSXBP4L1sRIekn/IlHSNNCUx8p6lALjSN9zYskYlg5Cm
-# /C0OgAO4gas+cJJWN7+iFoJLk70QwNN+DwRKYGjhjBQF7Ul2ayFOsvymYWsAYiq/
-# CWZFAHC2whv0m2DYd8/LZDwVnAT58W9DnKqltv7e6QSiw36QdJ3ujCFu7e7vTtYJ
-# 7La482DBOWvvsQZvRJVJIBHBXEQvhr1y4oUEwFTy/4SCj1rDnuKW3JW92K+9RI71
-# 5COEbpAwJiO1eFSYwuPYbhluxWb7P0NrEdkEWFgUl0fnptZKwRSeYoUkhPZRB7XB
-# Zq75bCkNTIR3bN7xTcUTIDFXs2qbTZ4flSjXy6jsMUnjGtNepx+Sn8Z/dC7ZQ0ZY
-# fJUPuRxkbSnHI95t8Ocu6PuJy5/UAMDo+glNZCKeeOd3tg6WvpgE+UcZ/svQiiw/
-# lWlgIvkRKf/P0wmFJDJ/NHGEXeWoR7AWsGjN3JoLg20=
+# MIIc7AYJKoZIhvcNAQcCoIIc3TCCHNkCAQExDzANBglghkgBZQMEAgEFADB5Bgor
+# BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCCg0B/rSq1gNYBI
+# HMwdXr0wvmvB2zIyJy9niglp2rAiG6CCFw0wggQGMIIDrKADAgECAhMxAAAAS5jn
+# 8iJKtIw9AAAAAABLMAoGCCqGSM49BAMCMEgxCzAJBgNVBAYTAlNFMRQwEgYDVQQK
+# EwtaYW1wbGVXb3JrczEjMCEGA1UEAxMaWmFtcGxlV29ya3MgSW50ZXJuYWwgQ0Eg
+# djMwHhcNMjUwNDAyMDcxNjIyWhcNMjYwNDAyMDcyNjIyWjAaMRgwFgYDVQQDEw9B
+# bmRlcnMgUnVuZXNzb24wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDT
+# sUPEug1GoD0ar/yoJT39X2h00X3JnWwGAvmvh9mI443ll1pSB6rb6j2zx0KIoeR1
+# TQu9w6nty47dctGf6Ox4WVJgZj1boIWK+lG57C5PX7bbwD/gJ+qZbrnsj2qLvwpF
+# gMsnMTwhDEKfPky/D2y6D++e8IzTbRWdS7JHPOxKuZtm+CwCyktMwcBuQWWZJMsS
+# edUB8Gk5Tjk5RzCJzQFHvzmr9QR4uJL8dG2eIik0G0ktrTo5wMYeXn0BcavebBnp
+# YNdBAev6yNm6/8I01indVuzBG729Ot8uGkkiI/KUCYmesO/65Bz2cEia3DwmBLof
+# YhSG/7GJ+qWLWypeBTJPAgMBAAGjggHWMIIB0jA+BgkrBgEEAYI3FQcEMTAvBicr
+# BgEEAYI3FQiFvfVOgvm6E4a9lx6Hx5oph4vfRIFkhviqFYSi0VcCAWUCAQcwEwYD
+# VR0lBAwwCgYIKwYBBQUHAwMwDgYDVR0PAQH/BAQDAgeAMBsGCSsGAQQBgjcVCgQO
+# MAwwCgYIKwYBBQUHAwMwHQYDVR0OBBYEFMIw8bu2T2Ry4uTZ2XKjXrPJF4hGMB8G
+# A1UdIwQYMBaAFNycnL/2+NQJIWqe3QaNutQBPBQ2MGIGCCsGAQUFBwEBBFYwVDBS
+# BggrBgEFBQcwAoZGaHR0cDovL3BraS5vcC56d2tzLnh5ei9SZXBvc2l0b3J5L1ph
+# bXBsZVdvcmtzJTIwSW50ZXJuYWwlMjBDQSUyMHYzLmNydDBbBgNVHREEVDBSoC8G
+# CisGAQQBgjcUAgOgIQwfQW5kZXJzLlJ1bmVzc29uQHphbXBsZXdvcmtzLmNvbYEf
+# YW5kZXJzLnJ1bmVzc29uQHphbXBsZXdvcmtzLmNvbTBNBgkrBgEEAYI3GQIEQDA+
+# oDwGCisGAQQBgjcZAgGgLgQsUy0xLTUtMjEtMTY5MDA3NTU0LTU2MTU1NTU4My0z
+# NDY1ODcwMDY1LTE1MTYwCgYIKoZIzj0EAwIDSAAwRQIhAIRkLmTClm3OJndccyd2
+# 14WZ0mXH3N68iZaTVxrzKGcaAiB+8mqDJvNMyUP/lSrSPWXDJzFzSYRnI2mvdAAV
+# faOEJjCCBY0wggR1oAMCAQICEA6bGI750C3n79tQ4ghAGFowDQYJKoZIhvcNAQEM
+# BQAwZTELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UE
+# CxMQd3d3LmRpZ2ljZXJ0LmNvbTEkMCIGA1UEAxMbRGlnaUNlcnQgQXNzdXJlZCBJ
+# RCBSb290IENBMB4XDTIyMDgwMTAwMDAwMFoXDTMxMTEwOTIzNTk1OVowYjELMAkG
+# A1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRp
+# Z2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQgVHJ1c3RlZCBSb290IEc0MIIC
+# IjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAv+aQc2jeu+RdSjwwIjBpM+zC
+# pyUuySE98orYWcLhKac9WKt2ms2uexuEDcQwH/MbpDgW61bGl20dq7J58soR0uRf
+# 1gU8Ug9SH8aeFaV+vp+pVxZZVXKvaJNwwrK6dZlqczKU0RBEEC7fgvMHhOZ0O21x
+# 4i0MG+4g1ckgHWMpLc7sXk7Ik/ghYZs06wXGXuxbGrzryc/NrDRAX7F6Zu53yEio
+# ZldXn1RYjgwrt0+nMNlW7sp7XeOtyU9e5TXnMcvak17cjo+A2raRmECQecN4x7ax
+# xLVqGDgDEI3Y1DekLgV9iPWCPhCRcKtVgkEy19sEcypukQF8IUzUvK4bA3VdeGbZ
+# OjFEmjNAvwjXWkmkwuapoGfdpCe8oU85tRFYF/ckXEaPZPfBaYh2mHY9WV1CdoeJ
+# l2l6SPDgohIbZpp0yt5LHucOY67m1O+SkjqePdwA5EUlibaaRBkrfsCUtNJhbesz
+# 2cXfSwQAzH0clcOP9yGyshG3u3/y1YxwLEFgqrFjGESVGnZifvaAsPvoZKYz0YkH
+# 4b235kOkGLimdwHhD5QMIR2yVCkliWzlDlJRR3S+Jqy2QXXeeqxfjT/JvNNBERJb
+# 5RBQ6zHFynIWIgnffEx1P2PsIV/EIFFrb7GrhotPwtZFX50g/KEexcCPorF+CiaZ
+# 9eRpL5gdLfXZqbId5RsCAwEAAaOCATowggE2MA8GA1UdEwEB/wQFMAMBAf8wHQYD
+# VR0OBBYEFOzX44LScV1kTN8uZz/nupiuHA9PMB8GA1UdIwQYMBaAFEXroq/0ksuC
+# MS1Ri6enIZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjB5BggrBgEFBQcBAQRtMGswJAYI
+# KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBDBggrBgEFBQcwAoY3
+# aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElEUm9v
+# dENBLmNydDBFBgNVHR8EPjA8MDqgOKA2hjRodHRwOi8vY3JsMy5kaWdpY2VydC5j
+# b20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3JsMBEGA1UdIAQKMAgwBgYEVR0g
+# ADANBgkqhkiG9w0BAQwFAAOCAQEAcKC/Q1xV5zhfoKN0Gz22Ftf3v1cHvZqsoYcs
+# 7IVeqRq7IviHGmlUIu2kiHdtvRoU9BNKei8ttzjv9P+Aufih9/Jy3iS8UgPITtAq
+# 3votVs/59PesMHqai7Je1M/RQ0SbQyHrlnKhSLSZy51PpwYDE3cnRNTnf+hZqPC/
+# Lwum6fI0POz3A8eHqNJMQBk1RmppVLC4oVaO7KTVPeix3P0c2PR3WlxUjG/voVA9
+# /HYJaISfb8rbII01YBwCA8sgsKxYoA5AY8WYIsGyWfVVa88nq2x2zm8jLfR+cWoj
+# ayL/ErhULSd+2DrZ8LaHlv1b0VysGMNNn3O3AamfV6peKOK5lDCCBq4wggSWoAMC
+# AQICEAc2N7ckVHzYR6z9KGYqXlswDQYJKoZIhvcNAQELBQAwYjELMAkGA1UEBhMC
+# VVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0
+# LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQgVHJ1c3RlZCBSb290IEc0MB4XDTIyMDMy
+# MzAwMDAwMFoXDTM3MDMyMjIzNTk1OVowYzELMAkGA1UEBhMCVVMxFzAVBgNVBAoT
+# DkRpZ2lDZXJ0LCBJbmMuMTswOQYDVQQDEzJEaWdpQ2VydCBUcnVzdGVkIEc0IFJT
+# QTQwOTYgU0hBMjU2IFRpbWVTdGFtcGluZyBDQTCCAiIwDQYJKoZIhvcNAQEBBQAD
+# ggIPADCCAgoCggIBAMaGNQZJs8E9cklRVcclA8TykTepl1Gh1tKD0Z5Mom2gsMyD
+# +Vr2EaFEFUJfpIjzaPp985yJC3+dH54PMx9QEwsmc5Zt+FeoAn39Q7SE2hHxc7Gz
+# 7iuAhIoiGN/r2j3EF3+rGSs+QtxnjupRPfDWVtTnKC3r07G1decfBmWNlCnT2exp
+# 39mQh0YAe9tEQYncfGpXevA3eZ9drMvohGS0UvJ2R/dhgxndX7RUCyFobjchu0Cs
+# X7LeSn3O9TkSZ+8OpWNs5KbFHc02DVzV5huowWR0QKfAcsW6Th+xtVhNef7Xj3OT
+# rCw54qVI1vCwMROpVymWJy71h6aPTnYVVSZwmCZ/oBpHIEPjQ2OAe3VuJyWQmDo4
+# EbP29p7mO1vsgd4iFNmCKseSv6De4z6ic/rnH1pslPJSlRErWHRAKKtzQ87fSqEc
+# azjFKfPKqpZzQmiftkaznTqj1QPgv/CiPMpC3BhIfxQ0z9JMq++bPf4OuGQq+nUo
+# JEHtQr8FnGZJUlD0UfM2SU2LINIsVzV5K6jzRWC8I41Y99xh3pP+OcD5sjClTNfp
+# mEpYPtMDiP6zj9NeS3YSUZPJjAw7W4oiqMEmCPkUEBIDfV8ju2TjY+Cm4T72wnSy
+# Px4JduyrXUZ14mCjWAkBKAAOhFTuzuldyF4wEr1GnrXTdrnSDmuZDNIztM2xAgMB
+# AAGjggFdMIIBWTASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBS6FtltTYUv
+# cyl2mi91jGogj57IbzAfBgNVHSMEGDAWgBTs1+OC0nFdZEzfLmc/57qYrhwPTzAO
+# BgNVHQ8BAf8EBAMCAYYwEwYDVR0lBAwwCgYIKwYBBQUHAwgwdwYIKwYBBQUHAQEE
+# azBpMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYB
+# BQUHMAKGNWh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0
+# ZWRSb290RzQuY3J0MEMGA1UdHwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2lj
+# ZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3JsMCAGA1UdIAQZMBcwCAYG
+# Z4EMAQQCMAsGCWCGSAGG/WwHATANBgkqhkiG9w0BAQsFAAOCAgEAfVmOwJO2b5ip
+# RCIBfmbW2CFC4bAYLhBNE88wU86/GPvHUF3iSyn7cIoNqilp/GnBzx0H6T5gyNgL
+# 5Vxb122H+oQgJTQxZ822EpZvxFBMYh0MCIKoFr2pVs8Vc40BIiXOlWk/R3f7cnQU
+# 1/+rT4osequFzUNf7WC2qk+RZp4snuCKrOX9jLxkJodskr2dfNBwCnzvqLx1T7pa
+# 96kQsl3p/yhUifDVinF2ZdrM8HKjI/rAJ4JErpknG6skHibBt94q6/aesXmZgaNW
+# hqsKRcnfxI2g55j7+6adcq/Ex8HBanHZxhOACcS2n82HhyS7T6NJuXdmkfFynOlL
+# AlKnN36TU6w7HQhJD5TNOXrd/yVjmScsPT9rp/Fmw0HNT7ZAmyEhQNC3EyTN3B14
+# OuSereU0cZLXJmvkOHOrpgFPvT87eK1MrfvElXvtCl8zOYdBeHo46Zzh3SP9HSjT
+# x/no8Zhf+yvYfvJGnXUsHicsJttvFXseGYs2uJPU5vIXmVnKcPA3v5gA3yAWTyf7
+# YGcWoWa63VXAOimGsJigK+2VQbc61RWYMbRiCQ8KvYHZE/6/pNHzV9m8BPqC3jLf
+# BInwAM1dwvnQI38AC+R2AibZ8GV2QqYphwlHK+Z/GqSFD/yYlvZVVCsfgPrA8g4r
+# 5db7qS9EFUrnEw4d2zc4GqEr9u3WfPwwgga8MIIEpKADAgECAhALrma8Wrp/lYfG
+# +ekE4zMEMA0GCSqGSIb3DQEBCwUAMGMxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5E
+# aWdpQ2VydCwgSW5jLjE7MDkGA1UEAxMyRGlnaUNlcnQgVHJ1c3RlZCBHNCBSU0E0
+# MDk2IFNIQTI1NiBUaW1lU3RhbXBpbmcgQ0EwHhcNMjQwOTI2MDAwMDAwWhcNMzUx
+# MTI1MjM1OTU5WjBCMQswCQYDVQQGEwJVUzERMA8GA1UEChMIRGlnaUNlcnQxIDAe
+# BgNVBAMTF0RpZ2lDZXJ0IFRpbWVzdGFtcCAyMDI0MIICIjANBgkqhkiG9w0BAQEF
+# AAOCAg8AMIICCgKCAgEAvmpzn/aVIauWMLpbbeZZo7Xo/ZEfGMSIO2qZ46XB/Qow
+# IEMSvgjEdEZ3v4vrrTHleW1JWGErrjOL0J4L0HqVR1czSzvUQ5xF7z4IQmn7dHY7
+# yijvoQ7ujm0u6yXF2v1CrzZopykD07/9fpAT4BxpT9vJoJqAsP8YuhRvflJ9YeHj
+# es4fduksTHulntq9WelRWY++TFPxzZrbILRYynyEy7rS1lHQKFpXvo2GePfsMRhN
+# f1F41nyEg5h7iOXv+vjX0K8RhUisfqw3TTLHj1uhS66YX2LZPxS4oaf33rp9Hlfq
+# SBePejlYeEdU740GKQM7SaVSH3TbBL8R6HwX9QVpGnXPlKdE4fBIn5BBFnV+KwPx
+# RNUNK6lYk2y1WSKour4hJN0SMkoaNV8hyyADiX1xuTxKaXN12HgR+8WulU2d6zhz
+# XomJ2PleI9V2yfmfXSPGYanGgxzqI+ShoOGLomMd3mJt92nm7Mheng/TBeSA2z4I
+# 78JpwGpTRHiT7yHqBiV2ngUIyCtd0pZ8zg3S7bk4QC4RrcnKJ3FbjyPAGogmoiZ3
+# 3c1HG93Vp6lJ415ERcC7bFQMRbxqrMVANiav1k425zYyFMyLNyE1QulQSgDpW9rt
+# vVcIH7WvG9sqYup9j8z9J1XqbBZPJ5XLln8mS8wWmdDLnBHXgYly/p1DhoQo5fkC
+# AwEAAaOCAYswggGHMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMBYGA1Ud
+# JQEB/wQMMAoGCCsGAQUFBwMIMCAGA1UdIAQZMBcwCAYGZ4EMAQQCMAsGCWCGSAGG
+# /WwHATAfBgNVHSMEGDAWgBS6FtltTYUvcyl2mi91jGogj57IbzAdBgNVHQ4EFgQU
+# n1csA3cOKBWQZqVjXu5Pkh92oFswWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
+# bDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1c3RlZEc0UlNBNDA5NlNIQTI1NlRp
+# bWVTdGFtcGluZ0NBLmNybDCBkAYIKwYBBQUHAQEEgYMwgYAwJAYIKwYBBQUHMAGG
+# GGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBYBggrBgEFBQcwAoZMaHR0cDovL2Nh
+# Y2VydHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1c3RlZEc0UlNBNDA5NlNIQTI1
+# NlRpbWVTdGFtcGluZ0NBLmNydDANBgkqhkiG9w0BAQsFAAOCAgEAPa0eH3aZW+M4
+# hBJH2UOR9hHbm04IHdEoT8/T3HuBSyZeq3jSi5GXeWP7xCKhVireKCnCs+8GZl2u
+# VYFvQe+pPTScVJeCZSsMo1JCoZN2mMew/L4tpqVNbSpWO9QGFwfMEy60HofN6V51
+# sMLMXNTLfhVqs+e8haupWiArSozyAmGH/6oMQAh078qRh6wvJNU6gnh5OruCP1QU
+# AvVSu4kqVOcJVozZR5RRb/zPd++PGE3qF1P3xWvYViUJLsxtvge/mzA75oBfFZSb
+# dakHJe2BVDGIGVNVjOp8sNt70+kEoMF+T6tptMUNlehSR7vM+C13v9+9ZOUKzfRU
+# AYSyyEmYtsnpltD/GWX8eM70ls1V6QG/ZOB6b6Yum1HvIiulqJ1Elesj5TMHq8CW
+# T/xrW7twipXTJ5/i5pkU5E16RSBAdOp12aw8IQhhA/vEbFkEiF2abhuFixUDobZa
+# A0VhqAsMHOmaT3XThZDNi5U2zHKhUs5uHHdG6BoQau75KiNbh0c+hatSF+02kULk
+# ftARjsyEpHKsF7u5zKRbt5oK5YGwFvgc4pEVUNytmB3BpIiowOIIuDgP5M9WArHY
+# SAR16gc0dP2XdkMEP5eBsX7bf/MGN4K3HP50v/01ZHo/Z5lGLvNwQ7XHBx1yomzL
+# P8lx4Q1zZKDyHcp4VQJLu2kWTsKsOqQxggU1MIIFMQIBATBfMEgxCzAJBgNVBAYT
+# AlNFMRQwEgYDVQQKEwtaYW1wbGVXb3JrczEjMCEGA1UEAxMaWmFtcGxlV29ya3Mg
+# SW50ZXJuYWwgQ0EgdjMCEzEAAABLmOfyIkq0jD0AAAAAAEswDQYJYIZIAWUDBAIB
+# BQCggYQwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYK
+# KwYBBAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAvBgkqhkiG
+# 9w0BCQQxIgQgkmAm9pLWG0hJ3nK0KgIdNz6YueZmhgjDrFOXJcgnOvAwDQYJKoZI
+# hvcNAQEBBQAEggEAcZErqaQhLqQE5dYlQchvIUHcS9PbKNCHIgv94UM/N+RavEr6
+# 72s96aSCAGayNfqoxY1OCLNtqzJGb1chqINNHMNB10YH7fuO9YjCJiezonswxUQ+
+# bMqnxNoqqrSQT3vnJp7pT3xFHDLMEQY8FYHkXXG5csNvwnvtyfC0+oyRqrYEW9tG
+# n6ie89YcXtBA/ORZsXKbhUGH5lXXKhZMJClbOGucyKlj2By8JtQ2kZjNqrJtBdmt
+# bz9n7w1hDTYiwP+xeptT2dGYhjxe3tFvmiMZzVJTpPooztXFb13JrDU1hZsCxvlz
+# eK60u9GggTOubmGyUaeYUOIvN336DA45Rwm5OKGCAyAwggMcBgkqhkiG9w0BCQYx
+# ggMNMIIDCQIBATB3MGMxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwg
+# SW5jLjE7MDkGA1UEAxMyRGlnaUNlcnQgVHJ1c3RlZCBHNCBSU0E0MDk2IFNIQTI1
+# NiBUaW1lU3RhbXBpbmcgQ0ECEAuuZrxaun+Vh8b56QTjMwQwDQYJYIZIAWUDBAIB
+# BQCgaTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0y
+# NTA0MDYxMDE5MThaMC8GCSqGSIb3DQEJBDEiBCDmUBprtCBivbSCE4fME7XVp2yq
+# 4IpESr96qxkffvwghzANBgkqhkiG9w0BAQEFAASCAgCqbh2yGwo4ZPhtSqZyL1Pj
+# Kd+mSF+ToZszgnUnZEMmkKmN+t7h9GGn36qwLuV3lypYjscOsrfBcJhmupCulaQM
+# J0DivH8oiMNvwoLV5rKMy2k2lEcSO2MQveNkcgMEfe5wJBGZ0u7amABmN2v4IlvF
+# 5LDwOsLj2RGNsafI2oTvsz2JG19PFKat+/j1//HtlD5H8CoOrPalOYnql7WdEug3
+# 8iRqlrbszmjpfc6WeyC+d/iysw6E1ZTj8nbuFqbM3/eyWiGLXnm98w1J9pv0m+Kq
+# hRNijPHDmwUWyj2/8H2uA8Rsm1mKgJIg+N0Y79/GEaI1Mf3Ku9Oy171imeW25r/Y
+# s8OP0UayaSBF4tc9sh8EC2o+X/npjLE0f13D7gxb/4De4N6GNe7bWajYGkfPa7IE
+# FArn9R9hqDmmAdnLwzl+Gj9pcs1qebgkhNr32lBB+34yH0Qp0bKSeKIxELrSPHkj
+# smBN8i/d5kA9bCvbDL/m/n1tHZP79VVnUqSxOj29CxzbkGBjo1DXZjiue7EolfRN
+# OGmhExh74CWuP0rAV3LB7HOjj8fAkdqoImDSbHPLuDf955cT1LE2Odi7l6rmt14W
+# Pm9UIy1ELglIOgIMjwKVAN7CMGJTCznW7xk5W5BRcZig0Rvu2jQsMfG+dTiTCjDT
+# NsDFdX6kvvmYJ+BSc2xKYQ==
 # SIG # End signature block

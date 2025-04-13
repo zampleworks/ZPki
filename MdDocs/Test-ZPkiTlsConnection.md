@@ -14,7 +14,7 @@ Test TLS connection and return server certificate
 
 ```
 Test-ZPkiTlsConnection [-Uri] <String> -Port <UInt32> [-Protocol <SslProtocols>] [-IgnoreValidation]
- [-CertFilePath <String>] [-ExtraVerbose] [<CommonParameters>]
+ [-Timeout <UInt32>] [-CertFilePath <String>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -97,6 +97,21 @@ Type: SslProtocols
 Parameter Sets: (All)
 Aliases:
 Accepted values: None, Ssl2, Ssl3, Tls, Default, Tls11, Tls12, Tls13
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Timeout
+Set timeout value for connection, in ms. Default is 5000. 0 means no timeout.
+
+```yaml
+Type: UInt32
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

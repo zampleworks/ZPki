@@ -13,9 +13,9 @@ Search AD for objects.
 ## SYNTAX
 
 ```
-Find-ZPkiAdObject [-SearchBase <String>] -LdapFilter <String> [-SearchScope <String>] [-Properties <String[]>]
- [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
- [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+Find-ZPkiAdObject -LdapFilter <String> [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>]
+ [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
+ [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -141,6 +141,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ResolveSecurityIdentifiers
+Resolve SIDs, GUIDs and ExtendedRights when returning object security
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Rpc
 Use RPC interface for querying.
 If false/not set, use ADWS (default)
@@ -229,7 +244,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.1.9.3, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.1.10.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

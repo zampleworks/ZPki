@@ -166,7 +166,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.ad.AdObject
+### xyz.zwks.pkilib.ad.AdPropertyCollection
 
 ## NOTES
 

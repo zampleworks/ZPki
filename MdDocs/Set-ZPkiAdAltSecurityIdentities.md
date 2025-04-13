@@ -1,5 +1,5 @@
----
-external help file: PsZPki-help.xml
+﻿---
+external help file: PsZPki.psm1-help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
