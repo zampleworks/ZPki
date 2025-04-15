@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.1.10.0
+.VERSION 0.2.0.0
 
 .GUID f392ef1a-42c2-4dd5-abd4-72746245d492
 
@@ -30,6 +30,8 @@
 #> 
 
 #Requires -Module ZPki
+
+
 
 
 

@@ -115,8 +115,8 @@ but a couple deserve explanation:
 ### Find config strings for ADCS instances in the forest
 ```
 PS:> Get-ZPkiAdCasConfigString
-SRV1.zwks.xyz\ZampleWorks Issuing CA 1
-SRV3.zwks.xyz\ZampleWorks Issuing CA 2
+SRV1.ad.zwks.xyz\ZampleWorks Issuing CA 1
+SRV3.ad.zwks.xyz\ZampleWorks Issuing CA 2
 ```
 
 ### Check if ADCS instance is online and accessible
@@ -180,7 +180,7 @@ PS:> Get-ZPkiAdCasConfigString | Get-ZPkiDbRow -filters {RequestID == 3}
 RequestID             : 3
 Request_Disposition   : 20
 Request_RequesterName : OZWCORP\SRV03$
-CommonName            : SRV03.op.zwks.xyz
+CommonName            : SRV03.ad.zwks.xyz
 NotBefore             : 5/30/2022 12:58:59 PM
 NotAfter              : 5/30/2023 12:58:59 PM
 SerialNumber          : 31000000033c19283a62deb106000000000003
@@ -193,6 +193,6 @@ PS:> Get-ZPkiAdCasConfigString | Get-ZPkiDbRow -filters {RequestID == 2} -Proper
 
 RequestID CommonName         Request_RawRequest
 --------- ----------         ------------------
-        2 SRV01A.op.zwks.xyz MIIGUgYJKoZIhvcNAQcCoIIGQzC...
+        2 SRV01A.ad.zwks.xyz MIIGUgYJKoZIhvcNAQcCoIIGQzC...
 
 ```

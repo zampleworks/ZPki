@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <Types>
 	<Type>
 		<Name>xyz.zwks.pkilib.ad.AdObject</Name>
@@ -40,7 +41,6 @@
 							<Name>Name</Name>
 							<Name>SamAccountName</Name>
 							<Name>CommonName</Name>
-							<Name>ObjectGuid</Name>
 							<Name>UserAccountControl</Name>
 							<Name>PwdLastSet</Name>
 							<Name>Sid</Name>
@@ -51,12 +51,182 @@
 					</PropertySet>
 					<NoteProperty>
 						<Name>DefaultDisplayProperty</Name>
-						<Value>CN</Value>
+						<Value>CommonName</Value>
 					</NoteProperty>
 				</Members>
             </MemberSet>
         </Members>
     </Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdAttributeSchema</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>Name</Name>
+							<Name>CommonName</Name>
+							<Name>LdapDisplayName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>SchemaIdGuid</Name>
+							<Name>AttributeSecurityGuid</Name>
+							<Name>PropertySets</Name>
+							<Name>IsSingleValued</Name>
+							<Name>OmSyntax</Name>
+							<Name>OmObjectClass</Name>
+							<Name>SystemFlags</Name>
+							<Name>SystemOnly</Name>
+							<Name>AttributeSyntax</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdClassSchema</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>Name</Name>
+							<Name>CommonName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>RelativeDistinguishedName</Name>
+							<Name>SchemaIdguid</Name>
+							<Name>LdapDisplayName</Name>
+							<Name>DefaultObjectCategory</Name>
+							<Name>DefaultSecurityDescriptor</Name>
+							<Name>MayContain</Name>
+							<Name>SubclassOf</Name>
+							<Name>PossibleSuperiors</Name>
+							<Name>RdnAttribute</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.ControlAccessRight</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>CommonName</Name>
+							<Name>DisplayName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>RightsGuid</Name>
+							<Name>ValidAccesses</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.ExtendedRight</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>CommonName</Name>
+							<Name>DisplayName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>RightsGuid</Name>
+							<Name>ValidAccesses</Name>
+							<Name>AppliesTo</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.PropertySet</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>CommonName</Name>
+							<Name>DisplayName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>RightsGuid</Name>
+							<Name>ValidAccesses</Name>
+							<Name>AppliesTo</Name>
+							<Name>PropertySetMembers</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.ValidatedWrite</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>CommonName</Name>
+							<Name>DisplayName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>RightsGuid</Name>
+							<Name>ValidAccesses</Name>
+							<Name>AppliesTo</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
 	<Type>
 		<Name>xyz.zwks.pkilib.adcs.AdcsDbRow</Name>
 		<Members>
@@ -67,9 +237,74 @@
 						<Name>DefaultDisplayPropertySet</Name>
 						<ReferencedProperties>
 							<Name>DisplayName</Name>
+							<Name>RequestID</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.adcs.CertificateTemplate</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							
+							<Name>DistinguishedName</Name>
+							<Name>DisplayName</Name>
+							<Name>Name</Name>
+							
+							<Name>Revision</Name>
+							<Name>MinorRevision</Name>
+							<Name>SchemaVersion</Name>
+							<Name>ClientCompatibility</Name>
+							<Name>ServerCompatibility</Name>
+
+							<Name>TemplateOid</Name>
+							<Name>PublishingCAs</Name>
+							<Name>EnrollmentRights</Name>
+							<Name>CurrentUserCanEnroll</Name>
+							<Name>CurrentUserCanAutoEnroll</Name>
+							<Name>CertificatePolicies</Name>
+							<Name>ApplicationPolicies</Name>
+							<Name>RaApplicationPolicies</Name>
+							<Name>RaPolicies</Name>
+							
+							<Name>RaPolicy</Name>
+							<Name>Flags</Name>
+							<Name>EnrollmentFlags</Name>
+							<Name>KeySpec</Name>
+							<Name>PrivateKeyFlags</Name>
+							<Name>NameFlags</Name>
+							
+							<Name>Ekus</Name>
+							<Name>KeyUsage</Name>
+							<Name>MaxIssuingDepth</Name>
+							<Name>RaSignaturesRequired</Name>
+							<Name>SupersededTemplates</Name>
+							<Name>CriticalExtensions</Name>
+
+							<Name>DefaultCsps</Name>
+							<Name>MinKeySize</Name>
+							<Name>EnrollmentAccess</Name>
+							<Name>ExpirationPeriod</Name>
+							<Name>OverlapPeriod</Name>
+							
+							<Name>ObjectGuid</Name>
+							<Name>WhenCreated</Name>
+							<Name>WhenChanged</Name>
 							
 						</ReferencedProperties>
 					</PropertySet>
+					
 					<NoteProperty>
 						<Name>DefaultDisplayProperty</Name>
 						<Value>DisplayName</Value>
@@ -79,7 +314,7 @@
 		</Members>
 	</Type>
 	<Type>
-        <Name>xyz.zwks.pkilib.adcs.CertificateTemplate</Name>
+        <Name>xyz.zwks.pkilib.lul.Lol</Name>
 		<Members>
 			<MemberSet>
 				<Name>PSStandardMembers</Name>
@@ -87,7 +322,49 @@
 					<PropertySet>
 						<Name>DefaultDisplayPropertySet</Name>
 						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
 							<Name>DisplayName</Name>
+							<Name>Name</Name>
+							
+							<Name>Revision</Name>
+							<Name>MinorRevision</Name>
+							<Name>SchemaVersion</Name>
+							<Name>ClientCompatibility</Name>
+							<Name>ServerCompatibility</Name>
+
+							<Name>TemplateOid</Name>
+							<Name>PublishingCAs</Name>
+							<Name>EnrollmentRights</Name>
+							<Name>CurrentUserCanEnroll</Name>
+							<Name>CurrentUserCanAutoEnroll</Name>
+							<Name>CertificatePolicies</Name>
+							<Name>ApplicationPolicies</Name>
+							<Name>RaApplicationPolicies</Name>
+							<Name>RaPolicies</Name>
+							
+							<Name>RaPolicy</Name>
+							<Name>Flags</Name>
+							<Name>EnrollmentFlags</Name>
+							<Name>KeySpec</Name>
+							<Name>PrivateKeyFlags</Name>
+							<Name>NameFlags</Name>
+							
+							<Name>Ekus</Name>
+							<Name>KeyUsage</Name>
+							<Name>MaxIssuingDepth</Name>
+							<Name>RaSignaturesRequired</Name>
+							<Name>SupersededTemplates</Name>
+							<Name>CriticalExtensions</Name>
+
+							<Name>DefaultCsps</Name>
+							<Name>MinKeySize</Name>
+							<Name>EnrollmentAccess</Name>
+							<Name>ExpirationPeriod</Name>
+							<Name>OverlapPeriod</Name>
+							
+							<Name>ObjectGuid</Name>
+							<Name>WhenCreated</Name>
+							<Name>WhenChanged</Name>
 						</ReferencedProperties>
 					</PropertySet>
 					<NoteProperty>

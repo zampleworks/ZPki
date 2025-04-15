@@ -12,10 +12,18 @@ schema: 2.0.0
 
 ## SYNTAX
 
+### SearchByName (Default)
 ```
-Find-ZPkiAdControlAccessRight [[-Name] <String>] [-Type <ControlAccessRightsType>] [-RightsGuid <Guid>] [-Rpc]
- [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
- [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+Find-ZPkiAdControlAccessRight [[-Name] <String>] [-Type <ControlAccessRightsType>] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-ExtraVerbose] [<CommonParameters>]
+```
+
+### SearchByGuid
+```
+Find-ZPkiAdControlAccessRight [-Type <ControlAccessRightsType>] [-RightsGuid <Guid>] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -117,7 +125,7 @@ Will match attributes Common Name, Name, or DisplayName
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: SearchByName
 Aliases:
 
 Required: False
@@ -132,7 +140,7 @@ Filter by rightsGuid
 
 ```yaml
 Type: Guid
-Parameter Sets: (All)
+Parameter Sets: SearchByGuid
 Aliases:
 
 Required: False
@@ -214,7 +222,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.1.10.0, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

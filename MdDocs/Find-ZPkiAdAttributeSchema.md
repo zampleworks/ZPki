@@ -12,8 +12,16 @@ schema: 2.0.0
 
 ## SYNTAX
 
+### SearchByName (Default)
 ```
 Find-ZPkiAdAttributeSchema [[-Name] <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose]
+ [<CommonParameters>]
+```
+
+### SearchByGuid
+```
+Find-ZPkiAdAttributeSchema [-SchemaIdGuid <Guid>] [-Rpc] [-Domain <String>] [-DomainController <String>]
  [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose]
  [<CommonParameters>]
 ```
@@ -117,7 +125,7 @@ Will match attributes CN or lDAPDisplayName
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: SearchByName
 Aliases:
 
 Required: False
@@ -140,6 +148,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SchemaIdGuid
+Filter by schemaIDGuid
+
+```yaml
+Type: Guid
+Parameter Sets: SearchByGuid
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -179,11 +202,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### System.Guid
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdAttributeSchema, xyz.zwks.pkilib, Version=0.1.10.0, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdAttributeSchema, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 
