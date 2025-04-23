@@ -112,6 +112,233 @@ but a couple deserve explanation:
 * -DnsOnly: Does not attempt to use local Windows APIs to determine domain services. May work better when connecting to domains other that user/computers own domain.
 * -ResolveSecurityIdentifiers: Include object ACL in output, and attempt to resolve all identifiers - IdentityReference, ObjectType, and InheritedObjectType. These fields will have related objects populated with the relevant data - classSchema, attributeSchema, and controlAccessRights objects. This is read from Active Directory when requested, and may take a moment to read. Data is cached and will be preserved between invocations of different cmdlets, but if you exit the powershell process the cache will be emptied.
 
+### Access Control Lists (ACL) output
+You can include an objects AD ACL by requesting the nTSecurityDescriptor attribute as part of the returned properties. The ACL will be in $OutputObject.Access.Acl:
+```
+# Find AD user object, and ensure we only store one object in case there's many matching the name 'anders'
+PS:> $User = Find-ZPkiAdUser anders -Properties ntsecuritydescriptor | Select-Object -First 1
+PS:> $User.Access.Acl
+...
+ActiveDirectoryRights : ReadProperty, WriteProperty, ExtendedRight
+AccessControlType     : Allow
+ObjectType            : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+InheritedObjectType   :
+IdentityReference     : S-1-5-10
+InheritanceType       : All
+IsInherited           : True
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : ObjectAce
+
+ActiveDirectoryRights : GenericAll
+AccessControlType     : Allow
+ObjectType            :
+InheritedObjectType   :
+IdentityReference     : S-1-5-21-169007554-561555583-3465870065-519
+InheritanceType       : All
+IsInherited           : True
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : None
+
+ActiveDirectoryRights : CreateChild, Self, WriteProperty, ExtendedRight, Delete, GenericRead, WriteDacl, WriteOwner
+AccessControlType     : Allow
+ObjectType            :
+InheritedObjectType   :
+IdentityReference     : S-1-5-32-544
+InheritanceType       : All
+IsInherited           : True
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : None
+...
+```
+
+This looks like the output you'd expect from the built in Get-Acl cmdlet. If you want the output to be a bit more helpful, include the -ResolveSecurityIdentifiers switch, and IdentityReference, ObjectType, and InheritedObjectType will be translated into human-readable ID's instead. With -ResolveSecurityIdentifiers supplied '-Properties nTSecurityDescriptor' is implied, so no need to include it.
+The properties are name-value properties, so if you need the raw identifier it's still there:
+
+```
+# Find AD user object, and ensure we only store one object in case there's many matching the name 'anders'
+PS:> $User = Find-ZPkiAdUser anders.runesson -ResolveSecurityIdentifiers | Select-Object -First 1
+PS:> $User.Access.Acl
+...
+ActiveDirectoryRights : ReadProperty, WriteProperty, ExtendedRight
+AccessControlType     : Allow
+ObjectType            : Private-Information
+InheritedObjectType   :
+IdentityReference     : SELF
+InheritanceType       : All
+IsInherited           : True
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : ObjectAce
+
+ActiveDirectoryRights : GenericAll
+AccessControlType     : Allow
+ObjectType            :
+InheritedObjectType   :
+IdentityReference     : OZWCORP\Enterprise Admins
+InheritanceType       : All
+IsInherited           : True
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : None
+
+ActiveDirectoryRights : CreateChild, Self, WriteProperty, ExtendedRight, Delete, GenericRead, WriteDacl, WriteOwner
+AccessControlType     : Allow
+ObjectType            :
+InheritedObjectType   :
+IdentityReference     : Administrators
+InheritanceType       : All
+IsInherited           : True
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : None
+...
+
+PS:> $Ace = $User.Access.Acl | Select-Object -Last 2 | Select-Object -First 1
+PS:> $Ace.IdentityReference
+
+Value                                       Name
+-----                                       ----
+S-1-5-21-169007554-561555583-3465870065-519 OZWCORP\Enterprise Admins
+
+PS:> $Ace = $User.Access.Acl | Select-Object -Last 3 | Select-Object -First 1
+PS:> $Ace.ObjectType
+
+Value                                Name
+-----                                ----
+91e647de-d96f-4b70-9557-d63ff4f3ccd8 Private-Information
+```
+
+### AD Schema information
+It's a pain interpreting ACEs with the built-in tools - all you get are GUID's in ACEs and you'll have to dig around yourselves to find them. As you can see above, with the ZPki module you can get a name along with the identifier which is already very helpful.  
+There are also cmdlets to get schema data - classSchemas and attributeSchemas, and also controlAccessRights - extended rights, property sets, and validated writes. The returned objects also have relation properties populated, for example if you query a property set (like "Private-Information" from the ACE entry above) the returned object has a "PropertySetMembers" property linking to the attributeSchema objects included in the property set. The cmdlets take a Guid as pipeline input, so using the Guid from the ObjectType in the ACE above:
+
+```
+PS:> $Ace.ObjectType.Value | Find-ZPkiAdControlAccessRight
+
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName         : Private-Information
+DisplayName        : Private Information
+ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
+RightsGuid         : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+ValidAccesses      : 48
+AppliesTo          : {user, inetOrgPerson}
+PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, msPKIDPAPIMasterKeys,
+                     msPKIRoamingTimeStamp}
+```
+
+The PropertySetMembers are attributeSchema objects, and not just strings:
+
+```
+PS:> $Ace.ObjectType.Value | Find-ZPkiAdControlAccessRight | Select-Object -ExpandProperty PropertySetMembers
+
+DistinguishedName     : CN=ms-PKI-Credential-Roaming-Tokens,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+ObjectGuid            : 5949b18c-6049-4186-8a6c-5c3a11896988
+Name                  : ms-PKI-Credential-Roaming-Tokens
+CommonName            : ms-PKI-Credential-Roaming-Tokens
+LdapDisplayName       : msPKI-CredentialRoamingTokens
+ObjectGuid            : 5949b18c-6049-4186-8a6c-5c3a11896988
+SchemaIdGuid          : b7ff5a38-0818-42b0-8110-d3d154c97f24
+AttributeSecurityGuid : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+PropertySets          : {CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz}
+IsSingleValued        : False
+OmSyntax              : 127
+OmObjectClass         : KoZIhvcUAQEBCw==
+SystemFlags           : BaseSchemaObject
+SystemOnly            :
+AttributeSyntax       : Object(DN-Binary); A distinguished name plus a binary large object (2.5.5.7)
+
+DistinguishedName     : CN=ms-PKI-AccountCredentials,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+ObjectGuid            : 0027c49f-9090-4d59-ac84-cf6be3c7ea5b
+Name                  : ms-PKI-AccountCredentials
+CommonName            : ms-PKI-AccountCredentials
+LdapDisplayName       : msPKIAccountCredentials
+ObjectGuid            : 0027c49f-9090-4d59-ac84-cf6be3c7ea5b
+SchemaIdGuid          : b8dfa744-31dc-4ef1-ac7c-84baf7ef9da7
+AttributeSecurityGuid : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+PropertySets          : {CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz}
+IsSingleValued        : False
+OmSyntax              : 127
+OmObjectClass         : KoZIhvcUAQEBCw==
+SystemFlags           : BaseSchemaObject
+SystemOnly            :
+AttributeSyntax       : Object(DN-Binary); A distinguished name plus a binary large object (2.5.5.7)
+...
+```
+
+### Searching for AD schema and controlAccessRights objects
+There are 3 cmdlets for querying schema and controlAccessRights:
+* Find-ZPkiAdAttributeSchema
+* Find-ZPkiAdClassSchema
+* Find-ZPkiAdControlAccessRight
+
+They all can take either a guid or a name as search parameter:
+
+- name as a parameter in position 0 (no parameter name needed). This may return several objects matching the name
+- Guid from pipeline input
+- Guid from pipeline input via property name
+- Guid as parameter
+  - "-RightsGuid" for Find-ZPkiAdControlAccessRight
+  - "-SchemaIdGuid" for Find-ZPkiAdAttributeSchema and Find-ZPkiAdClassSchema
+
+Note that classSchema and attributeSchema objects are identified by the SchemaIDGuid attribute, and controlAccessRights are identified by the RightsGuid attribute.
+
+Continuing with the above examples: 
+
+```
+# $Car has the guid for the "Private-Information" property set:
+PS:> $Car = $User.Access.Acl | Select-Object -Last 3 | Select-Object -First 1 | Select-Object -ExpandProperty ObjectType | Select-Object -ExpandProperty Value | Find-ZPkiAdControlAccessRight  
+
+# Create an object with a "RightsGuid" property
+PS:> $CarPsObj = [PSCustomObject]@{RightsGuid = $Car.RightsGuid}
+PS:> $CarPsObj
+
+RightsGuid
+----------
+91e647de-d96f-4b70-9557-d63ff4f3ccd8
+
+# We can now pipe the object into Find-ZPkiAdControlAccessRight
+PS:> $CarPsObj | Find-ZPkiAdControlAccessRight
+
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName         : Private-Information
+DisplayName        : Private Information
+ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
+RightsGuid         : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+ValidAccesses      : 48
+AppliesTo          : {user, inetOrgPerson}
+PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, msPKIDPAPIMasterKeys,
+                     msPKIRoamingTimeStamp}
+
+# We can of course use the Guid directly: 
+PS:> "91e647de-d96f-4b70-9557-d63ff4f3ccd8" | Find-ZPkiAdControlAccessRight
+
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName         : Private-Information
+DisplayName        : Private Information
+ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
+RightsGuid         : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+ValidAccesses      : 48
+AppliesTo          : {user, inetOrgPerson}
+PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, msPKIDPAPIMasterKeys,
+                     msPKIRoamingTimeStamp}
+
+# Or via parameter: 
+PS:> Find-ZPkiAdControlAccessRight -RightsGuid "91e647de-d96f-4b70-9557-d63ff4f3ccd8"
+
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName         : Private-Information
+DisplayName        : Private Information
+ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
+RightsGuid         : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
+ValidAccesses      : 48
+AppliesTo          : {user, inetOrgPerson}
+PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, msPKIDPAPIMasterKeys,
+                     msPKIRoamingTimeStamp}
+```
+
 ### Find config strings for ADCS instances in the forest
 ```
 PS:> Get-ZPkiAdCasConfigString

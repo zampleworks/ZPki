@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-ZPkiAdControlAccessRight
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get ControlAccessRights registered in Active Directory
 
 ## SYNTAX
 
@@ -27,16 +27,64 @@ Find-ZPkiAdControlAccessRight [-Type <ControlAccessRightsType>] [-RightsGuid <Gu
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+ControlAccessRights are Extended Rights, Validated Writes, or Property Sets. Search for all or specify which type you need.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-ZPkiAdControlAccessRight
+DistinguishedName : CN=Domain-Administer-Server,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : Domain-Administer-Server
+DisplayName       : Domain Administer Server
+ObjectGuid        : a35a59cd-8de9-4d69-bcb6-26ee3424dda9
+RightsGuid        : ab721a52-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {samServer}
+
+DistinguishedName : CN=User-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Change-Password
+DisplayName       : Change Password
+ObjectGuid        : c8d00f05-570f-4248-9985-c5f7d3c2c01b
+RightsGuid        : ab721a53-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {inetOrgPerson, msDS-ManagedServiceAccount, computer, user}
+
+DistinguishedName : CN=User-Force-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Force-Change-Password
+DisplayName       : Reset Password
+...
 ```
 
-{{ Add example description here }}
+Find all types of ControlAccessRights
+
+### Example 2
+```powershell
+PS C:\> Find-ZPkiAdControlAccessRight -Type ExtendedRight
+
+DistinguishedName : CN=Domain-Administer-Server,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : Domain-Administer-Server
+DisplayName       : Domain Administer Server
+ObjectGuid        : a35a59cd-8de9-4d69-bcb6-26ee3424dda9
+RightsGuid        : ab721a52-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {samServer}
+
+DistinguishedName : CN=User-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Change-Password
+DisplayName       : Change Password
+ObjectGuid        : c8d00f05-570f-4248-9985-c5f7d3c2c01b
+RightsGuid        : ab721a53-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {inetOrgPerson, msDS-ManagedServiceAccount, computer, user}
+
+DistinguishedName : CN=User-Force-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Force-Change-Password
+DisplayName       : Reset Password
+...
+```
+
+Find Extended Rights
 
 ## PARAMETERS
 
@@ -146,7 +194,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -222,7 +270,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

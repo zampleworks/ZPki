@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-ZPkiAdAttributeSchema
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get attributeSchema objects
 
 ## SYNTAX
 
@@ -33,10 +33,42 @@ Find-ZPkiAdAttributeSchema [-SchemaIdGuid <Guid>] [-Rpc] [-Domain <String>] [-Do
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-ZPkiAdAttributeSchema samaccountname
+
+DistinguishedName     : CN=ms-DS-Additional-Sam-Account-Name,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+ObjectGuid            : c2e25b99-4118-4dfc-aa69-585ec87138d4
+Name                  : ms-DS-Additional-Sam-Account-Name
+CommonName            : ms-DS-Additional-Sam-Account-Name
+LdapDisplayName       : msDS-AdditionalSamAccountName
+ObjectGuid            : c2e25b99-4118-4dfc-aa69-585ec87138d4
+SchemaIdGuid          : 975571df-a4d5-429a-9f59-cdc6581d91e6
+AttributeSecurityGuid : 00000000-0000-0000-0000-000000000000
+PropertySets          : {}
+IsSingleValued        : False
+OmSyntax              : 64
+OmObjectClass         :
+SystemFlags           : None
+SystemOnly            :
+AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)
+
+DistinguishedName     : CN=SAM-Account-Name,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+ObjectGuid            : b47e7255-a601-4144-8e92-d19a902636de
+Name                  : SAM-Account-Name
+CommonName            : SAM-Account-Name
+LdapDisplayName       : sAMAccountName
+ObjectGuid            : b47e7255-a601-4144-8e92-d19a902636de
+SchemaIdGuid          : 3e0abfd0-126a-11d0-a060-00aa006c33ed
+AttributeSecurityGuid : 59ba2f42-79a2-11d0-9020-00c04fc2d3cf
+PropertySets          : {CN=General-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz}
+IsSingleValued        : True
+OmSyntax              : 64
+OmObjectClass         :
+SystemFlags           : None
+SystemOnly            :
+AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)
 ```
 
-{{ Add example description here }}
+Search for attributeSchema objects in the schema partition. Searches match on substring so "samaccountname" will match both "samaccountname" and "msDS-AdditionalSamAccountName".
 
 ## PARAMETERS
 
@@ -162,7 +194,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -206,7 +238,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdAttributeSchema, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdAttributeSchema, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

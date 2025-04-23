@@ -11,15 +11,17 @@
 						<ReferencedProperties>
 							<Name>DisplayName</Name>
 							<Name>Name</Name>
-							<Name>CN</Name>
+							<Name>CommonName</Name>
 							<Name>DistinguishedName</Name>
 							<Name>ObjectGuid</Name>
 							<Name>ObjectClass</Name>
+							<Name>ObjectCategory</Name>
 						</ReferencedProperties>
 					</PropertySet>
+					
 					<NoteProperty>
 						<Name>DefaultDisplayProperty</Name>
-						<Value>CN</Value>
+						<Value>CommonName</Value>
 					</NoteProperty>
 				</Members>
 			</MemberSet>
@@ -49,12 +51,40 @@
 							<Name>WhenChanged</Name>
 						</ReferencedProperties>
 					</PropertySet>
+					
 					<NoteProperty>
 						<Name>DefaultDisplayProperty</Name>
 						<Value>CommonName</Value>
 					</NoteProperty>
 				</Members>
             </MemberSet>
+			<PropertySet>
+				<Name>Organization</Name>
+				<ReferencedProperties>
+					<Name>DistinguishedName</Name>
+					<Name>UserPrincipalName</Name>
+					<Name>Mail</Name>
+					<Name>CommonName</Name>
+					<Name>DisplayName</Name>
+					<Name>Name</Name>
+
+					<Name>Title</Name>
+
+					<Name>Sn</Name>
+					<Name>GivenName</Name>
+
+					<Name>Company</Name>
+					<Name>Department</Name>
+					<Name>Division</Name>
+					<Name>Manager</Name>
+
+					<Name>C</Name>
+
+					<Name>ObjectGuid</Name>
+
+				</ReferencedProperties>
+			</PropertySet>
+		
         </Members>
     </Type>
 	<Type>
@@ -79,6 +109,7 @@
 							<Name>OmSyntax</Name>
 							<Name>OmObjectClass</Name>
 							<Name>SystemFlags</Name>
+							<Name>SearchFlags</Name>
 							<Name>SystemOnly</Name>
 							<Name>AttributeSyntax</Name>
 						</ReferencedProperties>
@@ -105,14 +136,23 @@
 							<Name>CommonName</Name>
 							<Name>ObjectGuid</Name>
 							<Name>RelativeDistinguishedName</Name>
-							<Name>SchemaIdguid</Name>
+							<Name>SchemaIdGuid</Name>
 							<Name>LdapDisplayName</Name>
 							<Name>DefaultObjectCategory</Name>
+							<Name>RdnAttribute</Name>
 							<Name>DefaultSecurityDescriptor</Name>
+							<Name>ObjectClassCategory</Name>
+							<Name>SystemFlags</Name>
+							<Name>SystemOnly</Name>
+							<Name>AuxiliaryClass</Name>
 							<Name>MayContain</Name>
+							<Name>MustContain</Name>
 							<Name>SubclassOf</Name>
 							<Name>PossibleSuperiors</Name>
-							<Name>RdnAttribute</Name>
+							<Name>SystemAuxiliaryClass</Name>
+							<Name>SystemMayContain</Name>
+							<Name>SystemMustContain</Name>
+							<Name>SystemPossibleSuperiors</Name>
 						</ReferencedProperties>
 					</PropertySet>
 					<NoteProperty>
@@ -228,6 +268,44 @@
 		</Members>
 	</Type>
 	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdDomainDns</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>ObjectGuid</Name>
+							<Name>DnsRoot</Name>
+							<Name>NetBiosName</Name>
+							<Name>DomainSid</Name>
+							<Name>MsDsBehaviorVersion</Name>
+							<Name>MasteredBy</Name>
+							<Name>ManagedBy</Name>
+							<Name>MsDsMachineAccountQuota</Name>
+							<Name>GpLink</Name>
+							<Name>GpOptions</Name>
+							<Name>WellKnownObjects</Name>
+							<Name>OtherWellKnownObjects</Name>
+							<Name>FsmoRoleOwner</Name>
+							<Name>PdcEmulator</Name>
+							<Name>InfrastructureMaster</Name>
+							<Name>RidMaster</Name>
+							<Name>SystemFlags</Name>
+							<Name>InstanceType</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
 		<Name>xyz.zwks.pkilib.adcs.AdcsDbRow</Name>
 		<Members>
 			<MemberSet>
@@ -313,66 +391,4 @@
 			</MemberSet>
 		</Members>
 	</Type>
-	<Type>
-        <Name>xyz.zwks.pkilib.lul.Lol</Name>
-		<Members>
-			<MemberSet>
-				<Name>PSStandardMembers</Name>
-				<Members>
-					<PropertySet>
-						<Name>DefaultDisplayPropertySet</Name>
-						<ReferencedProperties>
-							<Name>DistinguishedName</Name>
-							<Name>DisplayName</Name>
-							<Name>Name</Name>
-							
-							<Name>Revision</Name>
-							<Name>MinorRevision</Name>
-							<Name>SchemaVersion</Name>
-							<Name>ClientCompatibility</Name>
-							<Name>ServerCompatibility</Name>
-
-							<Name>TemplateOid</Name>
-							<Name>PublishingCAs</Name>
-							<Name>EnrollmentRights</Name>
-							<Name>CurrentUserCanEnroll</Name>
-							<Name>CurrentUserCanAutoEnroll</Name>
-							<Name>CertificatePolicies</Name>
-							<Name>ApplicationPolicies</Name>
-							<Name>RaApplicationPolicies</Name>
-							<Name>RaPolicies</Name>
-							
-							<Name>RaPolicy</Name>
-							<Name>Flags</Name>
-							<Name>EnrollmentFlags</Name>
-							<Name>KeySpec</Name>
-							<Name>PrivateKeyFlags</Name>
-							<Name>NameFlags</Name>
-							
-							<Name>Ekus</Name>
-							<Name>KeyUsage</Name>
-							<Name>MaxIssuingDepth</Name>
-							<Name>RaSignaturesRequired</Name>
-							<Name>SupersededTemplates</Name>
-							<Name>CriticalExtensions</Name>
-
-							<Name>DefaultCsps</Name>
-							<Name>MinKeySize</Name>
-							<Name>EnrollmentAccess</Name>
-							<Name>ExpirationPeriod</Name>
-							<Name>OverlapPeriod</Name>
-							
-							<Name>ObjectGuid</Name>
-							<Name>WhenCreated</Name>
-							<Name>WhenChanged</Name>
-						</ReferencedProperties>
-					</PropertySet>
-					<NoteProperty>
-						<Name>DefaultDisplayProperty</Name>
-						<Value>DisplayName</Value>
-					</NoteProperty>
-				</Members>
-			</MemberSet>
-		</Members>
-    </Type>
 </Types>

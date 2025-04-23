@@ -112,7 +112,7 @@
       <command:verb>Find</command:verb>
       <command:noun>ZPkiAdAttributeSchema</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get attributeSchema objects</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -297,7 +297,7 @@
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>SchemaIdGuid</maml:name>
           <maml:description>
             <maml:para>Filter by schemaIDGuid</maml:para>
@@ -419,7 +419,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>SchemaIdGuid</maml:name>
         <maml:description>
           <maml:para>Filter by schemaIDGuid</maml:para>
@@ -469,7 +469,7 @@
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdAttributeSchema, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdAttributeSchema, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -484,9 +484,41 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Find-ZPkiAdAttributeSchema samaccountname
+
+DistinguishedName     : CN=ms-DS-Additional-Sam-Account-Name,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+ObjectGuid            : c2e25b99-4118-4dfc-aa69-585ec87138d4
+Name                  : ms-DS-Additional-Sam-Account-Name
+CommonName            : ms-DS-Additional-Sam-Account-Name
+LdapDisplayName       : msDS-AdditionalSamAccountName
+ObjectGuid            : c2e25b99-4118-4dfc-aa69-585ec87138d4
+SchemaIdGuid          : 975571df-a4d5-429a-9f59-cdc6581d91e6
+AttributeSecurityGuid : 00000000-0000-0000-0000-000000000000
+PropertySets          : {}
+IsSingleValued        : False
+OmSyntax              : 64
+OmObjectClass         :
+SystemFlags           : None
+SystemOnly            :
+AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)
+
+DistinguishedName     : CN=SAM-Account-Name,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+ObjectGuid            : b47e7255-a601-4144-8e92-d19a902636de
+Name                  : SAM-Account-Name
+CommonName            : SAM-Account-Name
+LdapDisplayName       : sAMAccountName
+ObjectGuid            : b47e7255-a601-4144-8e92-d19a902636de
+SchemaIdGuid          : 3e0abfd0-126a-11d0-a060-00aa006c33ed
+AttributeSecurityGuid : 59ba2f42-79a2-11d0-9020-00c04fc2d3cf
+PropertySets          : {CN=General-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz}
+IsSingleValued        : True
+OmSyntax              : 64
+OmObjectClass         :
+SystemFlags           : None
+SystemOnly            :
+AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Search for attributeSchema objects in the schema partition. Searches match on substring so "samaccountname" will match both "samaccountname" and "msDS-AdditionalSamAccountName".</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -498,7 +530,7 @@
       <command:verb>Find</command:verb>
       <command:noun>ZPkiAdClassSchema</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get attributeSchema objects</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -683,7 +715,7 @@
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>SchemaIdGuid</maml:name>
           <maml:description>
             <maml:para>Filter by schemaIDGuid</maml:para>
@@ -805,7 +837,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>SchemaIdGuid</maml:name>
         <maml:description>
           <maml:para>Filter by schemaIDGuid</maml:para>
@@ -855,7 +887,7 @@
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdClassSchema, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdClassSchema, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -870,9 +902,86 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Find-ZPkiAdClassSchema computer
+
+
+DistinguishedName         : CN=Computer,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+Name                      : Computer
+CommonName                : Computer
+ObjectGuid                : 7393af38-407c-4d95-9f99-802e5a8d4c8c
+RelativeDistinguishedName : CN=Computer
+SchemaIdGuid              : bf967a86-0de6-11d0-a285-00aa003049e2
+LdapDisplayName           : computer
+DefaultObjectCategory     : CN=Computer,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+RdnAttribute              : cn
+DefaultSecurityDescriptor : D:(A;;RPWPCRCCDCLCLORCWOWDSDDTSW;;;DA)(A;;RP...
+ObjectClassCategory       : Structural
+SystemFlags               : BaseSchemaObject
+SystemOnly                : False
+AuxiliaryClass            : {ipHost}
+MayContain                : {mslapsencrypteddsrmpasswordhistory, mslapsencrypteddsrmpassword, ...}
+MustContain               : {}
+SubclassOf                : CN=User,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+PossibleSuperiors         : {}
+SystemAuxiliaryClass      : {}
+SystemMayContain          : {msimaginghashalgorithm, msimagingthumbprinthash, msdsgenerationid, ...}
+SystemMustContain         : {}
+SystemPossibleSuperiors   : {container, organizationalUnit, domainDNS}
+
+DistinguishedName         : CN=ms-Exch-Computer-Policy,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+Name                      : ms-Exch-Computer-Policy
+CommonName                : ms-Exch-Computer-Policy
+ObjectGuid                : a5a9a67a-fcdc-4957-974c-bfa5eeb0e26a
+RelativeDistinguishedName : CN=ms-Exch-Computer-Policy
+SchemaIdGuid              : ed2c752c-a980-11d2-a9ff-00c04f8eedd8
+LdapDisplayName           : msExchComputerPolicy
+DefaultObjectCategory     : CN=ms-Exch-Computer-Policy,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+RdnAttribute              : cn
+DefaultSecurityDescriptor : D:S:
+ObjectClassCategory       : Structural
+SystemFlags               : None
+SystemOnly                : False
+AuxiliaryClass            : {msExchBaseClass}
+MayContain                : {msexchpolicylastappliedtime, msexchpolicyoptionlist, msexchpolicylockdown, ...}
+MustContain               : {}
+SubclassOf                : CN=Computer,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+PossibleSuperiors         : {container}
+SystemAuxiliaryClass      : {}
+SystemMayContain          : {}
+SystemMustContain         : {}
+SystemPossibleSuperiors   : {}</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Search for classSchema objects in the schema partition. Searches match on substring so "computer" will match both "computer" and "ms-Exch-Computer-Policy".</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "bf967aba-0de6-11d0-a285-00aa003049e2" | Find-ZPkiAdClassSchema
+
+DistinguishedName         : CN=User,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+Name                      : User
+CommonName                : User
+ObjectGuid                : 5dc6ff41-a901-4642-a51f-048f49b0491f
+RelativeDistinguishedName : CN=User
+SchemaIdGuid              : bf967aba-0de6-11d0-a285-00aa003049e2
+LdapDisplayName           : user
+DefaultObjectCategory     : CN=Person,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+RdnAttribute              : cn
+DefaultSecurityDescriptor : D:(A;;RPWPCRCCDCLCLORCW...
+ObjectClassCategory       : Structural
+SystemFlags               : BaseSchemaObject
+SystemOnly                : False
+AuxiliaryClass            : {msExchOmaUser, msExchIMRecipient, msExchCertificateInformation, msExchMultiMediaUser...}
+MayContain                : {msexchoriginatingforest, msexchimapowaurlprefixoverride, kmserver, ...}
+MustContain               : {}
+SubclassOf                : CN=Organizational-Person,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+PossibleSuperiors         : {msExchSystemObjectsContainer}
+SystemAuxiliaryClass      : {msDS-CloudExtensions, securityPrincipal, mailRecipient}
+SystemMayContain          : {msdskeycredentiallink, msdskeyprincipalbl, msdsauthnpolicysilomembersbl, ...}
+SystemMustContain         : {}
+SystemPossibleSuperiors   : {builtinDomain, organizationalUnit, domainDNS}</dev:code>
+        <dev:remarks>
+          <maml:para>Search in the schema partition for a classSchema object with SchemaIDGuid. Returns at most one object</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -884,11 +993,11 @@
       <command:verb>Find</command:verb>
       <command:noun>ZPkiAdControlAccessRight</command:noun>
       <maml:description>
-        <maml:para>{{ Fill in the Synopsis }}</maml:para>
+        <maml:para>Get ControlAccessRights registered in Active Directory</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{ Fill in the Description }}</maml:para>
+      <maml:para>ControlAccessRights are Extended Rights, Validated Writes, or Property Sets. Search for all or specify which type you need.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1076,7 +1185,7 @@
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>RightsGuid</maml:name>
           <maml:description>
             <maml:para>Filter by rightsGuid</maml:para>
@@ -1215,7 +1324,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>RightsGuid</maml:name>
         <maml:description>
           <maml:para>Filter by rightsGuid</maml:para>
@@ -1289,7 +1398,7 @@
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.ControlAccessRight, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1304,9 +1413,57 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Find-ZPkiAdControlAccessRight
+DistinguishedName : CN=Domain-Administer-Server,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : Domain-Administer-Server
+DisplayName       : Domain Administer Server
+ObjectGuid        : a35a59cd-8de9-4d69-bcb6-26ee3424dda9
+RightsGuid        : ab721a52-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {samServer}
+
+DistinguishedName : CN=User-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Change-Password
+DisplayName       : Change Password
+ObjectGuid        : c8d00f05-570f-4248-9985-c5f7d3c2c01b
+RightsGuid        : ab721a53-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {inetOrgPerson, msDS-ManagedServiceAccount, computer, user}
+
+DistinguishedName : CN=User-Force-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Force-Change-Password
+DisplayName       : Reset Password
+...</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Find all types of ControlAccessRights</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Find-ZPkiAdControlAccessRight -Type ExtendedRight
+
+DistinguishedName : CN=Domain-Administer-Server,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : Domain-Administer-Server
+DisplayName       : Domain Administer Server
+ObjectGuid        : a35a59cd-8de9-4d69-bcb6-26ee3424dda9
+RightsGuid        : ab721a52-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {samServer}
+
+DistinguishedName : CN=User-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Change-Password
+DisplayName       : Change Password
+ObjectGuid        : c8d00f05-570f-4248-9985-c5f7d3c2c01b
+RightsGuid        : ab721a53-1e2f-11d0-9819-00aa0040529b
+ValidAccesses     : 256
+AppliesTo         : {inetOrgPerson, msDS-ManagedServiceAccount, computer, user}
+
+DistinguishedName : CN=User-Force-Change-Password,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+CommonName        : User-Force-Change-Password
+DisplayName       : Reset Password
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Find Extended Rights</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1658,7 +1815,7 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1956,7 +2113,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdPropertyCollection, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdPropertyCollection, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -2323,7 +2480,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdUser, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdUser, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3155,7 +3312,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>xyz.zwks.pkilib.ad.AdPropertyCollection</maml:name>
+          <maml:name>xyz.zwks.pkilib.ad.AdDomainDns</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3934,6 +4091,728 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ZPkiAdObject</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ZPkiAdObject</command:noun>
+      <maml:description>
+        <maml:para>Get a specific AD object</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get an AD object identified by ObjectGuid or Distinguished Name.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdObject</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ByName</maml:name>
+          <maml:description>
+            <maml:para>Force name</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SearchBase</maml:name>
+          <maml:description>
+            <maml:para>Search in OU/container</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdObject</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+          <maml:name>DistinguishedName</maml:name>
+          <maml:description>
+            <maml:para>Distinguished Name</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SearchBase</maml:name>
+          <maml:description>
+            <maml:para>Search in OU/container</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdObject</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ObjectGuid</maml:name>
+          <maml:description>
+            <maml:para>Get by ObjectID</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+          <dev:type>
+            <maml:name>Guid</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SearchBase</maml:name>
+          <maml:description>
+            <maml:para>Search in OU/container</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ByName</maml:name>
+        <maml:description>
+          <maml:para>Force name</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <maml:name>DistinguishedName</maml:name>
+        <maml:description>
+          <maml:para>Distinguished Name</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Domain</maml:name>
+        <maml:description>
+          <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DomainController</maml:name>
+        <maml:description>
+          <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExtraVerbose</maml:name>
+        <maml:description>
+          <maml:para>Debug output</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ObjectGuid</maml:name>
+        <maml:description>
+          <maml:para>Get by ObjectID</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+        <dev:type>
+          <maml:name>Guid</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Properties</maml:name>
+        <maml:description>
+          <maml:para>Select properties to return</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ResolveSecurityIdentifiers</maml:name>
+        <maml:description>
+          <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Rpc</maml:name>
+        <maml:description>
+          <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SearchBase</maml:name>
+        <maml:description>
+          <maml:para>Search in OU/container</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UserDomain</maml:name>
+        <maml:description>
+          <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdObject, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiAdObject "CN=Just A User,OU=Employees,OU=Users,OU=OZWCORP,DC=zwks,DC=xyz"
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>Get User by distinguished name</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "CN=Just A User,OU=Employees,OU=Users,OU=OZWCORP,DC=zwks,DC=xyz" | Get-ZPkiAdObject
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>get User by distinguished name via pipeline input</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Find-ZPkiAdObject -ldapfilter "(samaccountname=justauser)" | Get-ZPkiAdObject
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>get User by distinguished name via pipeline input. You can pipe in an object with a DistinguishedName property</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiAdObject -ObjectGuid 914fa5fe-74cf-4230-84c0-caea93c37acd
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>get User by ObjectGuid</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-ZPkiAdRootDse</command:name>
       <command:verb>Get</command:verb>
       <command:noun>ZPkiAdRootDse</command:noun>
@@ -4643,7 +5522,7 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.adcs.ICertTemplate, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.adcs.CertificateTemplate, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -4857,6 +5736,822 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
         <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
         <dev:remarks>
           <maml:para>{{ Add example description here }}</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-ZPkiAdUser</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ZPkiAdUser</command:noun>
+      <maml:description>
+        <maml:para>Get a specific AD user account</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get an AD user account identified by ObjectGuid or Distinguished Name.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ByName</maml:name>
+          <maml:description>
+            <maml:para>Force name</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+          <maml:name>DistinguishedName</maml:name>
+          <maml:description>
+            <maml:para>Distinguished Name</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ObjectGuid</maml:name>
+          <maml:description>
+            <maml:para>Get by ObjectID</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+          <dev:type>
+            <maml:name>Guid</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DnsOnly</maml:name>
+          <maml:description>
+            <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Domain</maml:name>
+          <maml:description>
+            <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DomainController</maml:name>
+          <maml:description>
+            <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExtraVerbose</maml:name>
+          <maml:description>
+            <maml:para>Debug output</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:description>
+            <maml:para>Select properties to return</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResolveSecurityIdentifiers</maml:name>
+          <maml:description>
+            <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Rpc</maml:name>
+          <maml:description>
+            <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SamAccountName</maml:name>
+          <maml:description>
+            <maml:para>Samaccountname</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SiteName</maml:name>
+          <maml:description>
+            <maml:para>Force use of the specified Active Directory site.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserDomain</maml:name>
+          <maml:description>
+            <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ByName</maml:name>
+        <maml:description>
+          <maml:para>Force name</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <maml:name>DistinguishedName</maml:name>
+        <maml:description>
+          <maml:para>Distinguished Name</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DnsOnly</maml:name>
+        <maml:description>
+          <maml:para>Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Domain</maml:name>
+        <maml:description>
+          <maml:para>Connect to specified domain instead of current user/local computer's domain.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DomainController</maml:name>
+        <maml:description>
+          <maml:para>Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExtraVerbose</maml:name>
+        <maml:description>
+          <maml:para>Debug output</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ObjectGuid</maml:name>
+        <maml:description>
+          <maml:para>Get by ObjectID</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+        <dev:type>
+          <maml:name>Guid</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Properties</maml:name>
+        <maml:description>
+          <maml:para>Select properties to return</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ResolveSecurityIdentifiers</maml:name>
+        <maml:description>
+          <maml:para>Resolve SIDs, GUIDs and ExtendedRights when returning object security</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Rpc</maml:name>
+        <maml:description>
+          <maml:para>Use RPC interface for querying. If false/not set, use ADWS (default)</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SamAccountName</maml:name>
+        <maml:description>
+          <maml:para>Samaccountname</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SiteName</maml:name>
+        <maml:description>
+          <maml:para>Force use of the specified Active Directory site.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UserDomain</maml:name>
+        <maml:description>
+          <maml:para>If not set/false, connect to computer's domain. If true, connect to current user's domain.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdUser, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiAdUser "CN=Just A User,OU=Employees,OU=Users,OU=OZWCORP,DC=zwks,DC=xyz"
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>Get User by distinguished name</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "CN=Just A User,OU=Employees,OU=Users,OU=OZWCORP,DC=zwks,DC=xyz" | Get-ZPkiAdUser
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>get User by distinguished name via pipeline input</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Find-ZPkiAdObject -ldapfilter "(samaccountname=justauser)" | Get-ZPkiAdUser
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>get User by distinguished name via pipeline input. You can pipe in an object with a DistinguishedName property</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ZPkiAdUser -ObjectGuid 914fa5fe-74cf-4230-84c0-caea93c37acd
+
+DistinguishedName  : CN=Just A User,OU=Employees,OU=Users,OU=ZWCORP,DC=zwks,DC=xyz
+UserPrincipalName  : just.a.user@zampleworks.com
+Mail               : just.a.user@zampleworks.com
+DisplayName        : Just A User
+Name               : Just A User
+SamAccountName     : justauser
+CommonName         : Just A User
+UserAccountControl : Normal_Acct
+PwdLastSet         : 1/18/2021 10:43:59 AM
+Sid                : S-1-5-21-169007554-561555583-3465870065-1516
+ObjectGuid         : 914fa5fe-74cf-4230-84c0-caea93c37acd
+WhenCreated        : 4/8/2020 12:09:07 PM
+WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
+        <dev:remarks>
+          <maml:para>get User by ObjectGuid</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

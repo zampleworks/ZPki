@@ -21,13 +21,13 @@ Copy certificate and CRL files from ADCS to online repository directory
 {{ Fill in the Synopsis }}
 
 ### [Find-ZPkiAdAttributeSchema](Find-ZPkiAdAttributeSchema.md)
-{{ Fill in the Synopsis }}
+Get attributeSchema objects
 
 ### [Find-ZPkiAdClassSchema](Find-ZPkiAdClassSchema.md)
-{{ Fill in the Synopsis }}
+Get attributeSchema objects
 
 ### [Find-ZPkiAdControlAccessRight](Find-ZPkiAdControlAccessRight.md)
-{{ Fill in the Synopsis }}
+Get ControlAccessRights registered in Active Directory
 
 ### [Find-ZPkiAdObject](Find-ZPkiAdObject.md)
 Search AD for objects.
@@ -65,6 +65,9 @@ Get linked Issuance Policies linked to Authentication Mechanism Assurance (AMA) 
 ### [Get-ZPkiAdMsSchema](Get-ZPkiAdMsSchema.md)
 Get registered schema and object versions for Microsoft services such as ADDS, Exchange, and SfB.
 
+### [Get-ZPkiAdObject](Get-ZPkiAdObject.md)
+Get a specific AD object
+
 ### [Get-ZPkiAdRootDse](Get-ZPkiAdRootDse.md)
 Get RootDSE for Active Directory. Use parameters to control which domain to connect to.
 
@@ -73,6 +76,9 @@ Get certificate templates from AD.
 
 ### [Get-ZPkiAdTemplateRiskScore](Get-ZPkiAdTemplateRiskScore.md)
 TODO: Not implemented yet!
+
+### [Get-ZPkiAdUser](Get-ZPkiAdUser.md)
+Get a specific AD user account
 
 ### [Get-ZPkiAsn](Get-ZPkiAsn.md)
 Parse DER encoded ASN.1 data

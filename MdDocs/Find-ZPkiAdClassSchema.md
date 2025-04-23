@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-ZPkiAdClassSchema
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get attributeSchema objects
 
 ## SYNTAX
 
@@ -33,10 +33,87 @@ Find-ZPkiAdClassSchema [-SchemaIdGuid <Guid>] [-Rpc] [-Domain <String>] [-Domain
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Find-ZPkiAdClassSchema computer
+
+
+DistinguishedName         : CN=Computer,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+Name                      : Computer
+CommonName                : Computer
+ObjectGuid                : 7393af38-407c-4d95-9f99-802e5a8d4c8c
+RelativeDistinguishedName : CN=Computer
+SchemaIdGuid              : bf967a86-0de6-11d0-a285-00aa003049e2
+LdapDisplayName           : computer
+DefaultObjectCategory     : CN=Computer,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+RdnAttribute              : cn
+DefaultSecurityDescriptor : D:(A;;RPWPCRCCDCLCLORCWOWDSDDTSW;;;DA)(A;;RP...
+ObjectClassCategory       : Structural
+SystemFlags               : BaseSchemaObject
+SystemOnly                : False
+AuxiliaryClass            : {ipHost}
+MayContain                : {mslapsencrypteddsrmpasswordhistory, mslapsencrypteddsrmpassword, ...}
+MustContain               : {}
+SubclassOf                : CN=User,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+PossibleSuperiors         : {}
+SystemAuxiliaryClass      : {}
+SystemMayContain          : {msimaginghashalgorithm, msimagingthumbprinthash, msdsgenerationid, ...}
+SystemMustContain         : {}
+SystemPossibleSuperiors   : {container, organizationalUnit, domainDNS}
+
+DistinguishedName         : CN=ms-Exch-Computer-Policy,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+Name                      : ms-Exch-Computer-Policy
+CommonName                : ms-Exch-Computer-Policy
+ObjectGuid                : a5a9a67a-fcdc-4957-974c-bfa5eeb0e26a
+RelativeDistinguishedName : CN=ms-Exch-Computer-Policy
+SchemaIdGuid              : ed2c752c-a980-11d2-a9ff-00c04f8eedd8
+LdapDisplayName           : msExchComputerPolicy
+DefaultObjectCategory     : CN=ms-Exch-Computer-Policy,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+RdnAttribute              : cn
+DefaultSecurityDescriptor : D:S:
+ObjectClassCategory       : Structural
+SystemFlags               : None
+SystemOnly                : False
+AuxiliaryClass            : {msExchBaseClass}
+MayContain                : {msexchpolicylastappliedtime, msexchpolicyoptionlist, msexchpolicylockdown, ...}
+MustContain               : {}
+SubclassOf                : CN=Computer,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+PossibleSuperiors         : {container}
+SystemAuxiliaryClass      : {}
+SystemMayContain          : {}
+SystemMustContain         : {}
+SystemPossibleSuperiors   : {}
 ```
 
-{{ Add example description here }}
+Search for classSchema objects in the schema partition. Searches match on substring so "computer" will match both "computer" and "ms-Exch-Computer-Policy".
+
+### Example 2
+```powershell
+PS C:\> "bf967aba-0de6-11d0-a285-00aa003049e2" | Find-ZPkiAdClassSchema
+
+DistinguishedName         : CN=User,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+Name                      : User
+CommonName                : User
+ObjectGuid                : 5dc6ff41-a901-4642-a51f-048f49b0491f
+RelativeDistinguishedName : CN=User
+SchemaIdGuid              : bf967aba-0de6-11d0-a285-00aa003049e2
+LdapDisplayName           : user
+DefaultObjectCategory     : CN=Person,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+RdnAttribute              : cn
+DefaultSecurityDescriptor : D:(A;;RPWPCRCCDCLCLORCW...
+ObjectClassCategory       : Structural
+SystemFlags               : BaseSchemaObject
+SystemOnly                : False
+AuxiliaryClass            : {msExchOmaUser, msExchIMRecipient, msExchCertificateInformation, msExchMultiMediaUser...}
+MayContain                : {msexchoriginatingforest, msexchimapowaurlprefixoverride, kmserver, ...}
+MustContain               : {}
+SubclassOf                : CN=Organizational-Person,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+PossibleSuperiors         : {msExchSystemObjectsContainer}
+SystemAuxiliaryClass      : {msDS-CloudExtensions, securityPrincipal, mailRecipient}
+SystemMayContain          : {msdskeycredentiallink, msdskeyprincipalbl, msdsauthnpolicysilomembersbl, ...}
+SystemMustContain         : {}
+SystemPossibleSuperiors   : {builtinDomain, organizationalUnit, domainDNS}
+```
+
+Search in the schema partition for a classSchema object with SchemaIDGuid. Returns at most one object
 
 ## PARAMETERS
 
@@ -162,7 +239,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -206,7 +283,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdClassSchema, xyz.zwks.pkilib, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdClassSchema, xyz.zwks.pkilib, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 
