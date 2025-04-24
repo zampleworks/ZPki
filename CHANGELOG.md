@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.0] 2025-04-25
+- Fixed throwing bug when finding inaccessible objects in AD search
+- Added Test-ZPkiAdObjectAclSecurity cmdlet
+
 ## [v0.2.1] 2025-04-23
 - Updates to Get-ZPkiAdDomain
 - Added ValueFromPipelineByPropertyName to Find-ZPkiAdControlAccessRight, Find-ZPkiAdAttributeSchema, and Find-ZPkiAdClassSchema

@@ -306,6 +306,34 @@
 		</Members>
 	</Type>
 	<Type>
+		<Name>xyz.zwks.pkilib.security.DelegationDescriptor</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>Category</Name>
+							<Name>DelegationObject</Name>
+							<Name>DelegationSubject</Name>
+							<Name>ObjectType</Name>
+							<Name>InheritedObjectType</Name>
+							<Name>ClassSchema</Name>
+							<Name>AttributeSchema</Name>
+							<Name>ControlAccessRight</Name>
+							
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapDisplayName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
 		<Name>xyz.zwks.pkilib.adcs.AdcsDbRow</Name>
 		<Members>
 			<MemberSet>

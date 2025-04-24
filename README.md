@@ -339,6 +339,82 @@ PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, ms
                      msPKIRoamingTimeStamp}
 ```
 
+### Analyze ACLs for security problems
+The module has a cmdlet for analyzing ACEs and finding potential weaknesses and paths for privilege escalation. There's plenty of scripts out there that pretty-print ACLs on objects, but this module goes a step beyond and actually tries to tell you what the ACE means.
+
+```
+# Retrieve an AD object with questionable permissions: 
+PS:> $Ou = Find-ZPkiAdObject -LdapFilter "(ou=testlvl2-2)" -ResolveSecurityIdentifiers
+
+# You can see the raw ACL if you wish via the property $Ou.Access.Acl:
+PS:> $Ou.Access.Acl
+...
+ActiveDirectoryRights : GenericAll
+AccessControlType     : Allow
+ObjectType            :
+InheritedObjectType   :
+IdentityReference     : OZWCORP\Domain Admins
+InheritanceType       : All
+IsInherited           : False
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : None
+ObjectFlags           : None
+...
+ActiveDirectoryRights : ReadProperty, WriteProperty
+AccessControlType     : Allow
+ObjectType            :
+InheritedObjectType   :
+IdentityReference     : OZWCORP\Role AD Admin
+InheritanceType       : None
+IsInherited           : False
+InheritanceFlags      : None
+PropagationFlags      : None
+ObjectFlags           : None
+...
+ActiveDirectoryRights : ReadProperty, WriteProperty
+AccessControlType     : Allow
+ObjectType            : Self-Membership
+InheritedObjectType   : group
+IdentityReference     : OZWCORP\william0
+InheritanceType       : Descendents
+IsInherited           : False
+InheritanceFlags      : ContainerInherit
+PropagationFlags      : InheritOnly
+ObjectFlags           : ObjectAce, InheritedAce
+...
+```
+
+If we run Test-ZPkiAdObjectAclSecurity on this object we'll get a helpful result telling us **why** these permissions are bad. 'Generic All' and 'WriteProperty' are kinda self explanatory, and delegated to Domain Admins and Role AD Admin - they probably should have high permissions. But the last one? Let's see:
+
+```
+PS:> $Ou | Test-ZPkiAdObjectAclSecurity
+...
+Category            : GenericAll
+DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=op,DC=zwks,DC=xyz
+DelegationSubject   : OZWCORP\Domain Admins
+...
+Category            : GpoLinkWrite, GpoInheritanceWrite, WriteAllProperties
+DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=op,DC=zwks,DC=xyz
+DelegationSubject   : OZWCORP\Role AD Admin
+...
+Category            : GroupMemberWrite
+DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=op,DC=zwks,DC=xyz
+DelegationSubject   : OZWCORP\william0
+ObjectType          :
+InheritedObjectType :
+ClassSchema         : CN=Group,CN=Schema,CN=Configuration,DC=op,DC=zwks,DC=xyz
+AttributeSchema     :
+ControlAccessRight  : CN=Self-Membership,CN=Extended-Rights,CN=Configuration,DC=op,DC=zwks,DC=xyz
+...
+```
+
+The first one is simple - GenericAll is the same as when you set "Full Control" in the Security dialog in ADUC.
+
+The second entry has both WriteAllProperties, but also GpoLinkWrite and GpoInheritanceWrite. These two rights are specific to OUs, domains, and site objects and the cmdlet adds them to make it clear exactly what it means from a security perspective when someone has WriteAllProperties permission on an OU.
+
+The last one is more interesting - if you look in the raw ACE entry above, it is not clear what 'Self-Membership' means. According to Microsoft's documentation (https://learn.microsoft.com/en-us/windows/win32/adschema/r-self-membership) it enables someone to add/remove themselves as members from a group - this is not correct however. With the delegation above, william0 can add/remove anyone from groups in the OU!
+
+
 ### Find config strings for ADCS instances in the forest
 ```
 PS:> Get-ZPkiAdCasConfigString
