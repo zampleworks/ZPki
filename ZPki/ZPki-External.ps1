@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.3.0.0
+.VERSION 0.3.1.0
 
 .GUID d974d680-897c-4998-b628-df6b889a9f98
 
@@ -28,6 +28,8 @@
 
 
 #> 
+
+
 
 
 
@@ -1500,8 +1502,8 @@ Function Submit-ZPkiRequest {
 <#
     .SYNOPSIS
     Generate random password containing alphanumeric characters and the following set: !@#$%^&*()_-+=[{]};:<>|./?
-
     .DESCRIPTION
+    This cmdlet does not work on .net core-based versions of powershell! 
     Author anders !a!T! runesson D"o"T info
 
     .ExternalHelp PsZPki-help.xml
@@ -1519,7 +1521,7 @@ Function New-ZPkiRandomPassword {
     )
 
     Add-Type -AssemblyName 'System.Web'
-    $password = [System.Web.Security.Membership]::GeneratePassword($Length,$NumberOfAlphaNumericCharacters)
+    $password = [System.Web.Security.Membership]::GeneratePassword($Length,$NumberOfNonAlphaNumChars)
     if ($ConvertToSecureString.IsPresent -and $ConvertToSecureString) {
         ConvertTo-SecureString -String $password -AsPlainText -Force
     } else {

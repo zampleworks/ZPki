@@ -9,6 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 Generate random password containing alphanumeric characters and the following set: !@#$%^&*()_-+=\[{\]};:\<\>|./?
+This cmdlet does not work on .net core-based versions of powershell! 
 
 ## SYNTAX
 
@@ -25,10 +26,19 @@ runesson D"Ö"T info
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-ZPkiRandomPassword -Length 32
+!PTy&J/OdKSx>T3W+*AMZ:iz2uwOJC6|
 ```
 
-{{ Add example description here }}
+Generate a plain text random password, 32 characters long
+
+### Example 2
+```powershell
+PS C:\> New-ZPkiRandomPassword -Length 32 -ConvertToSecureString
+System.Security.SecureString
+```
+
+Generate a plain text random password, 32 characters long and return it as a SecureString object
 
 ## PARAMETERS
 

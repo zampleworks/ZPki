@@ -135,6 +135,7 @@ This cmdlet is not finished, do not use..
 
 ### [New-ZPkiRandomPassword](New-ZPkiRandomPassword.md)
 Generate random password containing alphanumeric characters and the following set: !@#$%^&*()_-+=\[{\]};:\<\>|./?
+This cmdlet does not work on .net core-based versions of powershell! 
 
 ### [New-ZPkiRepoCssFile](New-ZPkiRepoCssFile.md)
 Generate a new default CSS file for use with HTML repository
@@ -170,6 +171,9 @@ This cmdlet is not finished.
 Do not use.
 
 ### [Test-ZPkiAdcsIsOnline](Test-ZPkiAdcsIsOnline.md)
+{{ Fill in the Synopsis }}
+
+### [Test-ZPkiAdObjectAclSecurity](Test-ZPkiAdObjectAclSecurity.md)
 {{ Fill in the Synopsis }}
 
 ### [Test-ZPkiIsAdmin](Test-ZPkiIsAdmin.md)

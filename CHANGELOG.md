@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.1] 2025-04-25
+- Improved handling of ACEs with multiple ActiveDirectoryRights values
+- Bugfix: Fixed broken ADWS querying in domains without Exchange schema extensions
+
 ## [v0.3.0] 2025-04-25
 - Fixed throwing bug when finding inaccessible objects in AD search
 - Added Test-ZPkiAdObjectAclSecurity cmdlet
