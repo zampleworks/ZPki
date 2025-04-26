@@ -15,7 +15,8 @@ Search AD for objects.
 ```
 Find-ZPkiAdObject -LdapFilter <String> [-SearchBase <String>] [-SearchScope <String>] [-Properties <String[]>]
  [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+ [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+ [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,6 +35,38 @@ PS C:\> Find-ZPkiAdObject -SearchBase $RootDse.defaultnamingcontext -SearchScope
 First, get the RootDSE and use the information to search in the default domain partition for all user objects.
 
 ## PARAMETERS
+
+### -CertRevocationMode
+Check certificate for revocation.
+
+```yaml
+Type: X509RevocationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: NoCheck, Online, Offline
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CertValidationMode
+Validate trust to cert chain, only leaf, or chain + leaf.
+
+```yaml
+Type: X509CertificateValidationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: None, PeerTrust, ChainTrust, PeerOrChainTrust, Custom
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Credential
 Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.

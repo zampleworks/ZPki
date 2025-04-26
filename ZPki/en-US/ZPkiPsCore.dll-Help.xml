@@ -134,6 +134,42 @@
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -228,6 +264,42 @@
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdAttributeSchema</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
@@ -335,6 +407,30 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -552,6 +648,42 @@ AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)</dev:code>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -646,6 +778,42 @@ AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdClassSchema</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
@@ -753,6 +921,30 @@ AttributeSyntax       : String(Unicode); Unicode string (2.5.5.12)</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -1015,6 +1207,42 @@ SystemPossibleSuperiors   : {builtinDomain, organizationalUnit, domainDNS}</dev:
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -1127,6 +1355,42 @@ SystemPossibleSuperiors   : {builtinDomain, organizationalUnit, domainDNS}</dev:
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdControlAccessRight</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
@@ -1252,6 +1516,30 @@ SystemPossibleSuperiors   : {builtinDomain, organizationalUnit, domainDNS}</dev:
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -1487,6 +1775,42 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdObject</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -1645,6 +1969,30 @@ This cmdlet will attempt to print attributes in human-readable form where the MS
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -1856,6 +2204,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Find-ZPkiAdOid</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -1979,6 +2363,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -2164,6 +2572,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -2310,6 +2754,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -2740,6 +3208,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdCasConfigString</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -2834,6 +3338,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -3085,6 +3613,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdDomain</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -3190,6 +3754,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -3352,6 +3940,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdForest</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -3446,6 +4070,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -3595,6 +4243,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdForestOid</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -3689,6 +4373,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -3838,6 +4546,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdMsSchema</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -3944,6 +4688,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -4116,6 +4884,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -4258,6 +5062,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -4387,6 +5227,42 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdObject</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
@@ -4540,6 +5416,30 @@ Can filter by type (template, application policy, or issuance policy) and/or by 
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
@@ -4828,6 +5728,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdRootDse</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -4922,6 +5858,30 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -5071,6 +6031,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdTemplate</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -5212,6 +6208,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdTemplate</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -5352,6 +6384,30 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -5768,6 +6824,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -5898,6 +6990,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -6015,6 +7143,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
@@ -6145,6 +7309,42 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ZPkiAdUser</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
@@ -6286,6 +7486,30 @@ WhenChanged        : 4/15/2025 2:25:37 PM</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
@@ -7104,6 +8328,42 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -7229,6 +8489,42 @@ This parser does not currently interpret any context specific tags. Only Univers
           <command:parameterValue required="true" variableLength="false">Byte[]</command:parameterValue>
           <dev:type>
             <maml:name>Byte[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -7364,6 +8660,42 @@ This parser does not currently interpret any context specific tags. Only Univers
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -7489,6 +8821,42 @@ This parser does not currently interpret any context specific tags. Only Univers
           <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
           <dev:type>
             <maml:name>Uri</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -7631,6 +8999,30 @@ This parser does not currently interpret any context specific tags. Only Univers
         <command:parameterValue required="true" variableLength="false">Byte[]</command:parameterValue>
         <dev:type>
           <maml:name>Byte[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -9272,6 +10664,42 @@ You can query the request table, CRL table, or extensions table.</maml:para>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertRevocationMode</maml:name>
+          <maml:description>
+            <maml:para>Check certificate for revocation.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">NoCheck</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Online</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Offline</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509RevocationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CertValidationMode</maml:name>
+          <maml:description>
+            <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PeerOrChainTrust</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Custom</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+          <dev:type>
+            <maml:name>X509CertificateValidationMode</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
             <maml:para>Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.</maml:para>
@@ -9366,6 +10794,30 @@ You can query the request table, CRL table, or extensions table.</maml:para>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertRevocationMode</maml:name>
+        <maml:description>
+          <maml:para>Check certificate for revocation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509RevocationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509RevocationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CertValidationMode</maml:name>
+        <maml:description>
+          <maml:para>Validate trust to cert chain, only leaf, or chain + leaf.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">X509CertificateValidationMode</command:parameterValue>
+        <dev:type>
+          <maml:name>X509CertificateValidationMode</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>

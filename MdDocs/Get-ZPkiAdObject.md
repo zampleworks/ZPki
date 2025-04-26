@@ -16,21 +16,24 @@ Get a specific AD object
 ```
 Get-ZPkiAdObject [[-DistinguishedName] <String>] [-SearchBase <String>] [-Properties <String[]>]
  [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+ [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+ [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### GetByObjectGuid
 ```
 Get-ZPkiAdObject [-ObjectGuid <Guid>] [-SearchBase <String>] [-Properties <String[]>]
  [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+ [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+ [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ### GetByName
 ```
 Get-ZPkiAdObject [-SearchBase <String>] [-ByName] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc]
  [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
- [-Credential <PSCredential>] [-ExtraVerbose] [<CommonParameters>]
+ [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+ [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -131,6 +134,38 @@ Force name
 Type: Switch
 Parameter Sets: GetByName
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CertRevocationMode
+Check certificate for revocation.
+
+```yaml
+Type: X509RevocationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: NoCheck, Online, Offline
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CertValidationMode
+Validate trust to cert chain, only leaf, or chain + leaf.
+
+```yaml
+Type: X509CertificateValidationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: None, PeerTrust, ChainTrust, PeerOrChainTrust, Custom
 
 Required: False
 Position: Named

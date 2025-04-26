@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.3.2] 2025-04-25
+- Bugfix: More missing exchange attribute bugs
+- Connections cross forests work now with both ADWS and RPC
+- RPC is much faster and should not stall 
+- Added switches to set certificate trust validation and revocation checking for ADWS.
+
 ## [v0.3.1] 2025-04-25
 - Improved handling of ACEs with multiple ActiveDirectoryRights values
 - Bugfix: Fixed broken ADWS querying in domains without Exchange schema extensions

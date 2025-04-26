@@ -414,6 +414,55 @@ The second entry has both WriteAllProperties, but also GpoLinkWrite and GpoInher
 
 The last one is more interesting - if you look in the raw ACE entry above, it is not clear what 'Self-Membership' means. According to Microsoft's documentation (https://learn.microsoft.com/en-us/windows/win32/adschema/r-self-membership) it enables someone to add/remove themselves as members from a group - this is not correct however. With the delegation above, william0 can add/remove anyone from groups in the OU!
 
+### Cross-forest queries and explicit credentials
+Querying another forest without a trust is supported using the -Credentials parameter. With the Credentials parameter you can also query the local domain with another user account than the logged in account (which is the default).  
+In the example below, the command is run logged on to a computer and with an account in a different forest than mydomain.zwks.xyz, with no trusts between them.
+
+```
+PS:> $cred = New-Object System.Management.Automation.PSCredential("wendy.kahn@mydomain.zwks.xyz", (ConvertTo-SecureString "MyFavouritePassword" -AsPlaintext -Force))
+PS:> Find-ZPkiAdUser wendy0 -Domain mydomain.zwks.xyz -Credential $cred
+
+DistinguishedName  : CN=Wendy Beth Kahn,OU=Employees,OU=Users,OU=mydomain,DC=mydomain,DC=zwks,DC=xyz
+UserPrincipalName  : Wendy.Kahn@mydomain.zwks.xyz
+Mail               : Wendy.Kahn@zampleworks.com
+DisplayName        : Wendy Beth Kahn
+Name               : Wendy Beth Kahn
+SamAccountName     : wendy0
+CommonName         : Wendy Beth Kahn
+UserAccountControl : Normal_Acct
+PwdLastSet         : 4/26/2025 3:27:12 AM
+Sid                : S-1-5-21-2918238891-334350930-1642106308-1481
+ObjectGuid         : cd58d8c1-7463-4b5c-ad88-e4bd14306294
+WhenCreated        : 1/27/2025 11:02:02 AM
+WhenChanged        : 4/26/2025 3:30:03 AM
+```
+
+### Cert validation (ADWS)
+The default behaviour for ZPki is more strict than the ActiveDirectory module. It will not run queries without TLS, and the default is to validate both the trust chain against the local machine trust store, and to check revocation status.  
+When connecting to different forests you may not trust the certificates from the other forests, and you may not be able to check revocation (if the remote forest only uses LDAP CDP, for example). In these cases you can change validation settings.
+
+Valid options for CertRevocationMode are: NoCheck, Online, Offline
+
+Valid options for CertValidationMode are: None, PeerTrust, ChainTrust, PeerOrChainTrust
+
+```
+PS:> $cred = New-Object System.Management.Automation.PSCredential("wendy.kahn@mydomain.zwks.xyz", (ConvertTo-SecureString "MyFavouritePassword" -AsPlaintext -Force))
+PS:> Find-ZPkiAdUser wendy0 -Domain mydomain.zwks.xyz -Credential $cred -CertRevocationMode NoCheck -CertValidationMode None
+
+DistinguishedName  : CN=Wendy Beth Kahn,OU=Employees,OU=Users,OU=mydomain,DC=mydomain,DC=zwks,DC=xyz
+UserPrincipalName  : Wendy.Kahn@mydomain.zwks.xyz
+Mail               : Wendy.Kahn@zampleworks.com
+DisplayName        : Wendy Beth Kahn
+Name               : Wendy Beth Kahn
+SamAccountName     : wendy0
+CommonName         : Wendy Beth Kahn
+UserAccountControl : Normal_Acct
+PwdLastSet         : 4/26/2025 3:27:12 AM
+Sid                : S-1-5-21-2918238891-334350930-1642106308-1481
+ObjectGuid         : cd58d8c1-7463-4b5c-ad88-e4bd14306294
+WhenCreated        : 1/27/2025 11:02:02 AM
+WhenChanged        : 4/26/2025 3:30:03 AM
+```
 
 ### Find config strings for ADCS instances in the forest
 ```

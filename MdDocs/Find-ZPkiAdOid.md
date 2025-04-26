@@ -14,8 +14,9 @@ Find OID registrations in AD. Retrieve all OIDs, or filter by type and/or name.
 
 ```
 Find-ZPkiAdOid [-Name <String>] [-Type <String>] [-Rpc] [-Domain <String>] [-DomainController <String>]
- [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-ExtraVerbose]
- [<CommonParameters>]
+ [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-CertValidationMode <X509CertificateValidationMode>] [-CertRevocationMode <X509RevocationMode>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,6 +33,38 @@ PS C:\> Find-ZPkiAdOid
 List all OID objects in configuration partition
 
 ## PARAMETERS
+
+### -CertRevocationMode
+Check certificate for revocation.
+
+```yaml
+Type: X509RevocationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: NoCheck, Online, Offline
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CertValidationMode
+Validate trust to cert chain, only leaf, or chain + leaf.
+
+```yaml
+Type: X509CertificateValidationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: None, PeerTrust, ChainTrust, PeerOrChainTrust, Custom
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Credential
 Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.

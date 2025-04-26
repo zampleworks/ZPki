@@ -16,6 +16,7 @@ Get ControlAccessRights registered in Active Directory
 ```
 Find-ZPkiAdControlAccessRight [[-Name] <String>] [-Type <ControlAccessRightsType>] [-Rpc] [-Domain <String>]
  [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-CertValidationMode <X509CertificateValidationMode>] [-CertRevocationMode <X509RevocationMode>]
  [-ExtraVerbose] [<CommonParameters>]
 ```
 
@@ -23,6 +24,7 @@ Find-ZPkiAdControlAccessRight [[-Name] <String>] [-Type <ControlAccessRightsType
 ```
 Find-ZPkiAdControlAccessRight [-Type <ControlAccessRightsType>] [-RightsGuid <Guid>] [-Rpc] [-Domain <String>]
  [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-CertValidationMode <X509CertificateValidationMode>] [-CertRevocationMode <X509RevocationMode>]
  [-ExtraVerbose] [<CommonParameters>]
 ```
 
@@ -87,6 +89,38 @@ DisplayName       : Reset Password
 Find Extended Rights
 
 ## PARAMETERS
+
+### -CertRevocationMode
+Check certificate for revocation.
+
+```yaml
+Type: X509RevocationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: NoCheck, Online, Offline
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CertValidationMode
+Validate trust to cert chain, only leaf, or chain + leaf.
+
+```yaml
+Type: X509CertificateValidationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: None, PeerTrust, ChainTrust, PeerOrChainTrust, Custom
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Credential
 Credential for connecting.
