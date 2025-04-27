@@ -1,11 +1,12 @@
 # ZPki
-A collection of utilities for managing PKI and certificates. 
+A collection of utilities for managing Active Directory Domain Services (ADDS) and Active Directory Certificate Services (ADCS).  
 Currently included is a powershell module and work is ongoing 
 on a GUI client to make cert management less painful. 
 
-The project also contains sample scripts for ADCS deployment and 
-configuration.
+The project also contains sample scripts for ADCS deployment and configuration.
 
+Changelog: https://github.com/zampleworks/ZPki/blob/main/CHANGELOG.md  
+Known issues: [known what? no no, everything is perfect](#known-issues)
 ## Project structure
 
 ### Zamples - AdcsDeployment
@@ -13,8 +14,7 @@ Scripts for installation and configuration of ADCS. These scripts are intended a
 
 ### ZPki
 PS backend module. Mixed binary and script module. Includes functionality for  
-querying and managing ADCS and AD, and ADCS deployment. AD support is focused 
-toward ADCS as of yet but has some nifty cmdlets for AD querying.
+querying and managing ADCS and AD, and ADCS deployment. 
 
 #### Installing PS module
 Preferably, install the ZPki module from PSGallery instead of downloading it from Github:
@@ -24,6 +24,8 @@ PS:> Register-PSRepository -Default
 PS:> Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 PS:> Install-Module -Name ZPki
 ```
+
+If you have an old version installed you may need to uninstall it first, and then install the latest version due to a change in the version numbering.
 
 To install this module you need PowerShell 5.1 or newer: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
 
@@ -101,7 +103,7 @@ Tom M Vande Velde     AccountDisable, Normal_Acct
 Sandra Reátegui Alayo AccountDisable, Normal_Acct
 ```
 
-
+### General stuff about cmdlets
 There are many common parameters among the cmdlets, mostly regarding connectivity
 to Active Directory or specifying an ADCS instance. They are mostly self explanatory,
 but a couple deserve explanation:
@@ -109,6 +111,8 @@ but a couple deserve explanation:
 * -Rpc: Query AD via ADSI interface instead of ADWS
 * -DnsOnly: Does not attempt to use local Windows APIs to determine domain services. May work better when connecting to domains other that user/computers own domain.
 * -ResolveSecurityIdentifiers: Include object ACL in output, and attempt to resolve all identifiers - IdentityReference, ObjectType, and InheritedObjectType. These fields will have related objects populated with the relevant data - classSchema, attributeSchema, and controlAccessRights objects. This is read from Active Directory when requested, and may take a moment to read. Data is cached and will be preserved between invocations of different cmdlets, but if you exit the powershell process the cache will be emptied.
+* -CertValidationMode: { None | PeerTrust | ChainTrust | PeerOrChainTrust }: Change validation for domain controller's cert. Used when connecting to ADWS, in cases when your local machine does not trust the DC's certificate. 
+* -CertRevocationMode {NoCheck | Online | Offline}: Enable or disable revocation checking of DC's certificate. 
 
 ### Access Control Lists (ACL) output
 You can include an objects AD ACL by requesting the nTSecurityDescriptor attribute as part of the returned properties. The ACL will be in $OutputObject.Access.Acl:
@@ -546,3 +550,26 @@ RequestID CommonName         Request_RawRequest
         2 SRV01A.ad.zwks.xyz MIIGUgYJKoZIhvcNAQcCoIIGQzC...
 
 ```
+
+## Known issues
+
+### Cross-forest SIDs
+When querying AD cross forests, SID's will not be translated. This will be improved at some point.
+
+### Logging bugs
+Logging code is buggy: You can't use -ExtraVerbose in the pipeline. If you need the debugging output, the workaround is to save the results in variables, and call the cmdlet without piping
+
+This code will cause an error:
+```
+PS:> Find-ZPkiAdUser wendy0 -ResolveSecurityIdentifiers | Test-ZPkiAdObjectAclSecurity -Verbose -ExtraVerbose
+...
+Find-ZPkiAdUser : The WriteObject and WriteError methods cannot be called from outside the overrides of the BeginProcessing, ...  
+...
+
+# Workaround: 
+PS:> $adObject = Find-ZPkiAdUser wendy0 -ResolveSecurityIdentifiers
+PS:> Test-ZPkiAdObjectAclSecurity $adObject -Verbose -ExtraVerbose
+```
+
+### ADWS querying may still depend on ADSI in some cases
+SID resolution is currently done with native Windows API, and may use the ADSI API under the hood. I may improve this at some point if it becomes necessary.
