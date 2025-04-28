@@ -88,6 +88,39 @@
         </Members>
     </Type>
 	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdGroup</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>Samaccountname</Name>
+							<Name>DisplayName</Name>
+							<Name>Name</Name>
+							<Name>CommonName</Name>
+							<Name>Mail</Name>
+							<Name>GroupType</Name>
+							<Name>ManagedBy</Name>
+							<Name>Member</Name>
+							<Name>Sid</Name>
+							<Name>ObjectGuid</Name>
+							<Name>WhenCreated</Name>
+							<Name>WhenChanged</Name>
+						</ReferencedProperties>
+					</PropertySet>
+
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>CommonName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
 		<Name>xyz.zwks.pkilib.ad.AdAttributeSchema</Name>
 		<Members>
 			<MemberSet>
@@ -295,6 +328,22 @@
 							<Name>RidMaster</Name>
 							<Name>SystemFlags</Name>
 							<Name>InstanceType</Name>
+							<Name>NtdsQuotasContainer</Name>
+							<Name>MicrosoftContainer</Name>
+							<Name>ProgramDataContainer</Name>
+							<Name>ForeignSecurityPrincipalsContainer</Name>
+							<Name>DeletedObjectsContainer</Name>
+							<Name>InfrastructureContainer</Name>
+							<Name>LostAndFoundContainer</Name>
+							<Name>SystemContainer</Name>
+							<Name>DomainControllersContainer</Name>
+							<Name>UsersContainer</Name>
+							<Name>ComputersContainer</Name>
+							<Name>KeysContainer</Name>
+							<Name>ManagedServiceAccountsContainer</Name>
+							<Name>ReplicaDirectoryServers</Name>
+							<Name>ReadOnlyReplicaDirectoryServers</Name>
+							<Name>GlobalCatalogs</Name>
 						</ReferencedProperties>
 					</PropertySet>
 					<NoteProperty>

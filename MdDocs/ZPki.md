@@ -48,7 +48,7 @@ List configuration strings for all Enterprise CAs in the forest
 {{ Fill in the Synopsis }}
 
 ### [Get-ZPkiAdDomain](Get-ZPkiAdDomain.md)
-TODO: This cmdlet is not usable yet.
+Get information about an AD domain
 
 ### [Get-ZPkiAdForest](Get-ZPkiAdForest.md)
 Get AD forest information

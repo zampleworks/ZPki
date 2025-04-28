@@ -1,20 +1,20 @@
-﻿---
+---
 external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# New-ZPkiCertRequest
+# Find-ZPkiAdGroup
 
 ## SYNOPSIS
-This cmdlet is not finished, do not use..
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-New-ZPkiCertRequest [-Subject <String>] [-CryptoProvider <String>] [-KeyAlg <String>] [-KeySize <Int32>]
- [-Hash <String>] [-SANs <String[]>] [-Template <String>] [-EnforceTemplate] [-Rpc] [-Domain <String>]
+Find-ZPkiAdGroup [[-Name] <String>] [-IncludeMembers] [-Recursive] [-SearchBase <String>]
+ [-SearchScope <String>] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>]
  [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
  [-CertValidationMode <X509CertificateValidationMode>] [-CertRevocationMode <X509RevocationMode>]
  [-ExtraVerbose] [<CommonParameters>]
@@ -27,8 +27,10 @@ New-ZPkiCertRequest [-Subject <String>] [-CryptoProvider <String>] [-KeyAlg <Str
 
 ### Example 1
 ```powershell
-PS C:\> New-ZPkiCertRequest
+PS C:\> {{ Add example code here }}
 ```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
@@ -65,7 +67,9 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+Credential for connecting.
+Default on Windows is logged on user.
+On non-Windows platforms, this is mandatory.
 
 ```yaml
 Type: PSCredential
@@ -79,23 +83,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CryptoProvider
-Name of the Key Storage Provider or Crypto Service Provider to use for key storage.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -DnsOnly
-Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+Use only DNS for AD infrastructure discovery.
+Do not use Win32/DirectoryServices API.
 
 ```yaml
 Type: SwitchParameter
@@ -125,26 +115,11 @@ Accept wildcard characters: False
 ```
 
 ### -DomainController
-Connect to specific domain controller. This takes precedence over both Domain and UserDomain parameter settings.
+Connect to specific domain controller.
+This takes precedence over both Domain and UserDomain parameter settings.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -EnforceTemplate
-Ensure that request complies with template settings.
-Any cmdlet parameters that conflict with template settings will be ignored.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -170,55 +145,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Hash
-Hash algorithm
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: SHA1, SHA256, SHA384, SHA512
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -KeyAlg
-Public key algorithm
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: RSA, ECC, DSA
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -KeySize
-Public key size
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Rpc
-Use RPC interface for querying. If false/not set, use ADWS (default)
+### -IncludeMembers
+Retrieve all members in the group as objects.
 
 ```yaml
 Type: SwitchParameter
@@ -232,14 +160,108 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SANs
-Subject Alternate Names.
-Format: \<type\>:\<name\>, eg DNS:app.com or UPN:user@domain.com
+### -Name
+Search by name.
+Will match attributes 'name', 'cn', 'displayname', 'mail', 'samaccountname', or 'objectSid'.
+ObjectSid will only match on exact sid.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Properties
+Select properties to return
 
 ```yaml
 Type: String[]
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Recursive
+Retrieve all members of members that are groups, recursively.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResolveSecurityIdentifiers
+Resolve SIDs, GUIDs and ExtendedRights when returning object security
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Rpc
+Use RPC interface for querying.
+If false/not set, use ADWS (default)
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchBase
+Search in OU/container
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchScope
+Search scope.
+Must be Base, OneLevel, or Subtree.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: OneLevel, Base, Subtree
 
 Required: False
 Position: Named
@@ -263,38 +285,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Subject
-Subject name in DN form, eg 'CN = mycert, O = company, C = SE' or 'CN = myapp.mycompany.com'
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Template
-Use settings from AD cert template.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -UserDomain
-If not set/false, connect to computer's domain. If true, connect to current user's domain.
+If not set/false, connect to computer's domain.
+If true, connect to current user's domain.
 
 ```yaml
 Type: SwitchParameter
@@ -317,7 +310,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.cert.ICertificateRequest
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdGroup, xyz.zwks.pkilib, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

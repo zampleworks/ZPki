@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.3.3] 2025-04-28
+- Bugfixes for WriteOutput in pipeline. Pipelining should be less error prone, and work with -ExtraVerbose
+- Added Find-ZPkiAdGroup with recursion support
+- Added support for searching with ObjectSid in Find-ZPkiAdUser and Find-ZPkiAdGroup
+- Updates to Get-AdDomain
+
 ## [v0.3.2] 2025-04-25
 - Bugfix: More missing exchange attribute bugs
 - Connections cross forests work now with both ADWS and RPC

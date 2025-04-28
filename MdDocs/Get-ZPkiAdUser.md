@@ -36,6 +36,14 @@ Get-ZPkiAdUser [-ObjectGuid <Guid>] [-Properties <String[]>] [-ResolveSecurityId
  [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
+### GetByObjectSid
+```
+Get-ZPkiAdUser [-ObjectSid <String>] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc]
+ [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
+ [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+ [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
+```
+
 ### GetByName
 ```
 Get-ZPkiAdUser [-ByName] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>]
@@ -282,6 +290,21 @@ Get by ObjectID
 ```yaml
 Type: Guid
 Parameter Sets: GetByObjectGuid
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ObjectSid
+Get by ObjectSid
+
+```yaml
+Type: String
+Parameter Sets: GetByObjectSid
 Aliases:
 
 Required: False

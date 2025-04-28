@@ -27,7 +27,12 @@ PS:> Install-Module -Name ZPki
 
 If you have an old version installed you may need to uninstall it first, and then install the latest version due to a change in the version numbering.
 
-To install this module you need PowerShell 5.1 or newer: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell
+To install this module you need PowerShell 5.1 or newer: https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell  
+On PowerShell 7 you have to import the module in compatibility mode, due to WCF changes in newer .net versions. YMMV.
+
+```
+PS:> Import-Module ZPki -UseWindowsPowershell
+```
 
 When installing from PSGallery you only get the PS module. Sample scripts
 and non-PS tools are not included and need to be downloaded from Github.
@@ -557,6 +562,8 @@ RequestID CommonName         Request_RawRequest
 When querying AD cross forests, SID's will not be translated. This will be improved at some point.
 
 ### Logging bugs
+[Update] v0.3.3 contains fixes for this issue. The example below works fine. There may still be bugs lurking tho. 
+
 Logging code is buggy: You can't use -ExtraVerbose in the pipeline. If you need the debugging output, the workaround is to save the results in variables, and call the cmdlet without piping
 
 This code will cause an error:
