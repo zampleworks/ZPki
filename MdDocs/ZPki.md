@@ -26,8 +26,14 @@ Get attributeSchema objects
 ### [Find-ZPkiAdClassSchema](Find-ZPkiAdClassSchema.md)
 Get attributeSchema objects
 
+### [Find-ZPkiAdComputer](Find-ZPkiAdComputer.md)
+{{ Fill in the Synopsis }}
+
 ### [Find-ZPkiAdControlAccessRight](Find-ZPkiAdControlAccessRight.md)
 Get ControlAccessRights registered in Active Directory
+
+### [Find-ZPkiAdGroup](Find-ZPkiAdGroup.md)
+{{ Fill in the Synopsis }}
 
 ### [Find-ZPkiAdObject](Find-ZPkiAdObject.md)
 Search AD for objects.
@@ -43,6 +49,9 @@ Search for certificates in local windows stores
 
 ### [Get-ZPkiAdCasConfigString](Get-ZPkiAdCasConfigString.md)
 List configuration strings for all Enterprise CAs in the forest
+
+### [Get-ZPkiAdComputer](Get-ZPkiAdComputer.md)
+{{ Fill in the Synopsis }}
 
 ### [Get-ZPkiAdcsRoles](Get-ZPkiAdcsRoles.md)
 {{ Fill in the Synopsis }}

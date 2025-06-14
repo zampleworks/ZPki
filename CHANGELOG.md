@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.3.4] 2025-05-05
+- Fixed goofed signatures in script files. 
+- Bugfix for duplicate validated write/extended right RightsGuids
+- ResolveSecurityIdentifiers now work for Get-AdXXX cmdlets
+- Added AdForest, AdRootDse, and AdComputer .net object types
+- Added AdComputer object type and cmdlets
+- Changed schema cache to use usn instead of only timer
+- Fixed missing GpoCreate in ACL analysis
+- ObjectSid can no be used in Get-AdXXX cmdlets (nice when searching for well known objects like RID500 etc)
+
 ## [v0.3.3] 2025-04-28
 - Bugfixes for WriteOutput in pipeline. Pipelining should be less error prone, and work with -ExtraVerbose
 - Added Find-ZPkiAdGroup with recursion support

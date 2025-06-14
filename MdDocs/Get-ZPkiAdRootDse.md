@@ -199,7 +199,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### xyz.zwks.pkilib.ad.AdPropertyCollection
+### xyz.zwks.pkilib.ad.AdRootDse
 
 ## NOTES
 

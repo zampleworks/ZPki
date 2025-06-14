@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Types>
 	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdEntry</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+						</ReferencedProperties>
+					</PropertySet>
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>DistinguishedName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdForest</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>Name</Name>
+							<Name>ForestFunctionality</Name>
+							<Name>DomainNamingMaster</Name>
+							<Name>SchemaMaster</Name>
+							<Name>RootDomain</Name>
+							<Name>Domains</Name>
+							<Name>ApplicationPartitions</Name>
+							<Name>Sites</Name>
+							<Name>GlobalCatalogs</Name>
+							<Name>UpnSuffixes</Name>
+							<Name>SpnSuffixes</Name>
+						</ReferencedProperties>
+					</PropertySet>
+
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>Name</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdRootDse</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>ConfigurationNamingContext</Name>
+							<Name>CurrentTime</Name>
+							<Name>DefaultNamingContext</Name>
+							<Name>DnsHostName</Name>
+							<Name>DomainControllerFunctionality</Name>
+							<Name>DomainFunctionality</Name>
+							<Name>DsServiceName</Name>
+							<Name>ForestFunctionality</Name>
+							<Name>HighestCommittedUsn</Name>
+							<Name>IsGlobalCatalogReady</Name>
+							<Name>IsSynchronized</Name>
+							<Name>LdapServiceName</Name>
+							<Name>NamingContexts</Name>
+							<Name>RootDomainNamingContext</Name>
+							<Name>SchemaNamingContext</Name>
+							<Name>ServerName</Name>
+							<Name>SubSchemaSubEntry</Name>
+							<Name>SupportedCapabilities</Name>
+							<Name>SupportedControl</Name>
+							<Name>SupportedLdapPolicies</Name>
+							<Name>SupportedLdapVersion</Name>
+							<Name>SupportedSaslMechanisms</Name>
+						</ReferencedProperties>
+					</PropertySet>
+
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>LdapServiceName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
 		<Name>xyz.zwks.pkilib.ad.AdObject</Name>
 		<Members>
 			<MemberSet>
@@ -115,6 +208,41 @@
 					<NoteProperty>
 						<Name>DefaultDisplayProperty</Name>
 						<Value>CommonName</Value>
+					</NoteProperty>
+				</Members>
+			</MemberSet>
+		</Members>
+	</Type>
+	<Type>
+		<Name>xyz.zwks.pkilib.ad.AdComputer</Name>
+		<Members>
+			<MemberSet>
+				<Name>PSStandardMembers</Name>
+				<Members>
+					<PropertySet>
+						<Name>DefaultDisplayPropertySet</Name>
+						<ReferencedProperties>
+							<Name>DistinguishedName</Name>
+							<Name>Samaccountname</Name>
+                            <Name>UserAccountControl</Name>
+                            <Name>DnsHostName</Name>
+							<Name>AdditionalDnsHostName</Name>
+                            <Name>AdditionalDnsHostName</Name>
+                            <Name>OperatingSystem</Name>
+							<Name>OperatingSystemVersion</Name>
+							<Name>AllowedToDelegateTo</Name>
+							<Name>AllowedToActOnBehalfOfOtherIdentity</Name>
+                            <Name>ManagedBy</Name>
+							<Name>Sid</Name>
+							<Name>ObjectGuid</Name>
+							<Name>WhenCreated</Name>
+							<Name>WhenChanged</Name>
+						</ReferencedProperties>
+					</PropertySet>
+
+					<NoteProperty>
+						<Name>DefaultDisplayProperty</Name>
+						<Value>Samaccountname</Value>
 					</NoteProperty>
 				</Members>
 			</MemberSet>

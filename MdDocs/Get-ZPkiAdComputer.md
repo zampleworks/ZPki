@@ -1,54 +1,85 @@
-﻿---
+---
 external help file: ZPkiPsCore.dll-Help.xml
 Module Name: ZPki
 online version:
 schema: 2.0.0
 ---
 
-# Get-ZPkiAdTemplate
+# Get-ZPkiAdComputer
 
 ## SYNOPSIS
-Get certificate templates from AD.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
-### Default (Default)
+### GetByDistinguishedName
 ```
-Get-ZPkiAdTemplate [-ResolveSecurityIdentifiers] [-PublishedBy <String>] [-IncludePublishingCAs] [-Rpc]
+Get-ZPkiAdComputer [[-DistinguishedName] <String>] [-Properties <String[]>] [-ResolveSecurityIdentifiers]
+ [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
+ [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+ [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
+```
+
+### GetBySamaccountName
+```
+Get-ZPkiAdComputer [-SamAccountName <String>] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc]
  [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
  [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
  [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
-### Name
+### GetByObjectGuid
 ```
-Get-ZPkiAdTemplate [-ResolveSecurityIdentifiers] [-Name <String>] [-PublishedBy <String>]
- [-IncludePublishingCAs] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+Get-ZPkiAdComputer [-ObjectGuid <Guid>] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc]
+ [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
+ [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
  [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
 ```
 
-### Oid
+### GetByObjectSid
 ```
-Get-ZPkiAdTemplate [-ResolveSecurityIdentifiers] [-Oid <String>] [-PublishedBy <String>]
- [-IncludePublishingCAs] [-Rpc] [-Domain <String>] [-DomainController <String>] [-SiteName <String>]
- [-UserDomain] [-DnsOnly] [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
+Get-ZPkiAdComputer [-ObjectSid <String>] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc]
+ [-Domain <String>] [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly]
+ [-Credential <PSCredential>] [-CertValidationMode <X509CertificateValidationMode>]
  [-CertRevocationMode <X509RevocationMode>] [-ExtraVerbose] [<CommonParameters>]
+```
+
+### GetByName
+```
+Get-ZPkiAdComputer [-ByName] [-Properties <String[]>] [-ResolveSecurityIdentifiers] [-Rpc] [-Domain <String>]
+ [-DomainController <String>] [-SiteName <String>] [-UserDomain] [-DnsOnly] [-Credential <PSCredential>]
+ [-CertValidationMode <X509CertificateValidationMode>] [-CertRevocationMode <X509RevocationMode>]
+ [-ExtraVerbose] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-List or search for templates in Active Directory. You can filter by name, template OID, or which CA that currently publishes this template. 
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Get-ZPkiAdTemplate
+PS C:\> {{ Add example code here }}
 ```
 
-List all templates in the computer's domain.
+{{ Add example description here }}
 
 ## PARAMETERS
+
+### -ByName
+Force name
+
+```yaml
+Type: Switch
+Parameter Sets: GetByName
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -CertRevocationMode
 Check certificate for revocation.
@@ -83,7 +114,9 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-Credential for connecting. Default on Windows is logged on user. On non-Windows platforms, this is mandatory.
+Credential for connecting.
+Default on Windows is logged on user.
+On non-Windows platforms, this is mandatory.
 
 ```yaml
 Type: PSCredential
@@ -97,8 +130,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -DistinguishedName
+Distinguished Name
+
+```yaml
+Type: String
+Parameter Sets: GetByDistinguishedName
+Aliases:
+
+Required: False
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
 ### -DnsOnly
-Use only DNS for AD infrastructure discovery. Do not use Win32/DirectoryServices API.
+Use only DNS for AD infrastructure discovery.
+Do not use Win32/DirectoryServices API.
 
 ```yaml
 Type: SwitchParameter
@@ -158,12 +207,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -IncludePublishingCAs
-Include list of CAs each template is published on
+### -ObjectGuid
+Get by ObjectID
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
+Type: Guid
+Parameter Sets: GetByObjectGuid
 Aliases:
 
 Required: False
@@ -173,27 +222,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-Find template by Name
+### -ObjectSid
+Get by ObjectSid
 
 ```yaml
 Type: String
-Parameter Sets: Name
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Oid
-Find template by OID
-
-```yaml
-Type: String
-Parameter Sets: Oid
+Parameter Sets: GetByObjectSid
 Aliases:
 
 Required: False
@@ -203,11 +237,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PublishedBy
-Find template published on a specific CA
+### -Properties
+Select properties to return
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -240,6 +274,21 @@ If false/not set, use ADWS (default)
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SamAccountName
+Samaccountname
+
+```yaml
+Type: String
+Parameter Sets: GetBySamaccountName
 Aliases:
 
 Required: False
@@ -289,7 +338,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdCertificateTemplate, xyz.zwks.pkilib, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null]]
+### System.Collections.Generic.IEnumerable`1[[xyz.zwks.pkilib.ad.AdComputer, xyz.zwks.pkilib, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null]]
 
 ## NOTES
 

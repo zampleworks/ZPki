@@ -184,7 +184,7 @@ ActiveDirectoryRights : GenericAll
 AccessControlType     : Allow
 ObjectType            :
 InheritedObjectType   :
-IdentityReference     : OZWCORP\Enterprise Admins
+IdentityReference     : LAB\Enterprise Admins
 InheritanceType       : All
 IsInherited           : True
 InheritanceFlags      : ContainerInherit
@@ -208,7 +208,7 @@ PS:> $Ace.IdentityReference
 
 Value                                       Name
 -----                                       ----
-S-1-5-21-169007554-561555583-3465870065-519 OZWCORP\Enterprise Admins
+S-1-5-21-169007554-561555583-3465870065-519 LAB\Enterprise Admins
 
 PS:> $Ace = $User.Access.Acl | Select-Object -Last 3 | Select-Object -First 1
 PS:> $Ace.ObjectType
@@ -225,7 +225,7 @@ There are also cmdlets to get schema data - classSchemas and attributeSchemas, a
 ```
 PS:> $Ace.ObjectType.Value | Find-ZPkiAdControlAccessRight
 
-DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 CommonName         : Private-Information
 DisplayName        : Private Information
 ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
@@ -241,7 +241,7 @@ The PropertySetMembers are attributeSchema objects, and not just strings:
 ```
 PS:> $Ace.ObjectType.Value | Find-ZPkiAdControlAccessRight | Select-Object -ExpandProperty PropertySetMembers
 
-DistinguishedName     : CN=ms-PKI-Credential-Roaming-Tokens,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+DistinguishedName     : CN=ms-PKI-Credential-Roaming-Tokens,CN=Schema,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 ObjectGuid            : 5949b18c-6049-4186-8a6c-5c3a11896988
 Name                  : ms-PKI-Credential-Roaming-Tokens
 CommonName            : ms-PKI-Credential-Roaming-Tokens
@@ -249,7 +249,7 @@ LdapDisplayName       : msPKI-CredentialRoamingTokens
 ObjectGuid            : 5949b18c-6049-4186-8a6c-5c3a11896988
 SchemaIdGuid          : b7ff5a38-0818-42b0-8110-d3d154c97f24
 AttributeSecurityGuid : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
-PropertySets          : {CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz}
+PropertySets          : {CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz}
 IsSingleValued        : False
 OmSyntax              : 127
 OmObjectClass         : KoZIhvcUAQEBCw==
@@ -257,7 +257,7 @@ SystemFlags           : BaseSchemaObject
 SystemOnly            :
 AttributeSyntax       : Object(DN-Binary); A distinguished name plus a binary large object (2.5.5.7)
 
-DistinguishedName     : CN=ms-PKI-AccountCredentials,CN=Schema,CN=Configuration,DC=zwks,DC=xyz
+DistinguishedName     : CN=ms-PKI-AccountCredentials,CN=Schema,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 ObjectGuid            : 0027c49f-9090-4d59-ac84-cf6be3c7ea5b
 Name                  : ms-PKI-AccountCredentials
 CommonName            : ms-PKI-AccountCredentials
@@ -265,7 +265,7 @@ LdapDisplayName       : msPKIAccountCredentials
 ObjectGuid            : 0027c49f-9090-4d59-ac84-cf6be3c7ea5b
 SchemaIdGuid          : b8dfa744-31dc-4ef1-ac7c-84baf7ef9da7
 AttributeSecurityGuid : 91e647de-d96f-4b70-9557-d63ff4f3ccd8
-PropertySets          : {CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz}
+PropertySets          : {CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz}
 IsSingleValued        : False
 OmSyntax              : 127
 OmObjectClass         : KoZIhvcUAQEBCw==
@@ -309,7 +309,7 @@ RightsGuid
 # We can now pipe the object into Find-ZPkiAdControlAccessRight
 PS:> $CarPsObj | Find-ZPkiAdControlAccessRight
 
-DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 CommonName         : Private-Information
 DisplayName        : Private Information
 ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
@@ -322,7 +322,7 @@ PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, ms
 # We can of course use the Guid directly: 
 PS:> "91e647de-d96f-4b70-9557-d63ff4f3ccd8" | Find-ZPkiAdControlAccessRight
 
-DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 CommonName         : Private-Information
 DisplayName        : Private Information
 ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
@@ -335,7 +335,7 @@ PropertySetMembers : {msPKI-CredentialRoamingTokens, msPKIAccountCredentials, ms
 # Or via parameter: 
 PS:> Find-ZPkiAdControlAccessRight -RightsGuid "91e647de-d96f-4b70-9557-d63ff4f3ccd8"
 
-DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=zwks,DC=xyz
+DistinguishedName  : CN=Private-Information,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 CommonName         : Private-Information
 DisplayName        : Private Information
 ObjectGuid         : ec8ae1c3-5ab1-4ca4-a24d-6ad5ee5b9767
@@ -360,7 +360,7 @@ ActiveDirectoryRights : GenericAll
 AccessControlType     : Allow
 ObjectType            :
 InheritedObjectType   :
-IdentityReference     : OZWCORP\Domain Admins
+IdentityReference     : LAB\Domain Admins
 InheritanceType       : All
 IsInherited           : False
 InheritanceFlags      : ContainerInherit
@@ -371,7 +371,7 @@ ActiveDirectoryRights : ReadProperty, WriteProperty
 AccessControlType     : Allow
 ObjectType            :
 InheritedObjectType   :
-IdentityReference     : OZWCORP\Role AD Admin
+IdentityReference     : LAB\Role AD Admin
 InheritanceType       : None
 IsInherited           : False
 InheritanceFlags      : None
@@ -382,7 +382,7 @@ ActiveDirectoryRights : ReadProperty, WriteProperty
 AccessControlType     : Allow
 ObjectType            : Self-Membership
 InheritedObjectType   : group
-IdentityReference     : OZWCORP\william0
+IdentityReference     : LAB\william0
 InheritanceType       : Descendents
 IsInherited           : False
 InheritanceFlags      : ContainerInherit
@@ -397,21 +397,21 @@ If we run Test-ZPkiAdObjectAclSecurity on this object we'll get a helpful result
 PS:> $Ou | Test-ZPkiAdObjectAclSecurity
 ...
 Category            : GenericAll
-DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=op,DC=zwks,DC=xyz
-DelegationSubject   : OZWCORP\Domain Admins
+DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=lab,DC=zwks,DC=xyz
+DelegationSubject   : LAB\Domain Admins
 ...
 Category            : GpoLinkWrite, GpoInheritanceWrite, WriteAllProperties
-DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=op,DC=zwks,DC=xyz
-DelegationSubject   : OZWCORP\Role AD Admin
+DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=lab,DC=zwks,DC=xyz
+DelegationSubject   : LAB\Role AD Admin
 ...
 Category            : GroupMemberWrite
-DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=op,DC=zwks,DC=xyz
-DelegationSubject   : OZWCORP\william0
+DelegationObject    : OU=testlvl2-2,OU=TestOuInher,OU=Test objects,DC=lab,DC=zwks,DC=xyz
+DelegationSubject   : LAB\william0
 ObjectType          :
 InheritedObjectType :
-ClassSchema         : CN=Group,CN=Schema,CN=Configuration,DC=op,DC=zwks,DC=xyz
+ClassSchema         : CN=Group,CN=Schema,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 AttributeSchema     :
-ControlAccessRight  : CN=Self-Membership,CN=Extended-Rights,CN=Configuration,DC=op,DC=zwks,DC=xyz
+ControlAccessRight  : CN=Self-Membership,CN=Extended-Rights,CN=Configuration,DC=lab,DC=zwks,DC=xyz
 ...
 ```
 
@@ -538,7 +538,7 @@ By default RequestID, Request_Disposition, Request_RequesterName, CommonName, No
 PS:> Get-ZPkiAdCasConfigString | Get-ZPkiDbRow -filters {RequestID == 3}
 RequestID             : 3
 Request_Disposition   : 20
-Request_RequesterName : OZWCORP\SRV03$
+Request_RequesterName : LAB\SRV03$
 CommonName            : SRV03.ad.zwks.xyz
 NotBefore             : 5/30/2022 12:58:59 PM
 NotAfter              : 5/30/2023 12:58:59 PM
@@ -557,6 +557,12 @@ RequestID CommonName         Request_RawRequest
 ```
 
 ## Known issues
+
+### Signatures on script files
+For whatever reason signing script files in sub-processes don't work anymore, so my build scripts failed to sign the scripts properly in v0.3.3, which made it error out when installing. It should be fine now, but you may have to uninstall old versions to avoid install errors regarding authenticode signatures or skip publisher check when installing:
+```
+Install-Module zpki -SkipPublisherCheck
+```
 
 ### Cross-forest SIDs
 When querying AD cross forests, SID's will not be translated. This will be improved at some point.
